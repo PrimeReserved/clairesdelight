@@ -22,7 +22,7 @@ interface SocialLogosProps {
 function SocialLogos({ hover }: SocialLogosProps) {
   return (
     <div>
-      <div className="flex">
+      <div className="flex pt-5 md:pt-0">
         <SocialLink
           href="https://www.linkedin.com/company/primereserved"
           image={hover ? InstagramRed : Instagram}

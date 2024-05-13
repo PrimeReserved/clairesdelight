@@ -37,8 +37,8 @@ export default function Links() {
   const pathname = usePathname();
 
   return (
-    <div className="flex space-x-20">
-      <div className="flex space-x-[5rem]">
+    <div className="hidden md:flex  ">
+      <div className="flex xl:space-x-[5rem] lg:space-x-[3rem] space-x-[1.6rem]">
         {links.map((link) => (
           <Link
             href={link.path}
@@ -49,7 +49,7 @@ export default function Links() {
                 : "text-black hover:text-orange"
             }`}
           >
-            <div className="hover:text-red transition duration-300">
+            <div className="hover:text-red transition duration-300 md:text-sm xl:text-base text-sm">
               {link.title}
             </div>
           </Link>

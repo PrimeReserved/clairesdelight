@@ -34,9 +34,9 @@ function WebsiteLinks() {
 
   return (
     <div>
-      <h3 className="font-bold text-xl">Website Links</h3>
+      <h3 className="font-bold xl:text-xl text-lg">Website Links</h3>
       {links.map((link) => (
-        <div key={link.title} className="my-4 text-sm">
+        <div key={link.title} className="my-4 xl:text-sm text-xs">
           <Link href={link.path}>
             <div className="hover:text-red transition duration-300 ">
               {link.title}
