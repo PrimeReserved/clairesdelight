@@ -24,31 +24,31 @@ function SocialLogos({ hover }: SocialLogosProps) {
     <div>
       <div className="flex pt-5 md:pt-0">
         <SocialLink
-          href="https://www.linkedin.com/company/primereserved"
+          href="https://www.linkedin.com/company/"
           image={hover ? InstagramRed : Instagram}
           alt="Instagram"
         />
 
         <SocialLink
-          href="https://www.instagram.com/primereservedtech"
+          href="https://www.instagram.com/"
           image={hover ? TwitterRed : Twitter}
           alt="Twitter"
         />
 
         <SocialLink
-          href="https://www.youtube.com/@primereservedtech"
+          href="https://www.youtube.com/"
           image={hover ? YoutubeRed : Youtube}
           alt="Youtube"
         />
 
         <SocialLink
-          href="https://www.facebook.com/groups/1554028415142497/"
+          href="https://www.facebook.com/groups"
           image={hover ? FacebookRed : Facebook}
           alt="Facebook"
         />
 
         <SocialLink
-          href="https://www.facebook.com/groups/1554028415142497/"
+          href="https://www.facebook.com/groups"
           image={hover ? TiktokRed : Tiktok}
           alt="Tiktok"
         />
