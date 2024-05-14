@@ -41,6 +41,7 @@ const Navbar: React.FC<NavbarProps> = () => {
 
   return (
     <div
+      data-testid="navbar"
       className={`${navbarColor} hover:bg-lightGreen fixed top-0 w-[100%] transition duration-300`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
