@@ -4,7 +4,7 @@ import SideNavbar from "../../../../app/component/header/navbar/SideNavbar";
 
 describe("SideNavbar", () => {
   it("should render the SideNavbar component with the correct background color and close icon", () => {
-    const { getByTestId, getByText } = render(<SideNavbar onClose={() => {}} />);
+    const { getByTestId } = render(<SideNavbar onClose={() => {}} />);
     const sideNavbar = getByTestId("side-navbar");
     const closeIcon = getByTestId('close-icon');  
     expect(sideNavbar).toHaveClass("bg-lighterGreen");
