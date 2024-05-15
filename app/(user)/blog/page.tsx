@@ -3,20 +3,25 @@ import Loading from "@/app/loading";
 import { BlogPost } from "@/typings";
 import { Suspense } from "react";
 
-
-const getData = async() => {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_PRODUCT_URL}`);
-    if (!res.ok) throw new Error(`Error fetching blog posts.`)
-    return res.json();
-  } catch(error){
-    console.log(`Error getting product data: ${error}`);
-  }
+const getPosts = async() => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BLOG_API}`, { next: { revalidate: 3600 }});
+  if (!res.ok) {
+    throw new Error("Something happened while getting post!");
+  };
+  console.log(`Getting post: ${res}`);
+  return res.json();
 };
 
 
 export default async function Page() {
-  const posts: BlogPost[] = await getData();
+  const posts: BlogPost[] = await getPosts();
+  console.log(`Posts: ${posts}`);
+
+  if(!posts){
+    return (
+      <p>No post</p>
+    )
+  }
 
   return (
     <>
@@ -24,7 +29,7 @@ export default async function Page() {
       <section className="p-10">
         {
           posts.map((post: any) => (
-            <Suspense key={post._id} fallback={<Loading />}>
+            <Suspense key={post.slug} fallback={<Loading />}>
               <PostCard post={post} />
             </Suspense>
           ))
