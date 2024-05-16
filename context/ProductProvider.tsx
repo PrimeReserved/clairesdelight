@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState, useEffect } from "react";
+import { useContext, useMemo } from "react";
 import ProductContext from "./ProductContext";
 
 

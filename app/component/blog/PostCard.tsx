@@ -9,7 +9,7 @@ export default function PostCard({ post }: any) {
       <h2>{post.title}</h2>
       <Suspense fallback={<Loading />}>
         <Image
-          src={post.featureImage}
+          src={post.featuredImage}
           alt={post.title}
           width={100}
           height={100}
@@ -18,7 +18,7 @@ export default function PostCard({ post }: any) {
       </Suspense>
       <p>{post.content}</p>
       <p>{post.category}</p>
-      {/* <p>{post.createdAt.toString().slice(4, 16)}</p> */}
+      <p>{post.createdAt}</p>
       <Link href={`/blog/${post.slug}`}>
         <button className="btn">Read more</button>
       </Link>

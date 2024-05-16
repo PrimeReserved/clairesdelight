@@ -1,15 +1,16 @@
 import AuthorCard from "@/app/component/blog/AuthorCard";
 import Loading from "@/app/loading";
+import { getPost } from "@/lib/data";
 import { Fragment, Suspense } from "react";
 
-const getPost = async (slug: any) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BLOG_API}/${slug}`);
-  if(!res.ok){
-    throw new Error("Error getting single post api")
-  }
-  console.log(`Get single post api: ${res.json()}`)
-  return res.json();
-};
+// const getPost = async (slug: any) => {
+//   const res = await fetch(`http://localhost:3000/blog/${slug}`);
+//   if(!res.ok){
+//     throw new Error("Error getting single post api")
+//   }
+//   console.log(`Get single post api: ${res}`)
+//   return res.json();
+// };
 
 
 export const generateMetadata = async ({ params }: any) => {
@@ -33,9 +34,7 @@ export default async function Page({ params }: any) {
         <h2>{post.title}</h2>
         <div>
           <h3>Author</h3>
-          <Suspense fallback={<Loading />}>
-            <AuthorCard userId={post.title} />
-          </Suspense>
+          <p>{post.author}</p>
         </div>
         <p>{ post.content }</p>
         <p>{ post.price }</p>

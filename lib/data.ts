@@ -7,7 +7,7 @@ export const getPosts = async () => {
     try {
         await connectDB();
         const posts = await Post.find();
-        console.log(`Get post: ${posts}`);
+        console.log(`Get posts: ${posts}`);
         return posts;
     } catch(error){
         console.log(`Error getting post: ${error}`);
@@ -47,8 +47,8 @@ export const getUser = async (id: any) => {
         const user = await Post.findById(id);
         return user;
     } catch (error) {
-        console.log(`Error getting single post: ${error}`);
-        throw new Error('Failed to get single post')
+        console.log(`Error getting single user: ${error}`);
+        throw new Error('Failed to get single user')
     }
 };
 
