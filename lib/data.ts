@@ -1,4 +1,5 @@
-import { Post, User } from "./model";
+import { Post } from "./models/post";
+import { User } from "./models/user";
 import { connectDB } from "./utils";
 import { unstable_noStore as noStore } from "next/cache";
 

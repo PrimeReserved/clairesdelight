@@ -1,7 +1,7 @@
 "use server"
 
 import { revalidatePath } from "next/cache";
-import { Post } from "./model";
+import { Post } from "./product";
 import { connectDB } from "./utils";
 
 export const addPost = async(formData: any) => {
