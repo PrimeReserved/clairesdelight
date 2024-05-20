@@ -32,10 +32,13 @@ const SideNavbar: React.FC<SideNavbarProps> = ({ onClose }) => {
   ];
 
   return (
-    <div className="absolute right-0 top-0 bg-lighterGreen w-[70%] h-screen md:w-[300px] md:h-screen z-50 rounded-l-3xl">
+    <div 
+      data-testid="side-navbar"
+      className="absolute right-0 top-0 bg-lighterGreen w-[70%] h-screen md:w-[300px] md:h-screen z-50 rounded-l-3xl">
       <IoClose
         onClick={onClose}
         className="text-[1.8rem] absolute top-5 right-5"
+        data-testid="close-icon"
       />
 
       <div className="p-9">

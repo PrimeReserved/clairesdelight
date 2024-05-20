@@ -1,7 +1,45 @@
-import React from 'react'
+import AuthorCard from "@/app/component/blog/AuthorCard";
+import Loading from "@/app/loading";
+import { getPost } from "@/lib/data";
+import { Fragment, Suspense } from "react";
 
-export default function Page() {
+// const getPost = async (slug: any) => {
+//   const res = await fetch(`http://localhost:3000/blog/${slug}`);
+//   if(!res.ok){
+//     throw new Error("Error getting single post api")
+//   }
+//   console.log(`Get single post api: ${res}`)
+//   return res.json();
+// };
+
+
+export const generateMetadata = async ({ params }: any) => {
+  const { slug } = params;
+  const post = await getPost(slug);
+  return {
+    title: post.title,
+    content: post.content
+  };
+};
+
+
+export default async function Page({ params }: any) {
+  const { slug } = params;
+  const post = await getPost(slug);
+
   return (
-    <div>Single blog page</div>
+    <Fragment>
+      <h1>Single blog page</h1>
+      <div>
+        <h2>{post.title}</h2>
+        <div>
+          <h3>Author</h3>
+          <p>{post.author}</p>
+        </div>
+        <p>{ post.content }</p>
+        <p>{ post.price }</p>
+        <p>{ post.date }</p>
+      </div>
+    </Fragment>
   )
 }
