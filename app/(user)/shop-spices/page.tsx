@@ -31,7 +31,7 @@ export default async function Page() {
       <section className="p-10">
       {
           products.map((product: any) => (
-            <Suspense key={product.id} fallback={<Loading />}>
+            <Suspense key={product._id} fallback={<Loading />}>
               <ProductCard product={product} />
             </Suspense>
           ))

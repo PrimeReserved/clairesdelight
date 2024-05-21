@@ -1,3 +1,4 @@
+import { CustomerReview } from "./models/customerReview";
 import { Post } from "./models/post";
 import { User } from "./models/user";
 import { connectDB } from "./utils";
@@ -10,6 +11,19 @@ export const getPosts = async () => {
         const posts = await Post.find();
         console.log(`Get posts: ${posts}`);
         return posts;
+    } catch(error){
+        console.log(`Error getting post: ${error}`);
+        throw new Error("Failed to fetch get post")
+    }
+};
+
+
+export const getCustomerReview = async () => {
+    try {
+        await connectDB();
+        const customerReview = await CustomerReview.find();
+        console.log(`Get customerReview: ${customerReview}`);
+        return customerReview;
     } catch(error){
         console.log(`Error getting post: ${error}`);
         throw new Error("Failed to fetch get post")

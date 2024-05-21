@@ -1,15 +1,24 @@
 import React from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
-function PageButton() {
+interface PageButtonProps {
+  onNext: () => void;
+  onPrev: () => void;
+}
+
+function PageButton({ onNext, onPrev }: Readonly<PageButtonProps>) {
   return (
     <div className="flex gap-10 justify-center mt-5">
-      <div className="w-[30px] h-[30px] rounded-full bg-orange flex justify-center items-center ">
+      <button className="w-[30px] h-[30px] rounded-full bg-orange flex justify-center items-center"
+      onClick={onPrev}
+      >
         <FaArrowLeft className=" text-white " />
-      </div>
-      <div className="w-[30px] h-[30px] rounded-full bg-orange flex justify-center items-center ">
+      </button>
+      <button className="w-[30px] h-[30px] rounded-full bg-orange flex justify-center items-center"
+      onClick={onNext}
+      >
         <FaArrowRight className="text-white" />
-      </div>
+      </button>
     </div>
   );
 }
