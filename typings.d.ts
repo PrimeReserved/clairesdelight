@@ -18,6 +18,16 @@ export interface Product {
   images: string[];
 }
 
+// types/Recipe.ts
+export interface Recipe {
+  _id: string;
+  image: string;
+  title: string;
+  description: string;
+  ingredients: string[];
+  method: string[];
+}
+
 // types/User.ts
 export interface Address {
   name: string;

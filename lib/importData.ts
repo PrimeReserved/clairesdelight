@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import fs from 'fs';
 import path from 'path';
-import { Post } from './product';
+import { Post } from '@/lib/models/post';
 import { connectDB } from './utils';
 
 
