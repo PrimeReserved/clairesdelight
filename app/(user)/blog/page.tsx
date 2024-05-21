@@ -9,7 +9,7 @@ const getPosts = async () => {
     throw new Error("Something happened while getting posts!");
   }
   const data = await res.json();
-  return data.posts;
+  return data;
 };
 
 export default async function Page() {
