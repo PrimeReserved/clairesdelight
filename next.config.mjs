@@ -18,6 +18,10 @@ const nextConfig = {
                 protocol: "https",
                 hostname: "usefulangle.com"
             },
+            {
+                protocol: "https",
+                hostname: "example.com"
+            },
         ],
     },
 };

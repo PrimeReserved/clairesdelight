@@ -1,16 +1,14 @@
-import AuthorCard from "@/app/component/blog/AuthorCard";
 import Loading from "@/app/loading";
-import { getPost } from "@/lib/data";
 import { Fragment, Suspense } from "react";
 
-// const getPost = async (slug: any) => {
-//   const res = await fetch(`http://localhost:3000/blog/${slug}`);
-//   if(!res.ok){
-//     throw new Error("Error getting single post api")
-//   }
-//   console.log(`Get single post api: ${res}`)
-//   return res.json();
-// };
+const getPost = async (slug: any) => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BLOG_API_ROUTE}/${slug}`);
+  if(!res.ok){
+    throw new Error("Error getting single post api")
+  }
+  console.log(`Get single post api: ${res}`)
+  return res.json();
+};
 
 
 export const generateMetadata = async ({ params }: any) => {

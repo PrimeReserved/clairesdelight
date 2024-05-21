@@ -4,11 +4,12 @@ import { Product } from "@/typings";
 import { Suspense } from "react";
 
 
-const getData = async() => {
+const getProduct = async() => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_PRODUCT_URL}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_PRODUCT_API_ROUTE}`);
     if (!res.ok) throw new Error(`Error fetching products.`)
-    return res.json();
+    const data = await res.json();
+    return data;
   } catch(error){
     console.log(`Error getting product data: ${error}`);
   }
@@ -16,7 +17,13 @@ const getData = async() => {
 
 
 export default async function Page() {
-  const products: Product[] = await getData();
+  const products = await getProduct();
+
+  if (!Array.isArray(products) || products.length === 0) {
+    return (
+      <p>No Spice available</p>
+    );
+  }
   
   return (
     <>

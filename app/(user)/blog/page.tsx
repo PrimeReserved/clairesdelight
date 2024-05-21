@@ -3,7 +3,7 @@ import Loading from "@/app/loading";
 import { BlogPost } from "@/typings";
 import { Suspense } from "react";
 
-const getPosts: any = async (): Promise<BlogPost[]> => {
+const getPosts = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BLOG_API_ROUTE}`, { next: { revalidate: 3600 }});
   if (!res.ok) {
     throw new Error("Something happened while getting posts!");
