@@ -2,41 +2,37 @@ import PostCard from "@/app/component/blog/PostCard";
 import Loading from "@/app/loading";
 import { BlogPost } from "@/typings";
 import { Suspense } from "react";
-import { getPosts } from "@/lib/data";
 
-// const getPosts = async () => {
-//   const res = await fetch(`http://localhost:3000/api/blog`, { next: { revalidate: 3600 }});
-//   if (!res.ok) {
-//     throw new Error("Something happened while getting post!");
-//   };
-//   const posts = await res.json();
-//   console.log(`Getting post: ${posts}`);
-//   return posts;
-// };
-
+const getPosts: any = async (): Promise<BlogPost[]> => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BLOG_API_ROUTE}`, { next: { revalidate: 3600 }});
+  if (!res.ok) {
+    throw new Error("Something happened while getting posts!");
+  }
+  const data = await res.json();
+  return data.posts;
+};
 
 export default async function Page() {
   const posts = await getPosts();
-  console.log(`Posts: ${posts}`);
 
-  if(!posts){
+  if (!Array.isArray(posts) || posts.length === 0) {
     return (
-      <p>No post</p>
-    )
+      <p>No posts available</p>
+    );
   }
 
   return (
     <>
-      <h1  className="text-5xl">The blog page</h1>
+      <h1 className="text-5xl">The blog page</h1>
       <section className="p-10">
         {
-          posts.map((post: any) => (
-            <Suspense key={post.slug} fallback={<Loading />}>
+          posts.map((post: BlogPost) => (
+            <Suspense key={post._id} fallback={<Loading />}>
               <PostCard post={post} />
             </Suspense>
           ))
         }
       </section>
     </>
-  )
+  );
 }
