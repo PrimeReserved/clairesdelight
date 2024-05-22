@@ -80,3 +80,8 @@ export interface BlogPost {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface CartItem {
+  product: Product;
+  quantity: number;
+}

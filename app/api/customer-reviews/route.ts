@@ -11,7 +11,6 @@ export const GET = async (request: Request) => {
       console.log('Database connected successfully.');
   
       const customerReviews = await CustomerReview.find();
-      console.log(`Customer Review: ${customerReviews}`);
   
       if (customerReviews.length === 0) {
         console.log('No customer reviews found.');
