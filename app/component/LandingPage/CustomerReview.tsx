@@ -40,7 +40,7 @@ function CustomerReview() {
   };
 
   if (customerReviews.length === 0) {
-    return <div>No customer review</div>;
+    return <div className="flex justify-center items-center pt-10">No customer review</div>;
   }
 
   const { name, description } = customerReviews[currentIndex];
