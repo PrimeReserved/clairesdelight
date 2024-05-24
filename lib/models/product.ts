@@ -30,7 +30,7 @@ const productSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    medicinalProperties: [
+    healthBenefit: [
       {
         type: String,
         trim: true,
@@ -52,12 +52,10 @@ const productSchema = new mongoose.Schema(
       required: true,
       min: 0,
     },
-    images: [
-      {
-        type: String,
-        trim: true,
-      },
-    ],
+    images: {
+      type: String,
+      trim: true,
+    },
   },
   { timestamps: true }
 );

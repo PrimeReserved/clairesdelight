@@ -1,4 +1,5 @@
 import Loading from "@/app/loading";
+import Image from "next/image";
 import { Fragment, Suspense } from "react";
 
 const getPost = async (slug: any) => {
@@ -6,7 +7,6 @@ const getPost = async (slug: any) => {
   if(!res.ok){
     throw new Error("Error getting single post api")
   }
-  console.log(`Get single post api: ${res}`)
   return res.json();
 };
 
@@ -34,6 +34,15 @@ export default async function Page({ params }: any) {
           <h3>Author</h3>
           <p>{post.author}</p>
         </div>
+        <Suspense fallback={<Loading />}>
+        <Image
+          src={post.featuredImage}
+          alt={post.title}
+          width={400}
+          height={400}
+          loading="lazy"
+        />
+      </Suspense>
         <p>{ post.content }</p>
         <p>{ post.price }</p>
         <p>{ post.date }</p>

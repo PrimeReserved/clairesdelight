@@ -7,7 +7,6 @@ const getRecipe = async (id: any) => {
   if(!res.ok){
     throw new Error("Error getting single recipe api data")
   }
-  console.log(`Get single post api: ${res}`)
   return res.json();
 };
 
@@ -30,7 +29,7 @@ export default async function Page({ params }:any) {
     <h2>{recipe.title}</h2>
     <Suspense fallback={<Loading />}>
       <Image
-        src={recipe.image}
+        src={`${recipe.image}`}
         alt={recipe.title}
         width={400}
         height={300}

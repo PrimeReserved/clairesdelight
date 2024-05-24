@@ -11,11 +11,11 @@ export interface Product {
   description: string;
   category: string[];
   origin: string;
-  medicinalProperties: string[];
+  healthBenefit: string[];
   culinaryUses: string[];
   price: number;
   stock: number;
-  images: string[];
+  images: string;
 }
 
 // types/Recipe.ts

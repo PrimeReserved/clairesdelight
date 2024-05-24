@@ -1,30 +1,22 @@
-import React from "react";
-import Food from "@/public/image/recipe-visuals/Frame 1000004717.svg";
-import Food1 from "@/public/image/recipe-visuals/brooke-lark-HlNcigvUi4Q-unsplash 1.svg";
-import Food2 from "@/public/image/recipe-visuals/dr-muhammad-amer-77ItGP98s6g-unsplash 1.svg";
-import Food3 from "@/public/image/recipe-visuals/casey-lee-awj7sRviVXo-unsplash 1.svg";
-import Food4 from "@/public/image/recipe-visuals/kalyani-akella-vCNLO20cuwY-unsplash 1.svg";
-import Food5 from "@/public/image/recipe-visuals/ke-vin-2fqMttbaDeI-unsplash 1.svg";
-import Food6 from "@/public/image/recipe-visuals/ke-vin-szQFiGZH8wU-unsplash 1.svg";
-import Food7 from "@/public/image/recipe-visuals/nathan-dumlao-IjovY65WQiE-unsplash 1.svg";
-import Food8 from "@/public/image/recipe-visuals/shreyak-singh-0j4bisyPo3M-unsplash 1.svg";
-import Food9 from "@/public/image/recipe-visuals/sigmund-nHq5a_XbIZ0-unsplash 1.svg";
+import React, { Suspense } from "react";
 import Title from "../typography/Title";
 import Image from "next/image";
 import Paragraph from "../typography/Paragraph";
+import Loading from "@/app/loading";
+
 
 function RecipeVisuals() {
   const links = [
-    { pic: Food4 },
-    { pic: Food1 },
-    { pic: Food2 },
-    { pic: Food3 },
-    { pic: Food4 },
-    { pic: Food5 },
-    { pic: Food6 },
-    { pic: Food7 },
-    { pic: Food8 },
-    { pic: Food9 },
+    "https://res.cloudinary.com/dzd51q99i/image/upload/v1716382020/clairesdelight/recipes/recipe-visual/ke-vin-szQFiGZH8wU-unsplash_1_pzr4u8.png",
+    "https://res.cloudinary.com/dzd51q99i/image/upload/v1716382018/clairesdelight/recipes/recipe-visual/nathan-dumlao-IjovY65WQiE-unsplash_1_y5uy0p.png",
+    "https://res.cloudinary.com/dzd51q99i/image/upload/v1716382020/clairesdelight/recipes/recipe-visual/ke-vin-szQFiGZH8wU-unsplash_1_pzr4u8.png",
+    "https://res.cloudinary.com/dzd51q99i/image/upload/v1716382267/clairesdelight/recipes/recipe-visual/Frame_1000004720_uiclqe.png",
+    "https://res.cloudinary.com/dzd51q99i/image/upload/v1716382266/clairesdelight/recipes/recipe-visual/Frame_1000004721_qsuoli.png",
+    "https://res.cloudinary.com/dzd51q99i/image/upload/v1716382787/clairesdelight/recipes/recipe-visual/anna-pelzer-IGfIGP5ONV0-unsplash_1_zwhdmz.png",
+    "https://res.cloudinary.com/dzd51q99i/image/upload/v1716382858/clairesdelight/recipes/recipe-visual/Frame_1000004719_2_ku9yv8.png",
+    "https://res.cloudinary.com/dzd51q99i/image/upload/v1716382729/clairesdelight/recipes/recipe-visual/Frame_1000004718_t0mbbd.png",
+    "https://res.cloudinary.com/dzd51q99i/image/upload/v1716382965/clairesdelight/recipes/recipe-visual/casey-lee-awj7sRviVXo-unsplash_1_w3etse.png",
+    "https://res.cloudinary.com/dzd51q99i/image/upload/v1716383041/clairesdelight/recipes/recipe-visual/Frame_1000004721_1_zhinrk.png"
   ];
   return (
     <div className="p-10 md:pt-[7rem] ">
@@ -34,14 +26,16 @@ function RecipeVisuals() {
       </Paragraph>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 xl:px-[6rem] md:px-[5rem] px-2 ">
         {links.map((link) => (
-          <div key={link.pic} className=" ">
-            <Image
-              src={link.pic}
-              alt="Food"
-              width={235}
-              height={259}
-              className=" rounded-xl"
-            />
+          <div key={link} className=" ">
+            <Suspense fallback={<Loading />}>
+              <Image
+                src={`${link}`}
+                alt="Food"
+                width={235}
+                height={259}
+                className=" rounded-xl"
+              />
+            </Suspense>
           </div>
         ))}
       </div>

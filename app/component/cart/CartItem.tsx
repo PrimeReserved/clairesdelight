@@ -9,7 +9,7 @@ interface Props {
   item: CartItem;
 }
 
-export default function CartItemView({ item }: Props) {
+export default function CartItemView({ item }: Readonly<Props>) {
   const { removeFromCart, updateCartItemQuantity } = useCart();
 
   const handleQuantityChange = (qty: number) => {

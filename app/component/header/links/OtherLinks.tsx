@@ -22,6 +22,10 @@ const OtherLinks: React.FC<OtherLinksProps> = ({ hover, navbarColor }) => {
     setShowSideNavbar(false);
   };
 
+  // TEMPORARY
+  const session = true;
+  const isAdmin = true;
+
   return (
     <div className="flex xl:gap-10 lg:gap-4 items-center gap-4">
       <div className="flex xl:space-x-10 lg:space-x-4 space-x-3">
@@ -41,12 +45,20 @@ const OtherLinks: React.FC<OtherLinksProps> = ({ hover, navbarColor }) => {
         </div>
         <IoSearch className="text-[1.6rem]" />
       </div>
-
-      <Link href="/contact">
-        <button className="btn xl:px-10 lg:px-5 py-1 bg-orange border-none text-white font-normal lg:text-[12px] hover:bg-orange hidden md:flex">
-          Contact Us
-        </button>
-      </Link>
+      {session ? (
+        <>
+          {isAdmin && <Link href={"/dashboard"}>Dashboard</Link>}
+          <button className="btn xl:px-10 lg:px-5 py-1 bg-orange border-none text-white font-normal lg:text-[12px] hover:bg-orange hidden md:flex">
+            Logout
+          </button>
+        </>
+      ) : (
+        <Link href="/contact">
+          <button className="btn xl:px-10 lg:px-5 py-1 bg-orange border-none text-white font-normal lg:text-[12px] hover:bg-orange hidden md:flex">
+            Contact Us
+          </button>
+        </Link>
+      )}
 
       <IoMenu
         className="flex md:hidden text-[1.8rem]"

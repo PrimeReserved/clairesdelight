@@ -10,7 +10,6 @@ export default function Navlink({ item }: Readonly<{ item: any }>) {
     <Link href={item.path} className={`${pathName === item.path}`}>
       <div className="">
       {item.title}
-
       </div>
     </Link>
   );

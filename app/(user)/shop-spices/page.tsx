@@ -1,19 +1,7 @@
 import ProductCard from "@/app/component/product/ProductCard";
 import Loading from "@/app/loading";
-import { Product } from "@/typings";
 import { Suspense } from "react";
-
-
-const getProduct = async() => {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_PRODUCT_API_ROUTE}`);
-    if (!res.ok) throw new Error(`Error fetching products.`)
-    const data = await res.json();
-    return data;
-  } catch(error){
-    console.log(`Error getting product data: ${error}`);
-  }
-};
+import { getProduct } from "@/lib/data";
 
 
 export default async function Page() {

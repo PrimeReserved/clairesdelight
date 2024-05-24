@@ -4,6 +4,18 @@ import { User } from "./models/user";
 import { connectDB } from "./utils";
 import { unstable_noStore as noStore } from "next/cache";
 
+
+export const getProduct = async() => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_PRODUCT_API_ROUTE}`);
+      if (!res.ok) throw new Error(`Error fetching products.`)
+      const data = await res.json();
+      return data;
+    } catch(error){
+      console.log(`Error getting product data: ${error}`);
+    }
+  };
+
 // Get Posts
 export const getPosts = async () => {
     try {

@@ -11,8 +11,8 @@ export default function PostCard({ post }: any) {
         <Image
           src={post.featuredImage}
           alt={post.title}
-          width={100}
-          height={100}
+          width={400}
+          height={400}
           loading="lazy"
         />
       </Suspense>

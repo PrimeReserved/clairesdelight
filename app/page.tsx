@@ -11,10 +11,8 @@ export default function Page() {
       <Hero />
       <Choose />
       <Spice />
-    <CustomerReview />
-
-    <RecipeVisuals />
-
+      <CustomerReview />
+      <RecipeVisuals />
     </div>
   );
 }
