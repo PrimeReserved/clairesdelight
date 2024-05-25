@@ -6,6 +6,7 @@ import Footer from "@/app/component/footer/Footer";
 import FooterMobile from "./component/footer/FooterMobile";
 import FooterTab from "./component/footer/FooterTab";
 import { CartProvider } from "@/context/CartProvider";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,6 +37,7 @@ export default function RootLayout({
           </CartProvider>
         </div>
       </body>
+      <GoogleAnalytics gaId={`${process.env.GOOGLE_ANALYTICS}`} />
     </html>
   );
 }
