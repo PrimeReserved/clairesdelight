@@ -1,16 +1,17 @@
 import PostCard from "@/app/component/blog/PostCard";
 import Loading from "@/app/loading";
+import { getPosts } from "@/lib/data";
 import { BlogPost } from "@/typings";
 import { Suspense } from "react";
 
-const getPosts = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BLOG_API_ROUTE}`, { next: { revalidate: 3600 }});
-  if (!res.ok) {
-    throw new Error("Something happened while getting posts!");
-  }
-  const data = await res.json();
-  return data;
-};
+// const getPosts = async () => {
+//   const res = await fetch(`${process.env.NEXT_PUBLIC_BLOG_API_ROUTE}`, { next: { revalidate: 3600 }});
+//   if (!res.ok) {
+//     throw new Error("Something happened while getting posts!");
+//   }
+//   const data = await res.json();
+//   return data;
+// };
 
 export default async function Page() {
   const posts = await getPosts();

@@ -4,6 +4,7 @@ import { CustomerReview } from "@/lib/models/customerReview";
 import { connectDB } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic'
 
 export const GET = async (request: Request) => {
     try {

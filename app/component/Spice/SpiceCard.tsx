@@ -4,7 +4,7 @@ import Loading from "@/app/loading";
 import { Product } from "@/typings";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, Suspense } from "react";
+import { Suspense } from "react";
 import { useCart } from "@/context/CartContext";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
@@ -25,7 +25,6 @@ function SpiceCard({ product }: Readonly<{ product: Product }>) {
   } 
 
   return (
-      
           <div
             className="card card-compact w-[20rem] lg:w-[18rem] xl:w-[20rem] bg-base-100 shadow-md border-[1px] "
             key={product._id}
@@ -43,7 +42,7 @@ function SpiceCard({ product }: Readonly<{ product: Product }>) {
               </Link>
               <div className="card-actions flex justify-between items-center">
                 <p className="text-customBlack font-bold text-[25px] ">
-                ₦{' '}{product?.price?.toFixed(2)}
+                  ₦{' '}{product?.price?.toFixed(2)}
                 </p>
                 <button className="btn font-light text-white bg-orange w-[130px] hover:bg-green border-none"
                 onClick={() => handleClick(product)}>

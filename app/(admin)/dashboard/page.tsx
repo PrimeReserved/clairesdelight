@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 
 const getUsers = async () => {
     const res = await fetch(`http://localhost:3000/api/users`);

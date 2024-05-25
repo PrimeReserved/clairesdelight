@@ -2,6 +2,7 @@ import { User } from "@/lib/models/user";
 import { connectDB } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic'
 
 export const GET = async (request: any, { params }: any) => {
     const { slug } = params;

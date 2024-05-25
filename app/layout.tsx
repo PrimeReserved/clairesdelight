@@ -10,8 +10,12 @@ import { CartProvider } from "@/context/CartProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Claire's Delight",
-  description: "Spice your delight",
+  title: {
+    template:  "%s | Claire's Delight",
+    default:  "Claire's Delight",
+  },
+  description: "Spice up your life",
+  metadataBase: new URL("https://www.houvincity.com"),
 };
 
 export default function RootLayout({
