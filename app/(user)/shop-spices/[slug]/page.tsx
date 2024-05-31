@@ -35,7 +35,7 @@ export const generateMetadata = async ({ params }: { params: { slug: string } })
   };
 };
 
-export default async function Page({ params }: { params: { slug: string } }) {
+export default async function Page({ params }: Readonly<{ params: { slug: string } }>) {
   const { slug: id } = params;
   console.log(`Fetching spice with ID: ${id}`);
 

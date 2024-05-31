@@ -10,7 +10,7 @@ import { NextRequest } from "next/server"
 
 export const getProduct = async() => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_PRODUCT_API_ROUTE}`, { next: { revalidate: 3600 }});
+      const res = await fetch(`${process.env.NEXT_PUBLIC_PRODUCT_API_ROUTE}`, { next: { revalidate: 30 }});
       if (!res.ok) throw new Error(`Error fetching products.`)
       const data = await res.json();
       return data;
@@ -21,7 +21,7 @@ export const getProduct = async() => {
 
   export const getPosts = async() => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BLOG_API_ROUTE}`, { next: { revalidate: 3600 }});
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BLOG_API_ROUTE}`, { next: { revalidate: 30 }});
       if (!res.ok) throw new Error(`Error fetching products.`)
       const data = await res.json();
       return data;
@@ -31,7 +31,7 @@ export const getProduct = async() => {
   };
 
 export const getRecipes = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_RECIPE_API_ROUTE}`, { next: { revalidate: 3600 }});
+    const res = await fetch(`${process.env.NEXT_PUBLIC_RECIPE_API_ROUTE}`, { next: { revalidate: 36 }});
     if (!res.ok) {
       throw new Error("Something happened while getting recipes!");
     }

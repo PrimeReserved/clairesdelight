@@ -14,6 +14,7 @@ const getPost = async (slug: any) => {
 export const generateMetadata = async ({ params }: any) => {
   const { slug } = params;
   const post = await getPost(slug);
+  
   return {
     title: post.title,
     content: post.content

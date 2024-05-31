@@ -24,7 +24,7 @@ function RecipeVisuals() {
       <Paragraph>
         {"Read what our satisfied customers have to say about their experience with our spices, and discover why they keep coming back for more."}
       </Paragraph>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 xl:px-[6rem] md:px-[5rem] px-2 ">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 xl:px-[6rem] md:px-[5rem] px-2">
         {links.map((link) => (
           <div key={link} className=" ">
             <Suspense fallback={<Loading />}>

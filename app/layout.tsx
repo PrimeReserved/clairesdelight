@@ -7,6 +7,7 @@ import FooterMobile from "./component/footer/FooterMobile";
 import FooterTab from "./component/footer/FooterTab";
 import { CartProvider } from "@/context/CartProvider";
 import { GoogleAnalytics } from '@next/third-parties/google'
+import logo from "@/public/image/Logo.svg"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +16,13 @@ export const metadata: Metadata = {
     template:  "%s | Claire's Delight",
     default:  "Claire's Delight",
   },
+  openGraph: {
+    description: "Claire's Delight Spices",
+    images: [logo]
+  },
+  keywords:["Claire's Delight Spices", "Clairesdelight", "Claire's delight", "Clairesdelight Shop spices", "Clairesdelight blog", "Clairesdelight spice recipes"],
   description: "Spice up your life",
-  metadataBase: new URL("https://www.houvincity.com"),
+  metadataBase: new URL(`${process.env.BASE_URL}`),
 };
 
 export default function RootLayout({

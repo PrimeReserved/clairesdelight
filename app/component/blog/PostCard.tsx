@@ -8,6 +8,14 @@ export default function PostCard({ post }: any) {
     <Fragment>
       <h2>{post.title}</h2>
       <Suspense fallback={<Loading />}>
+      <div
+        style={{
+        width: "100%",
+        maxWidth: "380px",
+        height: "auto",
+        aspectRatio: "380 / 280",
+      }}
+        >
         <Image
           src={post.featuredImage}
           alt={post.title}
@@ -15,6 +23,7 @@ export default function PostCard({ post }: any) {
           height={400}
           loading="lazy"
         />
+      </div>
       </Suspense>
       <p>{post.content}</p>
       <p>{post.category}</p>

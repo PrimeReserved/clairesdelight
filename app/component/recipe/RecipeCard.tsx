@@ -8,6 +8,13 @@ export default function RecipeCard({ recipe }: any) {
     <Fragment>
       <h2 className="text-4xl py-5 font-bold">{recipe.title}</h2>
       <Suspense fallback={<Loading />}>
+      <div
+        style={{
+        width: "100%",
+        maxWidth: "380px",
+        height: "auto",
+        aspectRatio: "380 / 280",
+      }}>
         <Image
           src={recipe.image}
           alt={recipe.title}
@@ -15,6 +22,7 @@ export default function RecipeCard({ recipe }: any) {
           height={300}
           loading="lazy"
         />
+      </div>
       </Suspense>
       <p>{recipe.description}</p>
       <h3 className="text-3xl">Ingredients</h3>
