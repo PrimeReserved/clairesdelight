@@ -1,6 +1,7 @@
 import Choose from "./component/LandingPage/Choose";
 import CustomerReview from "./component/LandingPage/CustomerReview";
 import Hero from "./component/LandingPage/Hero";
+import Ourservices from "./component/LandingPage/OurService";
 import RecipeVisuals from "./component/LandingPage/RecipeVisuals";
 import Spice from "./component/LandingPage/Spice";
 import { Metadata } from 'next';
@@ -16,6 +17,7 @@ export default function Page() {
       <Hero />
       <Choose />
       <Spice />
+      <Ourservices />
       <CustomerReview />
       <RecipeVisuals />
     </div>
