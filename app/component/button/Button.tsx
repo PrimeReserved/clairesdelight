@@ -2,12 +2,13 @@ interface ButtonProps {
     className: string;
     text: string;
     icon?: React.ReactNode
+    onSubmit?: () => void;
 }
 
 
-export default function Button ({ className, text, icon }: Readonly<ButtonProps>){
+export default function Button ({ className, text, icon, onSubmit }: Readonly<ButtonProps>){
     return (
-        <button className={`${className}`}>
+        <button onSubmit={onSubmit} className={`${className}`}>
             { text }
         </button>
     );
