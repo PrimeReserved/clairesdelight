@@ -1,53 +1,80 @@
 import Loading from "@/app/loading";
 import Image from "next/image";
+import Link from "next/link";
 import { Fragment, Suspense } from "react";
 
 const getPost = async (slug: any) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BLOG_API_ROUTE}/${slug}`);
-  if(!res.ok){
-    throw new Error("Error getting single post api")
+  if (!res.ok) {
+    throw new Error("Error getting single post api");
   }
   return res.json();
 };
 
-
 export const generateMetadata = async ({ params }: any) => {
   const { slug } = params;
   const post = await getPost(slug);
-  
+
   return {
     title: post.title,
-    content: post.content
+    content: post.content,
   };
 };
-
 
 export default async function Page({ params }: any) {
   const { slug } = params;
   const post = await getPost(slug);
 
   return (
-    <Fragment>
-      <h1>Single blog page</h1>
-      <div>
-        <h2>{post.title}</h2>
-        <div>
-          <h3>Author</h3>
-          <p>{post.author}</p>
-        </div>
-        <Suspense fallback={<Loading />}>
-        <Image
-          src={post.featuredImage}
-          alt={post.title}
-          width={400}
-          height={400}
-          loading="lazy"
-        />
-      </Suspense>
-        <p>{ post.content }</p>
-        <p>{ post.price }</p>
-        <p>{ post.date }</p>
+    <>
+      <div className="text-sm breadcrumbs">
+        <ul>
+          <li>
+            <Link href="/blog">Blog</Link>
+          </li>
+          <li>Trending</li>
+          <li className="font-bold">ALL</li>
+        </ul>
       </div>
-    </Fragment>
-  )
+
+      <div className="grid grid-cols-2">
+        <div>
+          <div>
+            <p>Posted by {post.author}</p>
+            <p>On 5th April 2024</p>
+            <p>{post.date}</p>
+          </div>
+          <div className="bg-[#F6FFE9] w-64 h-20">
+            <p>We value you</p>
+          </div>
+          <div className="bg-[#F6FFE9] w-64 h-20">
+            <p>
+              Elevating Your Dishes wih a <br />
+              Flavour Boost.
+            </p>
+          </div>
+          <div className="bg-[#F6FFE9] w-64 h-20">
+            <p>Get in Touch with Us</p>
+          </div>
+          <div className="bg-[#F6FFE9] w-64 h-20">
+            <p>Leave a Comment</p>
+          </div>
+        </div>
+        <div>
+          <Suspense fallback={<Loading />}>
+            <Image
+              src={post.featuredImage}
+              alt={post.title}
+              width={400}
+              height={400}
+              loading="lazy"
+            />
+          </Suspense>
+
+          <h2 className="text-4xl font-semibold">{post.title}</h2>
+          <p>{post.content}</p>
+        </div>
+      </div>
+    </>
+  );
 }

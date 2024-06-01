@@ -1,16 +1,21 @@
+import Image from "next/image";
 import { CartItem } from "@/typings";
 import { useCart } from "@/context/CartContext";
 import { MdOutlineAdd } from "react-icons/md";
 import { AiOutlineMinus } from "react-icons/ai";
 import { RiDeleteBinLine } from "react-icons/ri";
-import Title from "../typography/Title";
+import Subtitle from "../typography/Subtitle";
+import ServiceCard from "../LandingPage/our-service/ServiceCard";
+import SpiceTitle from "../Spice/SpiceTitle";
+import { IoIosStar } from "react-icons/io";
+import Button from "../button/Button";
 
 interface Props {
   item: CartItem;
 }
 
 export default function CartItemView({ item }: Readonly<Props>) {
-  const { removeFromCart, updateCartItemQuantity } = useCart();
+  const {cartCount, removeFromCart, updateCartItemQuantity } = useCart();
 
   const handleQuantityChange = (qty: number) => {
     const quantity = Number(qty);
@@ -25,13 +30,25 @@ export default function CartItemView({ item }: Readonly<Props>) {
 
   return (
     <>
-      <Title>Cart Items</Title>
-      <div>
-        <p>{item.product.name}</p>
-        <p>{item.product.description}</p>
-        <p>{item.product.price}</p>
-      </div>
-      <div className="flex">
+      <Subtitle title={`Spices in Cart (${cartCount})`} />
+      <ServiceCard className="">
+        <div className="flex">
+          <Image
+            src={item.product.images}
+            alt={item.product.name}
+            width={100}
+            height={100}
+            className="rounded-xl"
+          />
+          <div>
+            <Subtitle title={item.product.name} />
+            <div className="flex gap-1">
+              <p><span className="bg-orange"><IoIosStar /><IoIosStar /><IoIosStar /><IoIosStar /><IoIosStar /></span>20 Reviews</p>
+              <p>{item.product.description}</p>
+              <SpiceTitle title={`${item.product.price}`} />
+            </div>
+          </div>
+          <div className="flex">
         <button
           aria-label="decrease"
           onClick={() => {
@@ -50,8 +67,11 @@ export default function CartItemView({ item }: Readonly<Props>) {
         >
           <MdOutlineAdd />
         </button>
-      </div>
-      <div>
+          </div>
+        </div>
+      </ServiceCard>
+      
+      <div className="flex">
         <button onClick={handleRemoveClick}>
           <RiDeleteBinLine />
         </button>

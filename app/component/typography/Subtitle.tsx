@@ -1,7 +1,7 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 
 interface SubtitleProps {
-    icon: StaticImageData;
+    icon?: any;
     title: string;
 }
 
