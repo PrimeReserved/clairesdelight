@@ -1,13 +1,15 @@
 "use client"
 
+import Banner from '@/app/component/banner/Banner';
+import BodyWrapper from '@/app/component/layout/BodyWrapper';
 import Pagination from '@/app/component/pagination/Pagination';
 import RecipeCard from '@/app/component/recipe/RecipeCard';
-import Loading from '@/app/loading';
 import { getRecipes } from '@/lib/data';
 import { Recipe } from '@/typings';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Suspense, useState, useEffect } from 'react';
 
-const ITEMS_PER_PAGE = 1;
+const ITEMS_PER_PAGE = 10;
 
 export default function Page() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -16,11 +18,22 @@ export default function Page() {
 
   useEffect(() => {
     const fetchRecipes = async () => {
-      const recipesData = await getRecipes();
+      Loading.change('Loading %20');
+      Loading.hourglass();
+
+      try {
+        const recipesData = await getRecipes();
       if (Array.isArray(recipesData) && recipesData.length > 0) {
         setRecipes(recipesData);
         setTotalPages(Math.ceil(recipesData.length / ITEMS_PER_PAGE));
       }
+      } catch (error) {
+        console.log(`Error fetching recipes...${error}`)
+        console.error(`Error fetching recipes: ${error}`)
+      }finally {
+        Loading.remove();
+      }
+      
     };
 
     fetchRecipes();
@@ -47,20 +60,22 @@ export default function Page() {
 
   return (
     <>
-      <div className="text-5xl">Recipes</div>
-      <section className="p-10">
+    <Banner />
+      <BodyWrapper>
+      <div className="grid grid-cols-1 md:grid-cols-2 md:justify-center md:items-center">
         {getPaginatedRecipes().map((recipe: Recipe) => (
-          <Suspense key={recipe._id} fallback={<Loading />}>
+          <Suspense key={recipe._id}>
             <RecipeCard recipe={recipe} />
           </Suspense>
         ))}
-      </section>
+      </div>
       <Pagination 
         currentPage={currentPage} 
         totalPages={totalPages} 
         onNextPage={handleNextPage} 
         onPreviousPage={handlePreviousPage} 
       />
+      </BodyWrapper>
     </>
   );
 }

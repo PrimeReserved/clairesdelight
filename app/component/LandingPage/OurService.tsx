@@ -15,8 +15,8 @@ export default function Ourservice() {
           "A spice business can offer a variety of services beyond just selling spices. Here's the gist."
         }
       </Paragraph>
-      <div className="grid grid-cols-2 gap-3">
-        <div>
+      <div className="grid grid-cols-2 p-10">
+        <div className="m-10">
           <Paragraph>
             <span className="font bold">Sell spices:</span> This is the core,
             but focus on quality, origin (local, organic?), and variety (whole,
@@ -41,10 +41,10 @@ export default function Ourservice() {
         <div>
           <div>
             <h2>Available Services</h2>
-            <div className="md:grid grid-cols-1 md:grid-cols-2 gap-3 justify-center items-center">
+            <div className="md:grid grid-cols-1 md:grid-cols-2">
               {/* card  */}
               {availableServices.map((service) => (
-                <ServiceCard key={service.id}>
+                <ServiceCard key={service.id} className="w-3/4">
                   <ServiceContent
                     iconImage={service.image}
                     description={service.description}
@@ -54,12 +54,12 @@ export default function Ourservice() {
               ))}
             </div>
           </div>
-          <div className="md:flex gap-3">
+          <div className="">
             <h2>Available Services</h2>
             <div className="grid grid-cols-2 md:grid-cols-3">
               {futureServices.map((service) => (
                 <ServiceCard key={service.id}>
-                  <FutureService
+                  <FutureService className="w-40"
                     imageIcon={service.image}
                     text={service.text}
                   />

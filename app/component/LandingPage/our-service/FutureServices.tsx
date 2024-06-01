@@ -4,13 +4,14 @@ import Paragraph from "../../typography/Paragraph";
 interface FutureServiceProps {
     imageIcon: any,
     text: string;
+    className: string;
 }
 
 
-export default function FutureService({ imageIcon, text }: Readonly<FutureServiceProps>){
+export default function FutureService({ imageIcon, text, className }: Readonly<FutureServiceProps>){
 
     return (
-        <div className="mx-auto">
+        <div className={`${className}`}>
             <Image
               src={imageIcon}
               alt="icon"

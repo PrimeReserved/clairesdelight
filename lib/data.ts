@@ -31,7 +31,7 @@ export const getProduct = async() => {
   };
 
 export const getRecipes = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_RECIPE_API_ROUTE}`, { next: { revalidate: 36 }});
+    const res = await fetch(`${process.env.NEXT_PUBLIC_RECIPE_API_ROUTE}`, { cache: 'no-store' });
     if (!res.ok) {
       throw new Error("Something happened while getting recipes!");
     }

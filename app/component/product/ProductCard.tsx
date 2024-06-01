@@ -24,36 +24,6 @@ export default function ProductCard({ product }: Readonly<{ product: Product }>)
     });
   } 
   return (
-    // <Fragment>
-    //   <h2>{product.name}</h2>
-    //   <div className="product-images">
-    //     {product.images.map((image: string, index: number) => (
-    //       <Suspense key={index} fallback={<Loading />}>
-    //         <Image
-    //           src={image}
-    //           alt={`${product.name} image ${index + 1}`}
-    //           width={100}
-    //           height={100}
-    //           loading="lazy"
-    //         />
-    //       </Suspense>
-    //     ))}
-    //   </div>
-    //   <p>{product.description}</p>
-    //   <p>Category: {product.category}</p>
-    //   <p>Origin: {product.origin}</p>
-    //   <p>Price: ${product?.price?.toFixed(2)}</p>
-    //   <p>Stock: {product.stock}</p>
-    //   <p>Medicinal Properties: {product.healthBenefit?.join(', ')}</p>
-    //   <p>Culinary Uses: {product.culinaryUses.join(', ')}</p>
-    //   <Link href={`/shop-spices/${product._id}`}>
-    //     <button className="btn">Read more</button>
-    //   </Link>
-    //   <div>
-    //     <button className="btn"
-    //     onClick={() => handleClick(product)}>Add to Cart</button>
-    //   </div>
-    // </Fragment>
     <div className="flex justify-center items-center mt-5 ">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           <div
@@ -61,8 +31,6 @@ export default function ProductCard({ product }: Readonly<{ product: Product }>)
             key={product._id}
           >
             <figure>
-              {/* <Image src={product.images} alt="Spice" width={391}
-                    height={248} /> */}
                 <Suspense fallback={<Loading />}>
                   <Image
                     src={`${product.images}`}

@@ -1,10 +1,10 @@
 // Our service data 
 
-import buildingIcon from "@/public/images/icons/building_house_icon 1.png"
-import tradeIcon from "@/public/images/icons/china and us trade war_icon 1.png"
-import spiceIcon from "@/public/images/icons/spiceIcon.png"
-import workshopIcon from "@/public/images/icons/teachIcon.png"
-import consultationIcon from "@/public/images/icons/book.png"
+import buildingIcon from "@/public/image/icons/building_house_icon 1.png"
+import tradeIcon from "@/public/image/icons/china and us trade war_icon 1.png"
+import spiceIcon from "@/public/image/icons/spiceIcon.png"
+import workshopIcon from "@/public/image/icons/teachIcon.png"
+import consultationIcon from "@/public/image/icons/book.png"
 
 
 export const availableServices = [

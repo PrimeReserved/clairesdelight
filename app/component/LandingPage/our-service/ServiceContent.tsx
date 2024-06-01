@@ -9,17 +9,19 @@ interface ServiceContentProps {
 export default function ServiceContent({ iconImage, description }: Readonly<ServiceContentProps>){
 
     return (
-        <div className="m-5">
-            <div className="flex gap-5 justify-evenly">
+        <div className="flex">
+            <div className="">
                 <Image
                   src={iconImage}
                   alt='icon'
-                  height={50}
-                  width={50}
-                  className="rounded-md"
+                  height={40}
+                  width={40}
+                  className="rounded-md border border-1"
                 />
-            </div>
+                <div>
             <Paragraph><span className="font-bold">{ description }</span></Paragraph>
+                </div>
+            </div>
         </div>
     );
 }

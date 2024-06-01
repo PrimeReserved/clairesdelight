@@ -1,45 +1,38 @@
 import Loading from "@/app/loading";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, Suspense } from "react";
+import { Suspense } from "react";
+import SpiceTitle from "../Spice/SpiceTitle";
+import Paragraph from "../typography/Paragraph";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 export default function RecipeCard({ recipe }: any) {
   return (
-    <Fragment>
-      <h2 className="text-4xl py-5 font-bold">{recipe.title}</h2>
+    <div className="card w-96 bg-base-100 shadow-xl m-5">
+      {/* <h2 className="text-4xl py-5 font-bold">{recipe.title}</h2> */}
       <Suspense fallback={<Loading />}>
-      <div
-        style={{
-        width: "100%",
-        maxWidth: "380px",
-        height: "auto",
-        aspectRatio: "380 / 280",
-      }}>
-        <Image
-          src={recipe.image}
-          alt={recipe.title}
-          width={400}
-          height={300}
-          loading="lazy"
-        />
-      </div>
+        <figure>
+          <Image
+            src={recipe.image}
+            alt={recipe.title}
+            width={400}
+            height={500}
+            loading="lazy"
+          />
+        </figure>
       </Suspense>
-      <p>{recipe.description}</p>
-      <h3 className="text-3xl">Ingredients</h3>
-      <ul className="list-disc p-5">
-        {recipe.ingredients.map((ingredient: string, index: number) => (
-          <li key={index}>{ingredient}</li>
-        ))}
-      </ul>
-      <h3 className="text-3xl">Method</h3>
-      <ol>
-        {recipe.method.map((step: string, index: number) => (
-          <li key={index}>{step}</li>
-        ))}
-      </ol>
-      <Link href={`/recipes/${recipe._id}`}>
-        <button className="btn">Read more</button>
-      </Link>
-    </Fragment>
+      <div className="m-5">
+        <SpiceTitle title={recipe.title} />
+        <p className="mt-5">{recipe.description}</p>
+      </div>
+      <div className="card-actions justify-center p-5">
+        <Link href={`/recipes/${recipe._id}`}>
+          <span className="flex gap-2 justify-center items-center">
+            Read more
+            <FaArrowRightLong />
+          </span>
+        </Link>
+      </div>
+    </div>
   );
 }

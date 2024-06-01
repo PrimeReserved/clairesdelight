@@ -1,4 +1,5 @@
 import Choose from "./component/LandingPage/Choose";
+import CulinaryInspiration from "./component/LandingPage/CulinaryInspirations";
 import CustomerReview from "./component/LandingPage/CustomerReview";
 import Hero from "./component/LandingPage/Hero";
 import Ourservices from "./component/LandingPage/OurService";
@@ -17,6 +18,7 @@ export default function Page() {
       <Hero />
       <Choose />
       <Spice />
+      <CulinaryInspiration />
       <Ourservices />
       <CustomerReview />
       <RecipeVisuals />

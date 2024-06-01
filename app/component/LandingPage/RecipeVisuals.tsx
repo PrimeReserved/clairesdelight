@@ -3,6 +3,7 @@ import Title from "../typography/Title";
 import Image from "next/image";
 import Paragraph from "../typography/Paragraph";
 import Loading from "@/app/loading";
+import BodyWrapper from "../layout/BodyWrapper";
 
 
 function RecipeVisuals() {
@@ -19,7 +20,7 @@ function RecipeVisuals() {
     "https://res.cloudinary.com/dzd51q99i/image/upload/v1716383041/clairesdelight/recipes/recipe-visual/Frame_1000004721_1_zhinrk.png"
   ];
   return (
-    <div className="p-10 md:pt-[7rem] ">
+    <BodyWrapper>
       <Title>{"Recipe Visuals"} </Title>
       <Paragraph>
         {"Read what our satisfied customers have to say about their experience with our spices, and discover why they keep coming back for more."}
@@ -39,7 +40,7 @@ function RecipeVisuals() {
           </div>
         ))}
       </div>
-    </div>
+    </BodyWrapper>
   );
 }
 
