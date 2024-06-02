@@ -4,27 +4,30 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaUser } from "react-icons/fa6";
 import { BiSolidLike } from "react-icons/bi";
+import SpiceTitle from "../Spice/SpiceTitle";
 
 export default function PostCard({ post }: any) {
   return (
-    <div className="card w-96 bg-base-100 shadow-xl m-5">
-      <h2>{post.title}</h2>
+    <div className="card w-100 bg-base-100 shadow-xl rounded-b-3xl m-5">
       <Suspense fallback={<Loading />}>
         <figure>
           <Image
             src={post.featuredImage}
             alt={post.title}
-            width={400}
-            height={400}
+            width={500}
+            height={500}
             loading="lazy"
+            className="rounded-t-3xl"
           />
         </figure>
       </Suspense>
-
-      <p>{post.content}</p>
-      <Link href={`/blog/${post.slug}`}>
-        <button className="btn">Read more</button>
+      <div className="p-5">
+      <SpiceTitle title={post.title} />
+      <p className="line-clamp-4">{post.content}</p>
+      <p><Link href={`/blog/${post.slug}`}>
+        Read more
       </Link>
+      </p>
       <div className="flex justify-between items-center">
         <div className="flex flex-col">
           <FaUser />
@@ -36,6 +39,7 @@ export default function PostCard({ post }: any) {
           <span className="font-bolder text-4xl">5</span>
           <p>APRIL 2024</p>
         </div>
+      </div>
       </div>
     </div>
   );

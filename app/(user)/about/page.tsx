@@ -8,11 +8,18 @@ import arrowIcon from "@/public/image/icons/Group 89.png"
 import HeaderText from '@/app/component/typography/HeaderText'
 import Button from '@/app/component/button/Button'
 import Banner from '@/app/component/banner/Banner'
+import { aboutBanner } from '@/public/image/cdn/cdn'
 
 export default function Page() {
   return (
     <div>
-      <Banner />
+      <Banner 
+         image={aboutBanner}
+         title={`About Us`}
+         subtitle={`Learn more about our passion for spices, 
+         and commitment to quality. Discover the story behind
+         our journey to bring the finest flavours to your kitchen`}
+       />
       <BodyWrapper>
       <div className="mt-10">
       <div className="flex justify-between flex-col-reverse md:flex-row items-center mx-10 xl:mx-16 mt-7 gap-8 md:gap-0">

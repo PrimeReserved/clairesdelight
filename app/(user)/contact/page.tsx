@@ -2,6 +2,7 @@ import Banner from "@/app/component/banner/Banner";
 import Button from "@/app/component/button/Button";
 import ContactCard from "@/app/component/contact/ContactCard";
 import { contactInfo } from "@/app/component/contact/contactInfo";
+import { contactBanner } from "@/public/image/cdn/cdn";
 
 
 
@@ -9,7 +10,13 @@ export default function Page() {
 
   return (
     <div>
-      <Banner />
+      <Banner 
+         image={contactBanner}
+         title={`Contact Us`}
+         subtitle={`Have a question or feeback? 
+         Reach out to us! We're here to help,
+         and eager to hear from you. Please fill the form below.`}
+       />
       <div className="card shadow-lg w-96 h-96 rounded-xl mx-auto">
         <div className="p-5">
           <div className="grid grid-cols-1 md:grid-cols-3">

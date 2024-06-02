@@ -5,30 +5,38 @@ import Loading from "@/app/loading";
 import { Suspense } from "react";
 
 
+interface BannerProps {
+    image: any;
+    title: string;
+    subtitle: string;
+}
 
-export default function Banner(){
+
+export default function Banner({ image, title, subtitle }: Readonly<BannerProps>){
 
     return (
-        <div className="h-96 flex justify-center items-center">
-            <div>
-                <Suspense fallback={<Loading />}>
-                <Image
-                  src={`https://res.cloudinary.com/dzd51q99i/image/upload/v1716383849/clairesdelight/shop-spices/banner/Shop_Spice_1_cltiwp.png`}
-                  alt="banner"
-                  width={400}
-                  height={300}
-                  loading="lazy"
-                />
-                </Suspense>
-            </div>
-            <div>
-                <Title>Shop Spices</Title>
-                <Paragraph>
-                    {`Check out our spice shop for all your cooking needs. 
-                      Find the perfect flavors to make your meals delicious`}
-                </Paragraph>
-            </div>
-        </div>
+        <div className="w-full h-[300px] pb-5 flex flex-col md:flex-row">
+  <div className="relative w-full md:w-1/2 h-full overflow-hidden">
+    <Suspense fallback={<Loading />}>
+      <Image
+        src={image}
+        alt="banner"
+        layout="fill"
+        objectFit="cover"
+        loading="lazy"
+        className="custom-shape-left"
+      />
+    </Suspense>
+  </div>
+  <div className="w-full md:w-1/2 h-full flex flex-col justify-center items-start p-8">
+    <Title>{title}</Title>
+    <Paragraph>
+      {subtitle}
+    </Paragraph>
+  </div>
+</div>
+
+
     );
 }
 

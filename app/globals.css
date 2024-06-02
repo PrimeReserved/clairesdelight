@@ -4,3 +4,10 @@
 @tailwind utilities;
 
 
+.custom-shape-left {
+    clip-path: polygon(0 0, 100% 0, 70% 100%, 0 100%);
+}
+
+/* .custom-shape-right {
+    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
+} */

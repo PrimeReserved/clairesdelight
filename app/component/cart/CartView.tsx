@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import CartItemView from "./CartItem";
 import Title from "../typography/Title";
-import Paragraph from "../typography/Paragraph";
 import { useRouter } from "next/navigation";
 import Subtitle from "../typography/Subtitle";
 import Button from "../button/Button";

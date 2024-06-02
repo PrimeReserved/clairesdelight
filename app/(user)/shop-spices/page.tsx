@@ -13,6 +13,7 @@ import { ImCheckboxUnchecked } from "react-icons/im";
 import Paragraph from "@/app/component/typography/Paragraph";
 import { IoSearch } from "react-icons/io5";
 import Pagination from "@/app/component/pagination/Pagination";
+import { spiceBanner } from "@/public/image/cdn/cdn";
 
 export default function Page() {
 
@@ -44,7 +45,12 @@ export default function Page() {
 
   return (
     <>
-      <Banner />
+      <Banner 
+         image={spiceBanner}
+         title={`Shop Spices`}
+         subtitle={`Check out our spice shop for all your cooking needs. Find the perfect
+          flavours to make your meals delicious`}
+       />
       <BodyWrapper>
         <div className="grid md:grid-cols-2 justify-center">
           <div>
