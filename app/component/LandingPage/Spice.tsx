@@ -21,7 +21,7 @@ async function Spice() {
         }
       </Paragraph>
       <div className="flex justify-center items-center mt-5 mb-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {products.map((product: any) => (
             <Suspense key={product._id} fallback={<Loading />}>
               <SpiceCard product={product} />

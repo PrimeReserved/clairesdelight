@@ -11,14 +11,14 @@ interface FutureServiceProps {
 export default function FutureService({ imageIcon, text, className }: Readonly<FutureServiceProps>){
 
     return (
-        <div className={`${className}`}>
-            <Image
-              src={imageIcon}
-              alt="icon"
-              width={50}
-              height={50}
-              />
-              <Paragraph>{text}</Paragraph>                         
-        </div>
+        <div className={`${className} flex flex-col items-center justify-center`}>
+    <Image
+      src={imageIcon}
+      alt="icon"
+      width={50}
+      height={50}
+    />
+    <p className="mt-2 text-center">{text}</p>
+  </div>
     );
 }

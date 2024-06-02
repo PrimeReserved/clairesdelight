@@ -18,7 +18,7 @@ export const availableServices = [
         id: 2,
         image: tradeIcon,
         description: "Export of Various Commodities",
-        content: "Sales of Spices, Cashew Nuts, Charcoal, Palm Oil, Palm Kernel Shells, Shea Nut, Hibiscus Flower, Ginger, & Black pepper"
+        content: "Export of Spices, Cashew Nuts, Charcoal, Palm Oil, Palm Kernel Shells, Shea Nut, Hibiscus Flower, Ginger, & Black pepper"
     },
 ]
 
