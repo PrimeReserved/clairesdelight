@@ -8,13 +8,13 @@ interface ContactCardProps {
 export default function ContactCard({ icon, children}: Readonly<ContactCardProps>) {
 
     return (
-        <div className="card w-40 rounded-xl shadow-xl">
-            <div className="flex gap-2">
+        <div className="card w-[16.9rem] h-20 rounded-xl shadow-xl">
+            <div className="flex flex-row items-center">
               <Image
                 src={icon}
                 alt="icon"
-                width={40}
-                height={40}
+                width={100}
+                height={100}
                 />
                 <p>{children}</p>
             </div>

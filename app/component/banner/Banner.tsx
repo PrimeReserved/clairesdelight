@@ -21,8 +21,8 @@ export default function Banner({ image, title, subtitle }: Readonly<BannerProps>
       <Image
         src={image}
         alt="banner"
-        layout="fill"
-        objectFit="cover"
+        width={800}
+        height={400}
         loading="lazy"
         className="custom-shape-left"
       />

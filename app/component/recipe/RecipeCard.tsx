@@ -27,7 +27,7 @@ export default function RecipeCard({ recipe }: any) {
       </div>
       <div className="card-actions justify-center p-5">
         <Link href={`/recipes/${recipe._id}`}>
-          <span className="flex gap-2 justify-center items-center">
+          <span className="flex gap-2 justify-center items-center text-orange font-bold">
             Read more
             <FaArrowRightLong />
           </span>
