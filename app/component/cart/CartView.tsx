@@ -11,13 +11,14 @@ import ServiceCard from "../LandingPage/our-service/ServiceCard";
 import SpiceTitle from "../Spice/SpiceTitle";
 import { cartImage } from "@/public/image/cdn/cdn";
 import Link from "next/link";
+import BodyWrapper from "../layout/BodyWrapper";
 
 export default function CartView() {
   const { cartCount, cartItems, cartTotal } = useCart();
   const router = useRouter();
 
   return (
-    <>
+    <BodyWrapper>
       <div className="text-sm breadcrumbs">
         <ul>
           <li>
@@ -84,6 +85,6 @@ export default function CartView() {
           </div>
         </div>
       )}
-    </>
+    </BodyWrapper>
   );
 }
