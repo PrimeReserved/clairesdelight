@@ -11,3 +11,6 @@
 /* .custom-shape-right {
     clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
 } */
+.body {
+    font-family: Helvetica;
+}

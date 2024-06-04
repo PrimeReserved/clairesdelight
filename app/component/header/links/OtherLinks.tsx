@@ -33,12 +33,10 @@ const OtherLinks: React.FC<OtherLinksProps> = ({ hover, navbarColor }) => {
           </Link>
           {cartCount > 0 && (
             <div
-              className={`bg-[${hover ? "red" : "lightGreen"}] bg-[${
-                navbarColor ? "lightGreen" : "#FF0000"
-              }] bg-lightGreen text-[8px] text-white flex justify-center rounded-full absolute top-0 right-0 h-3 w-3`}
-            >
-              {cartCount}
-            </div>
+            className={`bg-${hover ? "red" : "lightGreen"} bg-${navbarColor ? "lightGreen" : "#FF0000"} text-[8px] text-white flex justify-center rounded-full absolute top-0 right-0 h-3 w-3`}
+          >
+            {cartCount}
+          </div>
           )}
         </div>
         <IoSearch className="text-[1.6rem]" />

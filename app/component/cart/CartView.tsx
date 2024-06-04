@@ -13,12 +13,12 @@ import { cartImage } from "@/public/image/cdn/cdn";
 import Link from "next/link";
 
 export default function CartView() {
-  const { cartItems, cartTotal } = useCart();
+  const { cartCount, cartItems, cartTotal } = useCart();
   const router = useRouter();
 
   return (
     <>
-       <div className="text-sm breadcrumbs">
+      <div className="text-sm breadcrumbs">
         <ul>
           <li>
             <Link href="/shop-spices">Shop Spices</Link>
@@ -28,48 +28,60 @@ export default function CartView() {
         </ul>
       </div>
       {cartItems.length === 0 ? (
-        <div className='flex flex-col justify-center items-center gap-5 h-[30rem]'>
+        <div className="flex flex-col justify-center items-center gap-5 h-[30rem]">
           <Image src={cartImage} alt="carting" width={300} height={200} />
           <Subtitle title="Empty Card" />
           <p>Use the button below to shop for spices and add to your cart</p>
-        
-          
-          <Button 
-            className="btn xl:px-10 lg:px-5 py-1 bg-orange border-none text-white font-normal lg:text-[12px] hover:bg-orange hidden md:flex" 
+
+          <Button
+            className="btn xl:px-10 lg:px-5 py-1 bg-orange border-none text-white font-normal lg:text-[12px] hover:bg-orange hidden md:flex"
             text="Shop spices"
             onClick={() => router.push(`/shop-spices`)}
-        />
+          />
         </div>
       ) : (
-        <div className="flex flex-col">
-          {cartItems.map((item: any) => (
-            <div key={item.product._id}>
-              <CartItemView item={item} />
-            </div>
-          ))}
-         <ServiceCard>
-            <SpiceTitle title="CART SUMMARY" />
-            <div className="flex flex-col justify-between items-center">
-                <div>
-                <p>Amount</p>
-                <SpiceTitle title={`${cartTotal.toFixed(2)}`} />
+        <div className="flex gap-10 items-center">
+          <div className="w-1/2 md:pl-[10rem]">
+            <SpiceTitle title={`Spices in cart (${cartCount})`} />
+            {cartItems.map((item: any) => (
+              <div
+                key={item.product._id}
+                className="flex flex-col pb-3 items-center"
+              >
+                <CartItemView item={item} />
+              </div>
+            ))}
+          </div>
+          <div className="w-1/2 pl-[10rem]">
+            <ServiceCard className="w-[20rem]">
+              <div className="p-5">
+              <SpiceTitle title="CART SUMMARY" />
+
+                <div className="flex justify-between items-center">
+                  <p>Amount</p>
+                  <SpiceTitle title={`${cartTotal.toFixed(2)}`} />
                 </div>
-                <div>
-                <p>Amount</p>
-                <SpiceTitle title={`₦00.00`} />
+                <div className="flex justify-between items-center">
+                  <p>Amount</p>
+                  <SpiceTitle title={`₦00.00`} />
+                </div>
                 <hr />
-                <p>Total Amount</p>
-                <SpiceTitle title={`₦${cartTotal.toFixed(2)}`} />
+                <div className="flex justify-between items-center">
+                  <p>Total Amount</p>
+                  <SpiceTitle title={`₦${cartTotal.toFixed(2)}`} />
                 </div>
-                <div className="mx-auto">
-                    <Button
-                        className="btn xl:px-10 lg:px-5 py-1 bg-orange border-none text-white font-normal lg:text-[12px] hover:bg-orange hidden md:flex"
-                        text={`Checkout (${cartTotal.toFixed(2)})`}
-                        onClick={() => router.push(`https://paystack.com/pay/property`)}
-                    />
+                <div className="flex justify-center p-10">
+                  <Button
+                    className="btn xl:px-10 lg:px-5 py-1 bg-orange border-none text-white font-normal lg:text-[12px] hover:bg-orange hidden md:flex"
+                    text={`Checkout (${cartTotal.toFixed(2)})`}
+                    onClick={() =>
+                      router.push(`https://paystack.com/pay/property`)
+                    }
+                  />
                 </div>
-            </div>
-         </ServiceCard>
+              </div>
+            </ServiceCard>
+          </div>
         </div>
       )}
     </>

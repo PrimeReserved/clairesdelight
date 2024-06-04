@@ -15,7 +15,7 @@ interface Props {
 }
 
 export default function CartItemView({ item }: Readonly<Props>) {
-  const {cartCount, removeFromCart, updateCartItemQuantity } = useCart();
+  const { cartCount, removeFromCart, updateCartItemQuantity } = useCart();
 
   const handleQuantityChange = (qty: number) => {
     const quantity = Number(qty);
@@ -30,9 +30,9 @@ export default function CartItemView({ item }: Readonly<Props>) {
 
   return (
     <>
-      <Subtitle title={`Spices in Cart (${cartCount})`} />
-      <ServiceCard className="w-[30rem]">
-        <div className="flex">
+      {/* <Subtitle title={`Spices in Cart (${cartCount})`} /> */}
+      <ServiceCard className="w-[35rem] pb-5">
+        <div className="flex justify-evenly items-center  gap-2">
           <Image
             src={item.product.images}
             alt={item.product.name}
@@ -40,45 +40,59 @@ export default function CartItemView({ item }: Readonly<Props>) {
             height={100}
             className="rounded-xl"
           />
-          <div>
+          <div className="">
             <Subtitle title={item.product.name} />
-            <div className="flex gap-1">
-              <p><span className="bg-orange"><IoIosStar /><IoIosStar /><IoIosStar /><IoIosStar /><IoIosStar /></span>20 Reviews</p>
-              <p>{item.product.description}</p>
-              <SpiceTitle title={`${item.product.price}`} />
+            <div className="flex flex-row justify-between items-center">
+              <div className="flex justify-between items-center">
+                <span className="flex justify-between text-orange">
+                  <IoIosStar />
+                  <IoIosStar />
+                  <IoIosStar />
+                  <IoIosStar />
+                  <IoIosStar />
+                </span>
+              <p className="ml-2">20 Reviews</p>
+              </div>
+              <div className="flex flex-row items-center">
+                <div className="flex flex-row justify-center items-center">
+                  <button
+                    className="border rounded"
+                    aria-label="decrease"
+                    onClick={() => {
+                      handleQuantityChange(item.quantity - 1);
+                    }}
+                  >
+                    <AiOutlineMinus />
+                  </button>
+                  <p className="border p-1">{item.quantity}</p>
+                  <button
+                    className="border rounded"
+                    aria-label="increase"
+                    onClick={() => {
+                      handleQuantityChange(item.quantity + 1);
+                    }}
+                  >
+                    <MdOutlineAdd />
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="flex">
-        <button
-          aria-label="decrease"
-          onClick={() => {
-            handleQuantityChange(item.quantity - 1);
-          }}
-        >
-          <AiOutlineMinus />
-        </button>
-        <p>{item.quantity}</p>
-
-        <button
-          aria-label="increase"
-          onClick={() => {
-            handleQuantityChange(item.quantity + 1);
-          }}
-        >
-          <MdOutlineAdd />
-        </button>
+            <p>{item.product.description}</p>
+            {/* <SpiceTitle title={`${item.product.price}`} /> */}
+            <div className="flex justify-between items-center">
+              <div>
+                <p> ${(item.product.price * item.quantity).toFixed(2)}</p>
+              </div>
+              <button
+                onClick={handleRemoveClick}
+                className="flex justify-center gap-1 items-center p-2"
+              >
+                <RiDeleteBinLine /> <span>Remove</span>
+              </button>
+            </div>
           </div>
         </div>
       </ServiceCard>
-      
-      <div className="flex">
-        <button onClick={handleRemoveClick}>
-          <RiDeleteBinLine />
-        </button>
-      </div>
-      <div>
-        <p> ${(item.product.price * item.quantity).toFixed(2)}</p>
-      </div>
     </>
   );
 }
