@@ -22,24 +22,26 @@ export default function PostCard({ post }: any) {
         </figure>
       </Suspense>
       <div className="p-5">
-      <SpiceTitle title={post.title} />
-      <p className="line-clamp-4">{post.content}</p>
-      <p><Link href={`/blog/${post.slug}`}>
-        Read more
-      </Link>
-      </p>
-      <div className="flex justify-between items-center">
-        <div className="flex flex-col">
-          <FaUser />
-          <p>by admin </p>
-          <BiSolidLike />
-          {0}
+        <SpiceTitle title={post.title} />
+        <p className="line-clamp-4">{post.content}</p>
+        <p className="text-orange py-2">
+          <Link href={`/blog/${post.slug}`}>Read more</Link>
+        </p>
+        <div className="flex justify-between items-center">
+          <div className="flex flex-row justify-center items-center gap-1 text-teritaryGrey font-bold">
+            <FaUser />
+            <p>by admin</p>
+            <button>
+              <BiSolidLike />
+            </button>
+            <p>{0}</p>
+          </div>
+
+          <div className="flex flex-col justify-center items-center">
+            <span className="font-bolder text-3xl">5</span>
+            <p className="text-teritaryGrey">APRIL 2024</p>
+          </div>
         </div>
-        <div>
-          <span className="font-bolder text-4xl">5</span>
-          <p>APRIL 2024</p>
-        </div>
-      </div>
       </div>
     </div>
   );

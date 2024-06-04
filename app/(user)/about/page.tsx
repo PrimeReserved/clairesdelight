@@ -37,7 +37,7 @@ export default function Page() {
           src={aboutImage}
           alt="Slide"
           width={600}
-          height={600}
+          height={300}
           className="w-[250px] h-[250px] md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px] xl:w-[600px] xl:h-[600px] mb-5"
           style={{ borderRadius: '40%' }}
         />
@@ -105,34 +105,28 @@ export default function Page() {
 
           <div>
             <p className="w-[30rem]">
-              Our Vision at Claire&apos; Delight is to become the go-to
-              destination for individuals seeking to elevate their everyday
-              meals with the finest herbs and spices. We envision a world where
-              every kitchen is filled with the aroma of freshly ground spices
-              and every dining experience is a celebration of flavor and health.
-              Through continuous innovation, sustainable practices, and a
-              commitment to excellence, we aim to inspire and delight customers
-              around the globe.
+            As someone who has navigated the transformative path of health and wellness
+            through mindful eating and a balanced diet, I understand the pivotal role of herbs
+            and spices not just in flavoring our meals, but in enriching our health. 
+            At Claire&apos;s Delight, we don&apos;t just offer spices; we offer keys to a healthier lifestyle. 
+            Whether it&apos;s through our carefully crafted blends that bring out the best in every meal 
+            or our specially formulated teas that soothe and rejuvenate, we&apos;re here to guide you on 
+            a journey of culinary exploration and well-being.
             </p>
-            <p className="w-[30rem] mt-[11rem]">
-              Our Vision at Claire&apos; Delight is to become the go-to
-              destination for individuals seeking to elevate their everyday
-              meals with the finest herbs and spices. We envision a world where
-              every kitchen is filled with the aroma of freshly ground spices
-              and every dining experience is a celebration of flavor and health.
-              Through continuous innovation, sustainable practices, and a
-              commitment to excellence, we aim to inspire and delight customers
-              around the globe.
+            <p className="w-[30rem] mt-[10rem]">
+            In every jar and packet from Claire&apos;s Delight, you&apos;ll find more than just spices. 
+            You&apos;ll find a commitment to excellence. Each herb and spice is selected with the utmost care,
+            ensuring they are not only rich in flavor but also adhere to the highest standards of hygiene and quality.
+             Our selection process is rigorous, and we pride ourselves on providing products that are not only vibrant 
+             and flavorful but also free from chemicals & additives. With Claire&apos;s Delight, you&apos;re not just 
+             enhancing your meals; you&apos;re choosing a healthier, more vibrant lifestyle.
             </p>
-            <p className="w-[30rem] mt-[12rem]">
-              Our Vision at Claire&apos; Delight is to become the go-to
-              destination for individuals seeking to elevate their everyday
-              meals with the finest herbs and spices. We envision a world where
-              every kitchen is filled with the aroma of freshly ground spices
-              and every dining experience is a celebration of flavor and health.
-              Through continuous innovation, sustainable practices, and a
-              commitment to excellence, we aim to inspire and delight customers
-              around the globe.
+            <p className="w-[30rem] mt-[9rem]">
+            Choosing Claire&apos;s Delight is more than just a purchase; it&apos;s an entry into a community dedicated 
+            to the art of flavorful and healthy living. Your trust, loyalty, and enthusiasm fuel our passion and commitment
+            to excellence. Together, we&apos;re not just growing a brand; 
+            we&apos;re nurturing a family of food enthusiasts and health-conscious individuals eager to explore the boundless
+             possibilities of herbs and spices.
             </p>
           </div>
         </div>

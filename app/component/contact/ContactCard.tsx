@@ -1,7 +1,7 @@
 import Image, { StaticImageData } from "next/image"
 
 interface ContactCardProps {
-    icon: StaticImageData;
+    icon: any;
     children: React.ReactNode;
 }
 
@@ -13,7 +13,7 @@ export default function ContactCard({ icon, children}: Readonly<ContactCardProps
               <Image
                 src={icon}
                 alt="icon"
-                width={100}
+                width={80}
                 height={100}
                 />
                 <p>{children}</p>

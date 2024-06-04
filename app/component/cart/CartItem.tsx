@@ -31,7 +31,7 @@ export default function CartItemView({ item }: Readonly<Props>) {
   return (
     <>
       <Subtitle title={`Spices in Cart (${cartCount})`} />
-      <ServiceCard className="">
+      <ServiceCard className="w-[30rem]">
         <div className="flex">
           <Image
             src={item.product.images}

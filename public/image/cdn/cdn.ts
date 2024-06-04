@@ -7,3 +7,4 @@ export const recipeBanner = `https://res.cloudinary.com/dzd51q99i/image/upload/v
 export const aboutBanner = `https://res.cloudinary.com/dzd51q99i/image/upload/v1716384488/clairesdelight/about/banner/About_Us_Image_1_lnorwb.png`
 export const aboutImage = `https://res.cloudinary.com/dzd51q99i/image/upload/v1716384410/clairesdelight/about/Spice_Image_2_1_epeohp.png`
 export const contactBanner = 'https://res.cloudinary.com/dzd51q99i/image/upload/v1716384514/clairesdelight/contact/Contact_Us_Image_1_otxfo7.png'
+export const cartImage = `https://res.cloudinary.com/dzd51q99i/image/upload/v1716384536/clairesdelight/cart/undraw_empty_cart_co35_1_1_vaotek.png`

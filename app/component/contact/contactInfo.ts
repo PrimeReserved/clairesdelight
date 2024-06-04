@@ -2,6 +2,10 @@ import phone from "@/public/image/icons/contact-us/phone.png"
 import location from "@/public/image/icons/contact-us/location.png"
 import message from "@/public/image/icons/contact-us/message.png"
 
+import { IoCall } from "react-icons/io5";
+import { CiLocationOn } from "react-icons/ci";
+import { AiOutlineMail } from "react-icons/ai";
+
 
 export const contactInfo = [
     {
