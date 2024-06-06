@@ -16,7 +16,7 @@ export const generateMetadata = async ({
 }: {
   params: { slug: string };
 }) => {
-  const { slug: slug } = params;
+  const { slug } = params;
   const spice = await getSpice(slug);
 
   if (!spice) {
@@ -34,7 +34,7 @@ export const generateMetadata = async ({
 export default async function Page({
   params,
 }: Readonly<{ params: { slug: string } }>) {
-  const { slug: slug } = params;
+  const { slug } = params;
 
   let spice;
   try {

@@ -6,7 +6,6 @@ import { Suspense } from "react";
 import { AiOutlineMinus } from "react-icons/ai";
 import { IoIosStar } from "react-icons/io";
 import { MdOutlineAdd } from "react-icons/md";
-import { RiDeleteBinLine } from "react-icons/ri";
 import Subtitle from "../typography/Subtitle";
 import { useCart } from "@/context/CartContext";
 import { useRouter } from "next/navigation";

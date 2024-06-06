@@ -11,17 +11,17 @@ export default function Title({
         <Image
           src={Line1}
           alt="Line1"
-          width={250}
+          width={200}
           height={0}
-          className="lg:w-[250px] h-[30px] w-[100px] md:w-[190px] "
+          className="lg:w-[200px] h-[30px] w-[100px] md:w-[190px] "
         />
         <div className=" text-[17px] md:text-2xl font-semibold">{children}</div>
         <Image
           src={Line2}
           alt="Line2"
-          width={250}
+          width={200}
           height={0}
-          className="lg:w-[250px] h-[30px] w-[100px] md:w-[190px]"
+          className="lg:w-[200px] h-[30px] w-[100px] md:w-[190px]"
         />
       </div>
     </div>

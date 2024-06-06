@@ -55,7 +55,12 @@ function SpiceCard({ product }: Readonly<{ product: Product }>) {
         </Link>
         <div className="card-actions flex justify-between items-center">
           <p className="text-customBlack font-bold text-[25px] ">
-            ₦ {product?.price?.toFixed(2)}
+          {" "}
+                ₦
+                {new Intl.NumberFormat("en-NG", {
+                  style: "decimal",
+                  minimumFractionDigits: 2,
+                }).format(product?.price)}
           </p>
           <button
             className="btn font-light text-white bg-orange w-[130px] hover:bg-green border-none"

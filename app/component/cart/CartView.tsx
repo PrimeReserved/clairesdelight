@@ -56,11 +56,16 @@ export default function CartView() {
           <div className="pt-[3rem]">
             <ServiceCard className="">
               <div className="p-5">
-              <SpiceTitle title="CART SUMMARY" />
+                <SpiceTitle title="CART SUMMARY" />
 
                 <div className="flex justify-between items-center">
                   <p>Amount</p>
-                  <SpiceTitle title={`${cartTotal.toFixed(2)}`} />
+                  <SpiceTitle
+                    title={`₦${new Intl.NumberFormat("en-NG", {
+                      style: "decimal",
+                      minimumFractionDigits: 2,
+                    }).format(cartTotal)}`}
+                  />
                 </div>
                 <div className="flex justify-between items-center">
                   <p>Amount</p>
@@ -69,12 +74,20 @@ export default function CartView() {
                 <hr className="px-5" />
                 <div className="flex justify-between items-center">
                   <p>Total Amount</p>
-                  <SpiceTitle title={`₦${cartTotal.toFixed(2)}`} />
+                  <SpiceTitle
+                    title={`₦${new Intl.NumberFormat("en-NG", {
+                      style: "decimal",
+                      minimumFractionDigits: 2,
+                    }).format(cartTotal)}`}
+                  />
                 </div>
                 <div className="flex justify-center p-10">
                   <Button
                     className="btn xl:px-10 lg:px-5 py-1 bg-orange border-none text-white font-normal lg:text-[12px] hover:bg-orange hidden md:flex"
-                    text={`Checkout (${cartTotal.toFixed(2)})`}
+                    text={`Checkout (₦${new Intl.NumberFormat("en-NG", {
+                      style: "decimal",
+                      minimumFractionDigits: 2,
+                    }).format(cartTotal)})`}
                     onClick={() =>
                       router.push(`https://paystack.com/pay/property`)
                     }

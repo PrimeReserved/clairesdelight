@@ -37,7 +37,7 @@ export default async function Page({ params }: any) {
             src={recipe?.image}
             alt={recipe?.title}
             width={800}
-            height={600}
+            height={500}
             loading="lazy"
             className="rounded-3xl"
             style={{ objectFit: "cover", width: "100%", height: "100%" }}
