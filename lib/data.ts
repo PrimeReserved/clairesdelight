@@ -116,6 +116,18 @@ export const getUser = async (id: any) => {
     }
 };
 
+export const getUserByEmail = async (email: string) => {
+  noStore();
+  try {
+      await connectDB();
+      const user = await User.findOne({ email });
+      return user;
+  } catch (error) {
+      console.log(`Error getting single user: ${error}`);
+      throw new Error('Failed to get single user')
+  }
+};
+
 
 // Auth helper 
 
@@ -139,7 +151,7 @@ export const getDataFromToken = (request: NextRequest) => {
 
 export const logout = async() => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_LOGOUT_API_ROUTE}`, { next: { revalidate: 3600 }});
+    const res = await fetch(`${process.env.NEXT_PUBLIC_LOGOUT_API_ROUTE}`);
     if (!res.ok) throw new Error(`Error fetching products.`)
     const data = await res.json();
     return data;

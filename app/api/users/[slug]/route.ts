@@ -1,19 +1,28 @@
+import { getDataFromToken } from "@/lib/data";
 import { User } from "@/lib/models/user";
 import { connectDB } from "@/lib/utils";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = 'force-dynamic'
 
-export const GET = async (request: any, { params }: any) => {
-    const { slug } = params;
+export async function GET(request:NextRequest){
     try {
-        await connectDB();
-        const user = await User.findOne({ slug });
-        return NextResponse.json(user);
-    } catch(error){
-        console.log(`Get handler Error: ${error}`)
+
+        // Extract user ID from the authentication token
+        const userId = await getDataFromToken(request);
+
+        // Find the user in the database based on the user ID
+        const user = await User.findOne({_id: userId}).
+        select("-password");
+        return NextResponse.json({
+            message: "User found",
+            data: user
+        })
+    } catch (error: any) {
+        return NextResponse.json({error: error.message}, {status: 400})
+        
     }
-};
+}
 
 export const DELETE = async (request: any, { params }: any) => {
     const { slug } = params;

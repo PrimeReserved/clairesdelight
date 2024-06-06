@@ -1,4 +1,3 @@
-
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
@@ -15,7 +14,7 @@ export function middleware(request: NextRequest) {
   if(isPublicPath && token) {
 
  // If trying to access a public path with a token, redirect to the home page
-    return NextResponse.redirect(new URL('/', request.nextUrl))
+    return NextResponse.redirect(new URL('/dashboard', request.nextUrl))
   }
 
 // If trying to access a protected path without a token, redirect to the login page
@@ -26,12 +25,13 @@ export function middleware(request: NextRequest) {
 }
 
 // It specifies the paths for which this middleware should be executed. 
-// In this case, it's applied to '/', '/user/account', '/sign-in', and '/verifyemail'.
+// In this case, it's applied to '/', '/profile', '/login', and '/signup'.
 export const config = {
   matcher: [
-    '/dashboard',
-    '/user/me',
+    '/',
+    '/profile',
     '/sign-in',
+    '/sign-up',
     '/verifyemail'
   ]
 }

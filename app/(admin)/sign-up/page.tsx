@@ -1,6 +1,6 @@
 import Logo from '@/public/image/Logo.svg';
 import Image from 'next/image';
-import SignupForm from '@/app/ui/signin-form';
+import SignupForm from '@/app/ui/signup-form';
 
 
 export default function Page() {

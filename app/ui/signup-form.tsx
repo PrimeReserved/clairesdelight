@@ -19,7 +19,7 @@ export default function SignupForm() {
     })
 
 
-    const onSignup = async () => {
+    const handleSubmit = async () => {
         try {
           const response = await fetch(
             `${process.env.NEXT_PUBLIC_SIGN_UP_API_ROUTE}`,
@@ -42,7 +42,7 @@ export default function SignupForm() {
       };
 
     return (
-    <form onSubmit={onSignup} className="space-y-3">
+    <form onSubmit={handleSubmit} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
         <h1 className={`mb-3 text-2xl`}>Create a User</h1>
         <div className="w-full">

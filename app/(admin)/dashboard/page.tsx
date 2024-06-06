@@ -1,3 +1,5 @@
+import Logout from "./Logout";
+
 export const dynamic = 'force-dynamic';
 
 const getUsers = async () => {
@@ -25,7 +27,7 @@ export default async function Page() {
                 </div>
             ))}
         </div>
-
+<Logout />
         
       </div>
     )

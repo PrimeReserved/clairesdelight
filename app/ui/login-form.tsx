@@ -1,62 +1,53 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+
 import { HiOutlineAtSymbol } from "react-icons/hi";
-import { FaExclamationCircle } from "react-icons/fa";
 import { FaArrowRight, FaHouseUser, FaKey } from "react-icons/fa6";
-import { useFormState, useFormStatus } from "react-dom";
 import { AiTwotoneDashboard } from "react-icons/ai";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 
 export default function LoginForm() {
-  const { pending } = useFormStatus();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
+      email: "",
+      password: "",
+  })
 
-  const onLogin = async () => {
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
     try {
-      setLoading(true);
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SIGN_IN_API_ROUTE}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(user),
+        setLoading(true);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_SIGN_IN_API_ROUTE}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user),
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Login failed");
         }
-      );
-
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
-      router.push("/dashboard");
-    } catch (error) {
-      console.error("Login failed", error);
-    } finally {
-      setLoading(false);
+        router.push("/dashboard");
+        
+    } catch (error:any) {
+        console.log("Login failed", error.message);
+        
+    }finally {
+        setLoading(false);
     }
-  };
-
-  const handleInputChange = (e: any) => {
-    const { name, value } = e.target;
-    setUser((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+}
 
   return (
-    <form className="space-y-3">
+    <form onSubmit={handleSubmit} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-        <h1 className={`mb-3 text-2xl`}>Please log in to continue.</h1>
+        <h1 className={`mb-3 text-2xl`}>{loading ? "Processing" : "Login"}</h1>
         <div className="w-full">
           <div>
             <label
@@ -71,9 +62,9 @@ export default function LoginForm() {
                 id="email"
                 type="email"
                 name="email"
-                placeholder="Enter your email address"
                 value={user.email}
-                onChange={handleInputChange}
+                onChange={(e) => setUser({...user, email: e.target.value})}
+                placeholder="Enter your email address"
                 required
               />
               <HiOutlineAtSymbol className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -92,9 +83,9 @@ export default function LoginForm() {
                 id="password"
                 type="password"
                 name="password"
-                placeholder="Enter password"
                 value={user.password}
-                onChange={handleInputChange}
+                onChange={(e) => setUser({...user, password: e.target.value})}
+                placeholder="Enter password"
                 required
                 minLength={6}
               />
@@ -102,7 +93,8 @@ export default function LoginForm() {
             </div>
           </div>
         </div>
-        <LoginButton pending={pending} onClick={onLogin} />
+        <button className="w-full text-orange" type="submit">Sign In</button>
+        {/* <LoginButton pending={pending} onClick={onLogin} /> */}
         <div className="flex items-center bg-primary justify-around">
             <div>
                 <Link href={`/`}>
@@ -116,7 +108,7 @@ export default function LoginForm() {
             </Link>
             </div>
         </div>
-        <div
+        {/* <div
           className="flex h-8 items-end space-x-1"
           aria-live="polite"
           aria-atomic="true"
@@ -127,7 +119,7 @@ export default function LoginForm() {
               <p className="text-sm text-red-500">{errorMessage}</p>
             </>
           )}
-        </div>
+        </div> */}
       </div>
     </form>
   );
