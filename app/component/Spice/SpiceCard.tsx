@@ -8,9 +8,6 @@ import { Suspense } from "react";
 import { useCart } from "@/context/CartContext";
 import { Notify } from "notiflix/build/notiflix-notify-aio";
 
-interface Props {
-  product: Product;
-}
 
 function SpiceCard({ product }: Readonly<{ product: Product }>) {
   const { addToCart } = useCart();
@@ -29,29 +26,29 @@ function SpiceCard({ product }: Readonly<{ product: Product }>) {
       className="card card-compact w-[20rem] lg:w-[18rem] xl:w-[24rem] bg-base-100 shadow-md border-[1px] "
       key={product._id}
     >
-      <figure>
-  <Suspense fallback={<Loading />}>
-    <div
-      style={{
-        width: "100%",
-        maxWidth: "380px",
-        height: "280px",
-        overflow: "hidden",
-      }}
-    >
-      <Image 
-        src={product.images} 
-        alt="Spice" 
-        width={380}
-        height={380}
-        style={{ objectFit: "cover", width: "100%", height: "100%" }}
-      />
-    </div>
-  </Suspense>
-</figure>
+      <figure className="bg-[#FFF8F6]">
+        <Suspense fallback={<Loading />}>
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "380px",
+              height: "280px",
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              src={product.images}
+              alt="Spice"
+              width={380}
+              height={380}
+              style={{ objectFit: "cover", width: "100%", height: "100%" }}
+            />
+          </div>
+        </Suspense>
+      </figure>
 
       <div className="card-body">
-        <Link href={`/shop-spices/${product._id}`}>
+        <Link href={`/shop-spices/${product.slug}`}>
           <h2 className="card-title text-customBlack font-bold text-[20px] py-3">
             {product.name}
           </h2>

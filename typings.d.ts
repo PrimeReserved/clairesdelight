@@ -8,6 +8,7 @@
 export interface Product {
   _id: string;
   name: string;
+  slug: string;
   description: string;
   category: string[];
   origin: string;
@@ -22,6 +23,7 @@ export interface Product {
 export interface Recipe {
   _id: string;
   image: string;
+  slug: string;
   title: string;
   description: string;
   ingredients: string[];

@@ -19,6 +19,24 @@ export const getProduct = async() => {
     }
   };
 
+export const getSpice = async (slug: string) => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_PRODUCT_API_ROUTE}/${slug}`
+      );
+      if (!res.ok) {
+        throw new Error(
+          `Error getting single spice API data: ${res.status} ${res.statusText}`
+        );
+      }
+      const spice = await res.json();
+      return spice;
+    } catch (error) {
+      console.error("Failed to fetch spice data:", error);
+      return null;
+    }
+  };
+
   export const getPosts = async() => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BLOG_API_ROUTE}`, { next: { revalidate: 30 }});
@@ -31,7 +49,7 @@ export const getProduct = async() => {
   };
 
 export const getRecipes = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_RECIPE_API_ROUTE}`, { cache: 'no-store' });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_RECIPE_API_ROUTE}`, { next: { revalidate: 30 }});
     if (!res.ok) {
       throw new Error("Something happened while getting recipes!");
     }
@@ -40,18 +58,13 @@ export const getRecipes = async () => {
   };
 
 
-// Get Posts
-// export const getPosts = async () => {
-//     try {
-//         await connectDB();
-//         const posts = await Post.find();
-//         console.log(`Get posts: ${posts}`);
-//         return posts;
-//     } catch(error){
-//         console.log(`Error getting post: ${error}`);
-//         throw new Error("Failed to fetch get post")
-//     }
-// };
+export const getRecipe = async (slug: any) => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_RECIPE_API_ROUTE}/${slug}`, { next: { revalidate: 30 }});
+    if (!res.ok) {
+      throw new Error("Error getting single recipe api data");
+    }
+    return res.json();
+  };
 
 
 export const getCustomerReview = async () => {

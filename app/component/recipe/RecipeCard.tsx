@@ -3,13 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import SpiceTitle from "../Spice/SpiceTitle";
-import Paragraph from "../typography/Paragraph";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 export default function RecipeCard({ recipe }: any) {
   return (
     <div className="card md:w-[30rem] bg-base-100 shadow-xl rounded-b-3xl m-5">
-      {/* <h2 className="text-4xl py-5 font-bold">{recipe.title}</h2> */}
       <Suspense fallback={<Loading />}>
         <figure>
           <Image
@@ -26,7 +24,7 @@ export default function RecipeCard({ recipe }: any) {
         <p className="mt-5">{recipe.description}</p>
       </div>
       <div className="card-actions justify-center p-5">
-        <Link href={`/recipes/${recipe._id}`}>
+        <Link href={`/recipes/${recipe.slug}`}>
           <span className="flex gap-2 justify-center items-center text-orange font-bold">
             Read more
             <FaArrowRightLong />

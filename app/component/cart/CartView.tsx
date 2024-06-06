@@ -41,20 +41,20 @@ export default function CartView() {
           />
         </div>
       ) : (
-        <div className="flex gap-10 items-center">
-          <div className="w-1/2 md:pl-[10rem]">
+        <div className="flex justify-evenly">
+          <div className="">
             <SpiceTitle title={`Spices in cart (${cartCount})`} />
             {cartItems.map((item: any) => (
               <div
                 key={item.product._id}
-                className="flex flex-col pb-3 items-center"
+                className="flex justify-between flex-col pb-3 items-center"
               >
                 <CartItemView item={item} />
               </div>
             ))}
           </div>
-          <div className="w-1/2 pl-[10rem]">
-            <ServiceCard className="w-[20rem]">
+          <div className="pt-[3rem]">
+            <ServiceCard className="">
               <div className="p-5">
               <SpiceTitle title="CART SUMMARY" />
 
@@ -66,7 +66,7 @@ export default function CartView() {
                   <p>Amount</p>
                   <SpiceTitle title={`₦00.00`} />
                 </div>
-                <hr />
+                <hr className="px-5" />
                 <div className="flex justify-between items-center">
                   <p>Total Amount</p>
                   <SpiceTitle title={`₦${cartTotal.toFixed(2)}`} />

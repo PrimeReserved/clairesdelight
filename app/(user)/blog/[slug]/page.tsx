@@ -1,7 +1,7 @@
 import Loading from "@/app/loading";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, Suspense } from "react";
+import { Suspense } from "react";
 
 const getPost = async (slug: any) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BLOG_API_ROUTE}/${slug}`);
