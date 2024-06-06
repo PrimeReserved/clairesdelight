@@ -1,86 +1,118 @@
-"use client"
+"use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { CartItem, Product } from "@/typings";
-import CartContext from "./CartContext"
+import CartContext from "./CartContext";
 
 interface CartContextValue {
-    cartItems: CartItem[];
-    addToCart: (product: Product) => void;
-    removeFromCart: (productId: string) => void;
-    updateCartItemQuantity: (productId: string, quantity: number) => void;
-    cartTotal: number;
-    cartCount: number;
+  cartItems: CartItem[];
+  addToCart: (product: Product) => void;
+  removeFromCart: (productId: string) => void;
+  updateCartItemQuantity: (productId: string, quantity: number) => void;
+  cartTotal: number;
+  cartCount: number;
 }
 
 interface Props {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 export const CartProvider = ({ children }: Props) => {
-    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-    const addToCart = useCallback((product: Product) => {
-        const existingCartItemIndex = cartItems.findIndex(
-            (item) => item.product._id === product._id
-        );
-        if (existingCartItemIndex !== -1) {
-            const existingCartItem = cartItems[existingCartItemIndex];
-            const updatedCartItem = {
-                ...existingCartItem,
-                quantity: existingCartItem.quantity + 1,
-            };
-            const updatedCartItems = [...cartItems];
-            updatedCartItems[existingCartItemIndex] = updatedCartItem;
-            setCartItems(updatedCartItems);
-        } else {
-            setCartItems([...cartItems, { product, quantity: 1 }]);
-        }
-    }, [cartItems]);
+  useEffect(() => {
+    const storedCartItems = localStorage.getItem('cartItems');
+    if (storedCartItems) {
+      setCartItems(JSON.parse(storedCartItems));
+    }
+  }, []);
 
-    const removeFromCart = useCallback((productId: string) => {
-        const updatedCartItems = cartItems.filter(
-            (item) => item.product._id !== productId
-        );
-        setCartItems(updatedCartItems);
-    }, [cartItems]);
+  const updateLocalStorage = (items: CartItem[]) => {
+    localStorage.setItem('cartItems', JSON.stringify(items));
+  };
 
-    const updateCartItemQuantity = useCallback((productId: string, quantity: number) => {
-        const existingCartItemIndex = cartItems.findIndex(
-            (item) => item.product._id === productId
-        );
-        if (existingCartItemIndex !== -1) {
-            const existingCartItem = cartItems[existingCartItemIndex];
-            const updatedCartItem = {
-                ...existingCartItem,
-                quantity,
-            };
-            const updatedCartItems = [...cartItems];
-            updatedCartItems[existingCartItemIndex] = updatedCartItem;
-            setCartItems(updatedCartItems);
-        }
-    }, [cartItems]);
+  const addToCart = useCallback((product: Product) => {
+    setCartItems((prevItems) => {
+      const existingCartItemIndex = prevItems.findIndex(
+        (item) => item.product._id === product._id
+      );
 
-    const cartTotal = useMemo(() => cartItems.reduce(
+      let updatedCartItems;
+
+      if (existingCartItemIndex !== -1) {
+        updatedCartItems = [...prevItems];
+        updatedCartItems[existingCartItemIndex] = {
+          ...updatedCartItems[existingCartItemIndex],
+          quantity: updatedCartItems[existingCartItemIndex].quantity + 1,
+        };
+      } else {
+        updatedCartItems = [...prevItems, { product, quantity: 1 }];
+      }
+
+      updateLocalStorage(updatedCartItems);
+      return updatedCartItems;
+    });
+  }, []);
+
+  const removeFromCart = useCallback((productId: string) => {
+    setCartItems((prevItems) => {
+      const updatedCartItems = prevItems.filter(
+        (item) => item.product._id !== productId
+      );
+      updateLocalStorage(updatedCartItems);
+      return updatedCartItems;
+    });
+  }, []);
+
+  const updateCartItemQuantity = useCallback((productId: string, quantity: number) => {
+    setCartItems((prevItems) => {
+      const existingCartItemIndex = prevItems.findIndex(
+        (item) => item.product._id === productId
+      );
+
+      if (existingCartItemIndex !== -1) {
+        const updatedCartItems = [...prevItems];
+        updatedCartItems[existingCartItemIndex] = {
+          ...updatedCartItems[existingCartItemIndex],
+          quantity,
+        };
+        updateLocalStorage(updatedCartItems);
+        return updatedCartItems;
+      }
+
+      return prevItems;
+    });
+  }, []);
+
+  const cartTotal = useMemo(
+    () =>
+      cartItems.reduce(
         (total, item) => total + item.product.price * item.quantity,
         0
-    ), [cartItems]);
+      ),
+    [cartItems]
+  );
 
-    const cartCount = useMemo(() => cartItems.reduce((count, item) => count + item.quantity, 0), [cartItems]);
+  const cartCount = useMemo(
+    () => cartItems.reduce((count, item) => count + item.quantity, 0),
+    [cartItems]
+  );
 
-    const values: CartContextValue = useMemo(() => ({
-        cartItems,
-        addToCart,
-        removeFromCart,
-        updateCartItemQuantity,
-        cartTotal,
-        cartCount
-    }), [cartItems, addToCart, removeFromCart, updateCartItemQuantity, cartTotal, cartCount]);
-    return (
-        <CartContext.Provider
-            value={values}
-        >
-            {children}
-        </CartContext.Provider>
-    );
+  const values: CartContextValue = useMemo(
+    () => ({
+      cartItems,
+      addToCart,
+      removeFromCart,
+      updateCartItemQuantity,
+      cartTotal,
+      cartCount,
+    }),
+    [cartItems, addToCart, removeFromCart, updateCartItemQuantity, cartTotal, cartCount]
+  );
+
+  return (
+    <CartContext.Provider value={values}>
+      {children}
+    </CartContext.Provider>
+  );
 };
