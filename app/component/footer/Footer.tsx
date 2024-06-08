@@ -16,7 +16,7 @@ export default function Footer() {
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         style={{
-          backgroundColor: hover ? "lightGreen" : "white",
+          backgroundColor: hover ? "bg-lightGreen" : "white",
         }}
       >
         <div className="grid lg:grid-cols-4  justify-between xl:space-x-[10rem] lg:space-x-[5rem] md:space-x-[4rem] ">

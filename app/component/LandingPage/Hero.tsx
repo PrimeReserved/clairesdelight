@@ -1,29 +1,85 @@
-import React from "react";
+"use client"
+
+import { firstBanner, secondBanner, thirdBanner } from "@/public/image/cdn/cdn";
+import { useState, useEffect } from "react";
+import { FaRegCircle } from "react-icons/fa";
+
+const slides = [
+  {
+    backgroundImage: `url(${firstBanner})`,
+    title: "Welcome To Claire's Delight, Where Every Spice Tells a Story!!!",
+    description: "Explore flavors that bring cultures to your kitchen, one pinch at a time and get ready to taste the world as our spices share their unique stories with every dish you create.",
+    buttonText: "Shop Spice",
+  },
+  {
+    backgroundImage: `url(${secondBanner})`,
+    title: "Experience the Enchanting Stories Behind Every Spice At Claire's Delight !!!",
+    description: "Let your culinary adventures begin as you explore flavors that transport cultures to your kitchen, one pinch at a time. Get ready to savor the world's essence through our spices.",
+    buttonText: "Shop Spice",
+  },
+  {
+    backgroundImage: `url(${thirdBanner})`,
+    title: "Step Into Claire's Delight, Where Each Spice Narrates its Own Unique Tale !!!",
+    description: "Prepare to unlock the unique stories behind our spices, enriching every dish you create with global inspiration. Dive into a world of diverse flavors that bring global cultures to your kitchen.",
+    buttonText: "Shop Spice",
+  },
+];
+
 
 function Hero() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+    }, 10000);
+
+    return ()=> clearInterval(interval);
+  }, []);
+
+  const handleNextSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+  };
+
+  const handlePrevSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide - 1 + slides.length) % slides.length);
+  }
   return (
     <div className="hero min-h-screen relative">
       <div
-        className="absolute w-full h-full"
+        className="absolute w-full h-full transition-opacity duration-1000 ease-in-out"
         style={{
-          backgroundImage: "url(/image/landing-page/Image.svg)",
+          backgroundImage: slides[currentSlide].backgroundImage,
+          backgroundSize: "cover",       // Ensures the background image covers the container
+          backgroundPosition: "center",
           filter: "brightness(0.5)",
+          transition: "background-image 1s ease-in-out",
         }}
       />
       <div className="hero-overlay bg-opacity-60"></div>
       <div className="hero-content text-center text-neutral-content">
         <div className="max-w-2xl text-white">
           <h1 className="mb-5 text-4xl font-semibold ">
-            Welcome To Claire&apos;s Delight, Where Every Spice Tells a Story!!!
+            {slides[currentSlide].title}
           </h1>
           <p className="mt-5 mb-[5rem] font-light ">
-            Explore flavors that bring cultures to your kitchen, one pinch at a
-            time and get ready to taste the world as our spices share their
-            unique stories with every dish you create.
+           {slides[currentSlide].description}
           </p>
           <button className="btn font-light bg-orange w-[150px] hover:bg-green border-none">
-            Shop Spice
+            {slides[currentSlide].buttonText}
           </button>
+          {/* carousel button  */}
+          <div className="pt-[7rem] flex justify-center">
+            {slides.map((_, index) => (
+              <button key={index} onClick={() => setCurrentSlide(index)} className="mx-1">
+                {currentSlide === index ? (
+                  <div className="w-10 h-6 rounded-xl bg-orange" />
+                ) : (
+                  <FaRegCircle className="w-8 h-6 text-orange" />
+                )}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>

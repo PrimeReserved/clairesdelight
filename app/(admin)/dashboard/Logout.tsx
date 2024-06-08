@@ -1,9 +1,13 @@
 "use client"
 
 import { useRouter } from 'next/navigation';
+import { RiLogoutCircleFill } from "react-icons/ri";
 
+interface LogoutButtonProps {
+  isCollapsed: boolean;
+}
 
-export default function Logout() {
+export default function Logout({ isCollapsed }: Readonly<LogoutButtonProps>) {
     const router = useRouter();
 
 
@@ -31,6 +35,9 @@ async function handleLogout() {
 }
 
     return (
-         <button onClick={handleLogout} className="btn btn-outline-primary">logout</button>
+         <button onClick={handleLogout} className='pt-10 flex gap-2 items-center'>
+          <RiLogoutCircleFill className="w-5 h-5"/>
+          {!isCollapsed && <span>Logout</span>}
+        </button>
     );
 }

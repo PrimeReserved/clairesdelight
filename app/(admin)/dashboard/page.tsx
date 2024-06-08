@@ -1,34 +1,49 @@
-import Logout from "./Logout";
+"use client";
 
-export const dynamic = 'force-dynamic';
+import AdminProductCard from "@/app/component/admin/card/AdminProductCard";
+import AdminRecipeCard from "@/app/component/admin/card/AdminRecipeCard";
+import AdminSaleCard from "@/app/component/admin/card/AdminSale";
+import Avatar from "@/app/component/admin/dashboard/Avatar";
+import TodayInfo from "@/app/component/admin/dashboard/TodayInfo";
+import SideMenu from "@/app/component/admin/navbar/SideMenu";
+import { useState } from "react";
 
-const getUsers = async () => {
-    const res = await fetch(`http://localhost:3000/api/users`);
-    if(!res.ok){
-        throw new Error("Error getting users api data")
-      }
-      return res.json();
-} 
 
-export default async function Page() {
+export default function Page() {
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
-    const users = await getUsers();
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
 
-    return (
-      <div>
+  return (
+    <div className="flex h-screen">
+      {/* Side Menu */}
+      <SideMenu isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
 
-        <h1 className="text-4xl">Dashboard</h1>
-        <div>
-            <h2>Existing Users</h2>
-            { users.map((user: any) => (
-                <div key={user._id}>
-                    <p>{user.username}</p>{" - "}
-                    <p>{user._id}</p>
-                </div>
-            ))}
+      {/* Main Content */}
+      <div className={`flex-1 transition-all duration-300 ${isCollapsed ? 'ml-20' : 'ml-64'}`}>
+        <div className="bg-white shadow rounded flex justify-between p-4">
+          <h1 className="text-3xl font-bold">Dashboard</h1>
+          <Avatar />
         </div>
-<Logout />
-        
+        <TodayInfo />
+        <div className="md:flex md:justify-center md:items-center gap-5">
+          <AdminSaleCard />
+          <AdminProductCard />
+          <AdminRecipeCard />
+        </div>
+        {/* <div className="md:flex md:justify-center md:items-center gap-5">
+          <AdminSaleCard />
+          <AdminProductCard />
+          <AdminRecipeCard />
+        </div>
+        <div className="md:flex md:justify-center md:items-center gap-5">
+          <AdminSaleCard />
+          <AdminProductCard />
+          <AdminRecipeCard />
+        </div> */}
       </div>
-    )
-  }
+    </div>
+  );
+}
