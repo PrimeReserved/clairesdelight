@@ -29,7 +29,6 @@ export default function Page() {
           setTotalPages(Math.ceil(recipesData.length / ITEMS_PER_PAGE));
         }
       } catch (error) {
-        console.log(`Error fetching recipes...${error}`);
         console.error(`Error fetching recipes: ${error}`);
       } finally {
         Loading.remove();
@@ -64,9 +63,9 @@ export default function Page() {
          subtitle={`Find delicious recipes for every occasion with complete easy-to-follow
          instructions and helpful tips to elevate your home cooking experience`}
        />
-    
-        <div className="flex justify-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 justify-items-center items-center">
+      <BodyWrapper>
+        <div className="flex justify-center items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4 xl:grid-cols-2">
             {getPaginatedRecipes().map((recipe: Recipe) => (
               <Suspense key={recipe._id}>
                 <RecipeCard recipe={recipe} />
@@ -75,13 +74,15 @@ export default function Page() {
           </div>
         </div>
 
+        <div className="pt-5">
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           onNextPage={handleNextPage}
           onPreviousPage={handlePreviousPage}
         />
-    
+        </div>
+      </BodyWrapper>
     </>
   );
 }

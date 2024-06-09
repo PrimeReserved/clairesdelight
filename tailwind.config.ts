@@ -33,6 +33,7 @@ const config: Config = {
         // => @media (min-width: 1400px) { ... }
       },
       colors: {
+        lightOrange: '#FCECCC',
         orange: "#F59300",
         green: "#73BF0A",
         red: "#CF0000",

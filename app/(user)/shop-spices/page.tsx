@@ -15,9 +15,14 @@ import { IoSearch } from "react-icons/io5";
 import Pagination from "@/app/component/pagination/Pagination";
 import { spiceBanner } from "@/public/image/cdn/cdn";
 import SpiceCard from "@/app/component/Spice/SpiceCard";
+import { Product } from "@/typings";
+
+const ITEMS_PER_PAGE = 2;
 
 export default function Page() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -26,7 +31,10 @@ export default function Page() {
 
       try {
         const data = await getProduct();
-        setProducts(data);
+        if(Array.isArray(data) && data.length > 0) {
+          setProducts(data);
+          setTotalPages(Math.ceil(data.length / ITEMS_PER_PAGE));
+        }
       } catch (error) {
         console.error("Error fetching products: ", error);
       } finally {
@@ -37,7 +45,20 @@ export default function Page() {
     fetchProducts();
   }, []);
 
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
   const memoizedProducts = useMemo(() => products, [products]);
+
+  const getPaginatedProducts = () => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    return memoizedProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  };
 
   if (!Array.isArray(products) || products.length === 0) {
     return <p>No Spice available</p>;
@@ -87,7 +108,7 @@ export default function Page() {
                   </p>
                 </div>
                 <div className="flex flex-row items-center p-2 gap-2">
-                <MdCheckBoxOutlineBlank className="w-8 h-8" />
+                  <MdCheckBoxOutlineBlank className="w-8 h-8" />
                   <p>
                     Best Selling <span>(8)</span>
                   </p>
@@ -101,7 +122,7 @@ export default function Page() {
                 <div className="flex flex-row items-center p-2 gap-2">
                   <MdCheckBoxOutlineBlank className="w-8 h-8" />
                   <p>
-                  Alphabetically, Z - A <span>(12)</span>
+                    Alphabetically, Z - A <span>(12)</span>
                   </p>
                 </div>
                 <div className="flex flex-row items-center p-2 gap-2">
@@ -121,39 +142,38 @@ export default function Page() {
             </div>
 
             <div className="py-5">
-            <ServiceCard className="w-[20rem] py-3 px-1 rounded-xl">
-              <SpiceTitle className="px-3" title={`Price`} />
-              <div className="flex flex-row items-center p-2 gap-2">
-                <IoMdCheckboxOutline className="w-8 h-8 text-orange" />
-                <p>
-                  All <span>(12)</span>
-                </p>
-              </div>
+              <ServiceCard className="w-[20rem] py-3 px-1 rounded-xl">
+                <SpiceTitle className="px-3" title={`Price`} />
+                <div className="flex flex-row items-center p-2 gap-2">
+                  <IoMdCheckboxOutline className="w-8 h-8 text-orange" />
+                  <p>
+                    All <span>(12)</span>
+                  </p>
+                </div>
 
-              <div className="flex flex-row items-center p-2 gap-2">
-                <MdCheckBoxOutlineBlank className="w-8 h-8" />
-                <p>
-                  Low to High<span>(8)</span>
-                </p>
-              </div>
-              <div className="flex flex-row items-center p-2 gap-2">
-                <MdCheckBoxOutlineBlank className="w-8 h-8" />
-                <p>
-                  High to Low<span>(12)</span>
-                </p>
-              </div>
-            </ServiceCard>
+                <div className="flex flex-row items-center p-2 gap-2">
+                  <MdCheckBoxOutlineBlank className="w-8 h-8" />
+                  <p>
+                    Low to High<span>(8)</span>
+                  </p>
+                </div>
+                <div className="flex flex-row items-center p-2 gap-2">
+                  <MdCheckBoxOutlineBlank className="w-8 h-8" />
+                  <p>
+                    High to Low<span>(12)</span>
+                  </p>
+                </div>
+              </ServiceCard>
             </div>
-            
           </div>
-          <div className="p-10">
+          <div className="pt-10 px-10">
             <div className="flex justify-between">
               <SpiceTitle title={`All Spice (${12})`} />
               <IoSearch className="w-10 h-10 pt-2" />
             </div>
             <div className="flex justify-center items-center mt-5 mb-16">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10">
-                {memoizedProducts.map((product: any) => (
+                {getPaginatedProducts().map((product: Product) => (
                   <Suspense key={product._id}>
                     <SpiceCard product={product} />
                   </Suspense>
@@ -162,16 +182,13 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <Pagination
-          currentPage={0}
-          totalPages={0}
-          onNextPage={function (): void {
-            throw new Error("Function not implemented.");
-          }}
-          onPreviousPage={function (): void {
-            throw new Error("Function not implemented.");
-          }}
-        />
+        {/* Pagination  */}
+       <Pagination
+        currentPage={currentPage} 
+        totalPages={totalPages} 
+        onNextPage={handleNextPage} 
+        onPreviousPage={handlePreviousPage} />
+        
       </BodyWrapper>
     </>
   );

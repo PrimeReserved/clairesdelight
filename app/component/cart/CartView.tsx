@@ -89,7 +89,7 @@ export default function CartView() {
                       minimumFractionDigits: 2,
                     }).format(cartTotal)})`}
                     onClick={() =>
-                      router.push(`https://paystack.com/pay/property`)
+                      router.push(`https://paystack.com/pay/cart-checkout`)
                     }
                   />
                 </div>
@@ -101,3 +101,6 @@ export default function CartView() {
     </BodyWrapper>
   );
 }
+
+
+// http://localhost:3000/shop-spices?reference=T096364820155057

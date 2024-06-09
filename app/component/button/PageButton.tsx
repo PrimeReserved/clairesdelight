@@ -8,11 +8,11 @@ interface PageButtonProps {
 
 function PageButton({ onNext, onPrev }: Readonly<PageButtonProps>) {
   return (
-    <div className="flex gap-10 justify-center mt-5">
-      <button className="w-[30px] h-[30px] rounded-full bg-orange flex justify-center items-center"
+    <div className="flex gap-5 justify-center mt-5">
+      <button className="w-[30px] h-[30px] rounded-full bg-lightOrange flex justify-center items-center"
       onClick={onPrev}
       >
-        <FaArrowLeft className=" text-white " />
+        <FaArrowLeft className=" text-orange " />
       </button>
       <button className="w-[30px] h-[30px] rounded-full bg-orange flex justify-center items-center"
       onClick={onNext}

@@ -1,28 +1,29 @@
+import PageButton from "@/app/component/button/PageButton";
+
 interface PaginationProps {
     currentPage: number;
     totalPages: number;
     onNextPage: () => void;
     onPreviousPage: () => void;
-  }  
+  } 
 
 
-export default function Pagination({ currentPage, totalPages, onNextPage, onPreviousPage }: Readonly<PaginationProps>) {
+export default function Pagination({ currentPage, totalPages, onNextPage, onPreviousPage}: PaginationProps) {
+
     return (
-      <div className="flex justify-center space-x-4 mt-4">
-        <button
-          onClick={onPreviousPage}
-          disabled={currentPage === 1}
-          className={`px-4 py-2 border ${currentPage === 1 ? 'bg-gray-300 text-gray-700 cursor-not-allowed' : 'bg-white text-blue-500'}`}
-        >
-          Previous
-        </button>
-        <button
-          onClick={onNextPage}
-          disabled={currentPage === totalPages}
-          className={`px-4 py-2 border ${currentPage === totalPages ? 'bg-gray-300 text-gray-700 cursor-not-allowed' : 'bg-white text-blue-500'}`}
-        >
-          Next
-        </button>
+        <div className="flex justify-between items-center px-[4rem] ">
+        <div className="flex items-center space-x-2">
+          <p>Page</p>
+          <div style={{ borderRadius: '50%'}} className="w-10 h-10 border border-teritaryGrey flex items-center justify-center">
+            {currentPage}
+          </div>
+          <p>{`of ${totalPages}`}</p>
+        </div>
+
+        <PageButton
+          onNext={onNextPage}
+          onPrev={onPreviousPage}
+        />
       </div>
     );
-  }
+}
