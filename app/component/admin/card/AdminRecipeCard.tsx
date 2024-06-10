@@ -1,10 +1,10 @@
 import { VscLayoutMenubar } from "react-icons/vsc";
-import { getRecipes } from "@/lib/data";
+import { Recipe } from "@/typings";
 
-export default async function AdminRecipeCard() {
-
-    const recipes = await getRecipes();
-
+export default function AdminRecipeCard({ recipes }: Readonly<{ recipes: Recipe[] }>) {
+  if (!Array.isArray(recipes) || recipes.length === 0) {
+    return <div>No recipes available</div>;
+  }
     
   return (
     <div className="card mt-10 border-2 w-72 h-[10rem] p-5">

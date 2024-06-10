@@ -8,16 +8,26 @@ import jwt from 'jsonwebtoken'
 import { NextRequest } from "next/server"
 
 
-export const getProduct = async() => {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_PRODUCT_API_ROUTE}`, { next: { revalidate: 30 }});
-      if (!res.ok) throw new Error(`Error fetching products.`)
-      const data = await res.json();
-      return data;
-    } catch(error){
-      console.log(`Error getting product data: ${error}`);
+export const getProduct = async () => {
+  try {
+    const apiUrl = process.env.NEXT_PUBLIC_PRODUCT_API_ROUTE;
+    if (!apiUrl) {
+      throw new Error('API route is not defined in environment variables');
     }
-  };
+
+    const res = await fetch(apiUrl, { next: { revalidate: 30 } });
+    if (!res.ok) {
+      throw new Error(`Error fetching products: ${res.status} ${res.statusText}`);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error: any) {
+    console.error(`Error getting product data: ${error.message}`);
+    return [];
+  }
+};
+
 
 export const getSpice = async (slug: string) => {
     try {
@@ -40,11 +50,11 @@ export const getSpice = async (slug: string) => {
   export const getPosts = async() => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BLOG_API_ROUTE}`, { next: { revalidate: 30 }});
-      if (!res.ok) throw new Error(`Error fetching products.`)
+      if (!res.ok) throw new Error(`Error fetching posts from blog api.`)
       const data = await res.json();
       return data;
     } catch(error){
-      console.log(`Error getting product data: ${error}`);
+      console.log(`GetPost() could not get blog data: ${error}`);
     }
   };
 

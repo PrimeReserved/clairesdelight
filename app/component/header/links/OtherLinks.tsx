@@ -9,9 +9,10 @@ import clsx from "clsx";
 interface OtherLinksProps {
   hover: boolean;
   navbarColor: string;
+  cartColor: string;
 }
 
-const OtherLinks: React.FC<OtherLinksProps> = ({ hover, navbarColor }) => {
+const OtherLinks: React.FC<OtherLinksProps> = ({ hover, navbarColor, cartColor }) => {
   const [showSideNavbar, setShowSideNavbar] = useState(false);
   const { cartCount } = useCart();
 
@@ -33,12 +34,13 @@ const OtherLinks: React.FC<OtherLinksProps> = ({ hover, navbarColor }) => {
           {cartCount > 0 && (
             <div
               className={clsx(
-                hover ? "bg-red" : "bg-orange",
+                cartColor,
+                hover ? "bg-red" : "bg-lightGreen",
                 navbarColor ? "bg-lightGreen" : "bg-#FF0000",
                 "text-[8px] text-white flex justify-center rounded-full absolute top-0 right-0 h-3 w-3"
               )}
             >
-              {cartCount}
+              <p className="font-bold">{cartCount}</p>
             </div>
           )}
         </div>

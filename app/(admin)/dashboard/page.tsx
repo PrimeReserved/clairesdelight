@@ -6,11 +6,42 @@ import AdminSaleCard from "@/app/component/admin/card/AdminSale";
 import Avatar from "@/app/component/admin/dashboard/Avatar";
 import TodayInfo from "@/app/component/admin/dashboard/TodayInfo";
 import SideMenu from "@/app/component/admin/navbar/SideMenu";
-import { useState } from "react";
+import { getProduct, getRecipes } from "@/lib/data";
+import { Product, Recipe } from "@/typings";
+import { useEffect, useState } from "react";
+
 
 
 export default function Page() {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [spices, setSpices] = useState<Product[]>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data: Recipe[] = await getRecipes();
+        setRecipes(data);
+      } catch (error) {
+        console.error('Error fetching recipes:', error);
+      }
+    }
+
+    fetchData();
+  }, [])
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const spices: Product[] = await getProduct();
+        setSpices(spices);
+      } catch (error) {
+        console.error('Error fetching recipes:', error);
+      }
+    }
+
+    fetchProducts();
+  }, [])
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
@@ -30,8 +61,8 @@ export default function Page() {
         <TodayInfo />
         <div className="md:flex md:justify-center md:items-center gap-5">
           <AdminSaleCard />
-          <AdminProductCard />
-          <AdminRecipeCard />
+          <AdminProductCard products={spices} />
+          <AdminRecipeCard recipes={recipes} />
         </div>
         {/* <div className="md:flex md:justify-center md:items-center gap-5">
           <AdminSaleCard />
