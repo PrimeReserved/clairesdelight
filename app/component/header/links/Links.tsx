@@ -45,7 +45,7 @@ export default function Links() {
             key={link.title}
             className={`${
               pathname === link.path
-                ? "text-orange"
+                ? "text-red font-bold"
                 : "text-black hover:text-orange"
             }`}
           >
