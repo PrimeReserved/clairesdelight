@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { CartItem } from "@/typings";
-import { useCart } from "@/context/CartContext";
 import { MdOutlineAdd } from "react-icons/md";
 import { AiOutlineMinus } from "react-icons/ai";
 import { RiDeleteBinLine } from "react-icons/ri";
 import Subtitle from "../typography/Subtitle";
 import ServiceCard from "../LandingPage/our-service/ServiceCard";
-import SpiceTitle from "../Spice/SpiceTitle";
+import { useDispatch } from "react-redux";
+import { removeFromCartLocal, updateCartItemQuantityLocal } from "@/features/carts/cartsSlice";
 import { IoIosStar } from "react-icons/io";
 import Button from "../button/Button";
 import { Suspense } from "react";
@@ -14,20 +14,22 @@ import Loading from "@/app/loading";
 
 interface Props {
   item: CartItem;
+  onRemove: () => void;
+  onUpdateQuantity: (quantity: number) => void;
 }
 
 export default function CartItemView({ item }: Readonly<Props>) {
-  const { removeFromCart, updateCartItemQuantity } = useCart();
+  const dispatch = useDispatch();
 
   const handleQuantityChange = (qty: number) => {
     const quantity = Number(qty);
     if (quantity >= 1) {
-      updateCartItemQuantity(item.product._id, quantity);
+      dispatch(updateCartItemQuantityLocal({ productId: item.product._id, quantity }));
     }
   };
 
   const handleRemoveClick = () => {
-    removeFromCart(item.product._id);
+    dispatch(removeFromCartLocal(item.product._id));
   };
 
   return (

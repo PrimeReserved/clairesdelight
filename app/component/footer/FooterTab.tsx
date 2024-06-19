@@ -9,7 +9,7 @@ export default function FooterTab() {
   const [hover, setHover] = useState(false);
 
   return (
-    <div className="flex lg:hidden">
+    <footer className="flex lg:hidden">
       <div
         className=" pt-[4rem] pb-[2rem] px-[4rem] bg-white   "
         onMouseEnter={() => setHover(true)}
@@ -24,8 +24,8 @@ export default function FooterTab() {
           <WebsiteLinks />
         </div>
         <hr className="mt-10 border-[#F2F5FF]"/>
-        <p className="mt-10 flex justify-center text-sm">© 2024 Claire’sDelight. All Rights Reserved. </p>
+        <p className="mt-10 flex justify-center text-sm">© {new Date().getFullYear()} Claire’sDelight. All Rights Reserved. </p>
       </div>
-    </div>
+    </footer>
   );
 }

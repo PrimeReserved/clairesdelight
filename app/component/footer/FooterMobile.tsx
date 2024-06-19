@@ -29,7 +29,7 @@ export default function FooterMobile() {
         </div>
         <hr className="mt-10 border-[#F2F5FF]" />
         <p className="mt-10 flex justify-center text-sm">
-          © 2024 Claire’sDelight. All Rights Reserved.{" "}
+          © {new Date().getFullYear()} Claire’sDelight. All Rights Reserved.{" "}
         </p>
       </div>
     </div>

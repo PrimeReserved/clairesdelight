@@ -169,3 +169,23 @@ export const logout = async() => {
     console.log(`Error getting product data: ${error}`);
   }
 };
+
+export const getEvents = async () => {
+  try {
+    const apiUrl = process.env.NEXT_PUBLIC_PRODUCT_API_ROUTE;
+    if (!apiUrl) {
+      throw new Error('API route is not defined in environment variables');
+    }
+
+    const res = await fetch(apiUrl, { next: { revalidate: 30 } });
+    if (!res.ok) {
+      throw new Error(`Error fetching products: ${res.status} ${res.statusText}`);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error: any) {
+    console.error(`Error getting product data: ${error.message}`);
+    return [];
+  }
+};

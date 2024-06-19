@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useCart } from "@/context/CartContext";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@/store';
+import { removeFromCartLocal, updateCartItemQuantityLocal } from '@/features/carts/cartsSlice';
 import CartItemView from "./CartItem";
-import Title from "../typography/Title";
 import { useRouter } from "next/navigation";
 import Subtitle from "../typography/Subtitle";
 import Button from "../button/Button";
@@ -12,10 +13,21 @@ import SpiceTitle from "../Spice/SpiceTitle";
 import { cartImage } from "@/public/image/cdn/cdn";
 import Link from "next/link";
 import BodyWrapper from "../layout/BodyWrapper";
+import { CartItem } from "@/typings";
 
 export default function CartView() {
-  const { cartCount, cartItems, cartTotal } = useCart();
+  const dispatch = useDispatch();
+  const { cartItems, cartTotal, cartCount } = useSelector((state: RootState) => state.carts);
   const router = useRouter();
+
+
+  const handleRemoveFromCart = (productId: string) => {
+    dispatch(removeFromCartLocal(productId));
+  };
+
+  const handleUpdateCartItemQuantity = (productId: string, quantity: number) => {
+    dispatch(updateCartItemQuantityLocal({ productId, quantity }));
+  };
 
   return (
     <BodyWrapper>
@@ -31,9 +43,8 @@ export default function CartView() {
       {cartItems.length === 0 ? (
         <div className="flex flex-col justify-center items-center gap-5 h-[30rem]">
           <Image src={cartImage} alt="carting" width={300} height={200} />
-          <Subtitle title="Empty Card" />
+          <Subtitle title="Empty Cart" />
           <p>Use the button below to shop for spices and add to your cart</p>
-
           <Button
             className="btn xl:px-10 lg:px-5 py-1 bg-orange border-none text-white font-normal lg:text-[12px] hover:bg-orange hidden md:flex"
             text="Shop spices"
@@ -42,22 +53,25 @@ export default function CartView() {
         </div>
       ) : (
         <div className="flex justify-evenly">
-          <div className="">
+          <div>
             <SpiceTitle title={`Spices in cart (${cartCount})`} />
-            {cartItems.map((item: any) => (
+            {cartItems.map((item: CartItem) => (
               <div
                 key={item.product._id}
                 className="flex justify-between flex-col pb-3 items-center"
               >
-                <CartItemView item={item} />
+                <CartItemView
+                  item={item}
+                  onRemove={() => handleRemoveFromCart(item.product._id)}
+                  onUpdateQuantity={(quantity: number) => handleUpdateCartItemQuantity(item.product._id, quantity)}
+                />
               </div>
             ))}
           </div>
           <div className="pt-[3rem]">
-            <ServiceCard className="">
+            <ServiceCard>
               <div className="p-5">
                 <SpiceTitle title="CART SUMMARY" />
-
                 <div className="flex justify-between items-center">
                   <p>Amount</p>
                   <SpiceTitle
@@ -68,7 +82,7 @@ export default function CartView() {
                   />
                 </div>
                 <div className="flex justify-between items-center">
-                  <p>Amount</p>
+                  <p>Discount</p>
                   <SpiceTitle title={`₦00.00`} />
                 </div>
                 <hr className="px-5" />
@@ -88,9 +102,7 @@ export default function CartView() {
                       style: "decimal",
                       minimumFractionDigits: 2,
                     }).format(cartTotal)})`}
-                    onClick={() =>
-                      router.push(`https://paystack.com/pay/cart-checkout`)
-                    }
+                    onClick={() => router.push(`https://paystack.com/pay/cart-checkout`)}
                   />
                 </div>
               </div>
@@ -101,6 +113,3 @@ export default function CartView() {
     </BodyWrapper>
   );
 }
-
-
-// http://localhost:3000/shop-spices?reference=T096364820155057

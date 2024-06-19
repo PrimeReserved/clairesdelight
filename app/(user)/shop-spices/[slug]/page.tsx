@@ -3,12 +3,12 @@ import { Fragment, Suspense } from "react";
 import Image from "next/image";
 import BodyWrapper from "@/app/component/layout/BodyWrapper";
 import Link from "next/link";
-import Title from "@/app/component/typography/Title";
-import Paragraph from "@/app/component/typography/Paragraph";
-import Button from "@/app/component/button/Button";
 import { getSpice } from "@/lib/data";
 import SpiceDetailCard from "@/app/component/Spice/SpiceDetailCard";
-
+import Navbar from "@/app/component/header/navbar/Navbar";
+import Footer from "@/app/component/footer/Footer";
+import FooterMobile from "@/app/component/footer/FooterMobile";
+import FooterTab from "@/app/component/footer/FooterTab";
 
 
 export const generateMetadata = async ({
@@ -61,19 +61,25 @@ export default async function Page({
   }
 
   return (
-    <BodyWrapper>
-      <div className="text-sm breadcrumbs">
-        <ul>
-          <li>
-            <Link href="/shop-spices">Shop Spices</Link>
-          </li>
-          <li>All Spices</li>
-          <li>{spice.name}</li>
-        </ul>
-      </div>
-      <div className="flex justify-center">
-        <SpiceDetailCard item={spice} />
-      </div>
-    </BodyWrapper>
+    <>
+        <Navbar />
+      <BodyWrapper>
+        <div className="text-sm breadcrumbs">
+          <ul>
+            <li>
+              <Link href="/shop-spices">Shop Spices</Link>
+            </li>
+            <li>All Spices</li>
+            <li>{spice.name}</li>
+          </ul>
+        </div>
+        <div className="flex justify-center">
+          <SpiceDetailCard item={spice} />
+        </div>
+      </BodyWrapper>
+      <Footer />
+      <FooterMobile />
+      <FooterTab />
+    </>
   );
 }

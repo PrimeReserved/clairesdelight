@@ -4,9 +4,16 @@
  *
  **/
 
-// types/Product.ts
-export interface Product {
+type Base = {
+  _createAt: string;
   _id: string;
+  _rev: string;
+  _type: string;
+  _updateAt: string
+}
+
+// types/Product.ts
+export interface Product extends Base {
   name: string;
   slug: string;
   description: string;
@@ -20,8 +27,7 @@ export interface Product {
 }
 
 // types/Recipe.ts
-export interface Recipe {
-  _id: string;
+export interface Recipe extends Base {
   image: string;
   slug: string;
   title: string;
@@ -31,7 +37,7 @@ export interface Recipe {
 }
 
 // types/User.ts
-export interface Address {
+export interface Address extends Base {
   name: string;
   address: string;
   city: string;
@@ -40,8 +46,7 @@ export interface Address {
   country: string;
 }
 
-export interface User {
-  _id: string;
+export interface User extends Base {
   email: string;
   password: string;
   role: "admin" | "user";
@@ -50,14 +55,13 @@ export interface User {
 }
 
 // types/Order.ts
-export interface OrderItem {
+export interface OrderItem extends Base {
   product: string; // Product ID
   quantity: number;
   price: number;
 }
 
-export interface Order {
-  _id: string;
+export interface Order extends Base {
   user: string; // User ID
   items: OrderItem[];
   totalAmount: number;
@@ -71,8 +75,7 @@ export interface Order {
 }
 
 // types/BlogPost.ts
-export interface BlogPost {
-  _id: string;
+export interface BlogPost extends Base {
   title: string;
   author: string;
   content: string;
@@ -86,4 +89,18 @@ export interface BlogPost {
 export interface CartItem {
   product: Product;
   quantity: number;
+}
+
+// types/UpcomingEvents.ts
+export interface UpcomingEvent extends Base {
+  slug?: string;
+  name: string;
+  summary: string;
+  description: string;
+  date: string;
+  start: string;
+  end: string;
+  thumbnail: Image;
+  livestreamURL: string;
+  body: BlockContent;
 }

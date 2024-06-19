@@ -7,12 +7,16 @@ import { AiOutlineMinus } from "react-icons/ai";
 import { IoIosStar } from "react-icons/io";
 import { MdOutlineAdd } from "react-icons/md";
 import Subtitle from "../typography/Subtitle";
-import { useCart } from "@/context/CartContext";
 import { useRouter } from "next/navigation";
 import BodyWrapper from "../layout/BodyWrapper";
+import { Product } from "@/typings";
+import { removeFromCart, updateCartItemQuantityLocal } from "@/features/carts/cartsSlice";
+import { RootState } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function SpiceDetailCard({ item }: any) {
-  const { removeFromCart, updateCartItemQuantity } = useCart();
+  const dispatch = useDispatch();
+  const { cartItems, cartTotal, cartCount } = useSelector((state: RootState) => state.carts);
   const router = useRouter();
 
   console.log(`spice detail: ${item}`);
@@ -20,7 +24,7 @@ export default function SpiceDetailCard({ item }: any) {
   const handleQuantityChange = (qty: number) => {
     const quantity = Number(qty);
     if (quantity >= 1) {
-      updateCartItemQuantity(item._id, quantity);
+      updateCartItemQuantityLocal(item._id);
     }
   };
 

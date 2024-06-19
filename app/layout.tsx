@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/app/component/header/navbar/Navbar";
-import Footer from "@/app/component/footer/Footer";
-import FooterMobile from "./component/footer/FooterMobile";
-import FooterTab from "./component/footer/FooterTab";
-import { CartProvider } from "@/context/CartProvider";
+import Providers from "@/context/Providers";
+
 import { GoogleAnalytics } from '@next/third-parties/google'
-import logo from "@/public/image/Logo.svg"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +14,23 @@ export const metadata: Metadata = {
   },
   openGraph: {
     description: "Claire's Delight Spices",
-    images: [logo]
+    url: 'https://clairesdelight.com/',
+    siteName: 'clairesdelight.com',
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dzd51q99i/image/upload/v1716690156/houvincity/services/HCL_Logo_1_k5l61c.png',
+        width: 40,
+        height: 40,
+      },
+      {
+        url: 'https://res.cloudinary.com/dzd51q99i/image/upload/v1716690096/houvincity/landing-page/Union_chih6l.png',
+        width: 40,
+        height: 40,
+        alt: 'Houvincity Real Estate',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
   },
   keywords:["Claire's Delight Spices", "Clairesdelight", "Claire's delight", "Clairesdelight Shop spices", "Clairesdelight blog", "Clairesdelight spice recipes"],
   description: "Spice up your life",
@@ -33,15 +45,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="px-0">
-          <CartProvider>
-            <Navbar />
-            <div className="mt-[6rem] ">{children}</div>
-            <Footer />
-            <FooterMobile />
-            <FooterTab />
-          </CartProvider>
-        </div>
+        <Providers>
+          <div className="mt-[6rem]">{children}</div>
+        </Providers>
       </body>
       <GoogleAnalytics gaId={`${process.env.GOOGLE_ANALYTICS}`} />
     </html>

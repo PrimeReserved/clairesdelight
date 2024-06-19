@@ -6,12 +6,17 @@ import Button from "@/app/component/button/Button";
 import ContactCard from "@/app/component/contact/ContactCard";
 import { contactInfo } from "@/app/component/contact/contactInfo";
 import { contactBanner } from "@/public/image/cdn/cdn";
+import Navbar from "@/app/component/header/navbar/Navbar";
+import Footer from "@/app/component/footer/Footer";
+import FooterMobile from "@/app/component/footer/FooterMobile";
+import FooterTab from "@/app/component/footer/FooterTab";
 
 
 export default function Page() {
 
   return (
     <div>
+      <Navbar />
       <Banner 
          image={contactBanner}
          title={`Contact Us`}
@@ -46,6 +51,9 @@ export default function Page() {
           </form>
         </div>
       </div>
+      <Footer />
+      <FooterMobile />
+      <FooterTab />
     </div>
   );
 }

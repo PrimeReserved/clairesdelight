@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image";
 import Link from "next/link";
 import dottedLine from "@/public/image/about-us/Dotted Lines.png";
@@ -8,10 +10,32 @@ import HeaderText from "@/app/component/typography/HeaderText";
 import Button from "@/app/component/button/Button";
 import Banner from "@/app/component/banner/Banner";
 import { aboutBanner, aboutImage } from "@/public/image/cdn/cdn";
+import Navbar from "@/app/component/header/navbar/Navbar";
+import Footer from "@/app/component/footer/Footer";
+import FooterMobile from "@/app/component/footer/FooterMobile";
+import FooterTab from "@/app/component/footer/FooterTab";
+import { RootState } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchTerm } from "@/features/products/productsSlice";
+import SearchProductResults from "@/app/component/Spice/SearchProductResult";
+
 
 export default function Page() {
+  const dispatch = useDispatch();
+  const { products, searchResults, searchTerm } = useSelector(
+    (state: RootState) => state.products
+  );
+
+  const handleSearch = (query: string) => {
+    dispatch(setSearchTerm(query));
+  };
+
   return (
-    <div>
+    <> <Navbar onSearch={handleSearch} products={products} />
+      {searchTerm ? (
+        <SearchProductResults results={searchResults} />
+      ) : (
+        <>
       <Banner
         image={aboutBanner}
         title={`About Us`}
@@ -38,8 +62,6 @@ export default function Page() {
           alt="Slide"
           width={600}
           height={500}
-          // className="w-[250px] h-[250px] md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px] xl:w-[600px] xl:h-[600px] mb-5"
-          // style={{ borderRadius: '40%' }}
         />
       </div>
       {/* Our Mission and Vision  */}
@@ -153,9 +175,14 @@ export default function Page() {
           </Link>
         </div>
       </div>
+      </>
+      )}
 
       {/* </div>
     </BodyWrapper> */}
-    </div>
+    <Footer />
+      <FooterMobile />
+      <FooterTab />
+    </>
   );
 }

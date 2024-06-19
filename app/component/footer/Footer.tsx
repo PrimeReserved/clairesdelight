@@ -10,7 +10,7 @@ export default function Footer() {
   const [hover, setHover] = useState(false);
 
   return (
-    <div className="hidden lg:block">
+    <footer className="hidden lg:block">
       <div
         className=" pt-[4rem] pb-[2rem] px-[4rem] bg-white   "
         onMouseEnter={() => setHover(true)}
@@ -26,8 +26,8 @@ export default function Footer() {
           <Location />
         </div>
         <hr className="mt-10 border-[#F2F5FF]"/>
-        <p className="mt-10 flex justify-center text-sm">© 2024 Claire’sDelight. All Rights Reserved. </p>
+        <p className="mt-10 flex justify-center text-sm">© {new Date().getFullYear()} Claire’sDelight. All Rights Reserved. </p>
       </div>
-    </div>
+    </footer>
   );
 }

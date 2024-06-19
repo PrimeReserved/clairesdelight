@@ -5,24 +5,36 @@ import { Product } from "@/typings";
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment, Suspense } from "react";
-import { useCart } from "@/context/CartContext";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { addToCart } from "@/features/carts/cartsSlice";
+import { AppDispatch, RootState } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
 
 interface Props {
   product: Product;
 }
 
 export default function ProductCard({ product }: Readonly<{ product: Product }>) {
-  const { addToCart } = useCart();
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading } = useSelector((state: RootState) => state.carts);
 
-  const handleClick = (product: Product) => {
-    addToCart(product);
-    Notify.success(`${product.name} has been added to cart`, {
-      ID: 'MKA',
-      timeout: 1923,
-      showOnlyTheLastOne: true,
-    });
-  } 
+  const handleClick = async (product: Product) => {
+    try {
+      // Dispatch the addToCart async thunk
+      await dispatch(addToCart(product));
+
+      // Notify the user of successful addition to cart
+      Notify.success(`${product.name} has been added to cart`, {
+        ID: 'MKA',
+        timeout: 1923,
+        showOnlyTheLastOne: true,
+      });
+    } catch (error) {
+      // Notify the user of any errors during addToCart
+      Notify.failure('Failed to add product to cart');
+    }
+  };
+
   return (
     <div className="flex justify-center items-center mt-5 ">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

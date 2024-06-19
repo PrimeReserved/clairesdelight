@@ -3,6 +3,10 @@ import Loading from "@/app/loading";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
+import Navbar from "@/app/component/header/navbar/Navbar";
+import Footer from "@/app/component/footer/Footer";
+import FooterMobile from "@/app/component/footer/FooterMobile";
+import FooterTab from "@/app/component/footer/FooterTab";
 
 const getPost = async (slug: any) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BLOG_API_ROUTE}/${slug}`);
@@ -27,6 +31,8 @@ export default async function Page({ params }: any) {
   const post = await getPost(slug);
 
   return (
+    <>
+    <Navbar />
     <BodyWrapper>
       <div className="text-sm breadcrumbs">
         <ul>
@@ -88,5 +94,9 @@ export default async function Page({ params }: any) {
         </div>
       </div>
     </BodyWrapper>
+    <Footer />
+    <FooterMobile />
+    <FooterTab />
+  </>
   );
 }

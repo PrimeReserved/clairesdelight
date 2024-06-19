@@ -1,6 +1,7 @@
 "use client"
 
 import { firstBanner, secondBanner, thirdBanner } from "@/public/image/cdn/cdn";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { FaRegCircle } from "react-icons/fa";
 
@@ -27,6 +28,7 @@ const slides = [
 
 
 function Hero() {
+  const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
@@ -65,7 +67,8 @@ function Hero() {
           <p className="mt-5 mb-[5rem] font-light ">
            {slides[currentSlide].description}
           </p>
-          <button className="btn font-light bg-orange w-[150px] hover:bg-green border-none">
+          <button className="btn font-light bg-orange w-[150px] hover:bg-green border-none"
+            onClick={() => router.push('/shop-spices')}>
             {slides[currentSlide].buttonText}
           </button>
           {/* carousel button  */}

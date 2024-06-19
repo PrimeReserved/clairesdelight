@@ -32,8 +32,8 @@ function Choose() {
           "At our spice website, we prioritize quality, flavor, and purity, ensuring each product adds an exceptional touch to your dishes"
         }{" "}
       </Paragraph>
-      <div className="flex justify-center flex-col-reverse md:flex-row items-center mx-10 xl:mx-16 mt-7 gap-8 md:gap-0">
-        <p className=" md:w-[304px] lg:w-[471px] text-[13px] md:text-[12px] lg:text-[13px] xl:text-[15px] leading-[14px] lg:leading-[24px]  text-center md:text-start  ">
+      <div className="flex justify-between flex-col-reverse md:flex-row items-center mx-10 xl:mx-16 mt-7 gap-8 md:gap-10">
+        <p className=" md:w-[304px] lg:w-[500px] text-[13px] md:text-[12px] lg:text-[13px] xl:text-[15px] leading-[14px] lg:leading-[24px]  text-center md:text-start  ">
           In every jar and packet from Claire&apos;s Delight, you&apos;ll find
           more than just spices. You&apos;ll find a commitment to excellence.
           Each herb and spice is selected with the utmost care, ensuring they
@@ -48,7 +48,8 @@ function Choose() {
           <Image
             src={slides[currentSlide]}
             alt="Slide"
-            layout="fill"
+            width={500}
+            height={500}
             style={{
               objectFit: "cover",
               objectPosition: "center",

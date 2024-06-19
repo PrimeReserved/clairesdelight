@@ -80,20 +80,25 @@ export default function AdminLinks({ isCollapsed }: Readonly<{ isCollapsed: bool
 
   return (
     <div>
-      <nav className="flex flex-col gap-5 items-start mt-10">
+      <nav className="flex flex-col gap-4 items-start mt-10 p-3">
         {links.map((link) => (
           <Link href={link.path} key={link.title}
               className={clsx(
-                "flex items-center transition-all w-full duration-200 rounded",
+                "flex items-center transition-all w-full duration-200 rounded p-2",
                 {
-                  "bg-gray-700 p-2": pathname === link.path && isCollapsed,
-                  "bg-gray-700 px-4 py-2": pathname === link.path && !isCollapsed,
-                  "hover:px-4 hover:py-2 hover:bg-gray-700": pathname !== link.path,
+                  "bg-lightGreen": pathname === link.path && isCollapsed,
+                  "bg-lightGreen py-2": pathname === link.path && !isCollapsed,
+                  "hover:bg-lightOrange": pathname !== link.path,
                 }
               )}
             >
-              {link.icon}
-              {!isCollapsed && <span className="ml-4">{link.title}</span>}
+              <span className={clsx(
+                "h-5 w-5",
+                {
+                  "text-customBlack": pathname === link.path && isCollapsed
+                }
+              )}>{link.icon}</span>
+              {!isCollapsed && <span className="ml-3 text-customBlack">{link.title}</span>}
           </Link>
         ))}
       </nav>

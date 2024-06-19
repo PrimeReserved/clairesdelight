@@ -54,11 +54,11 @@ export default function TodayInfo() {
   }, []);
 
   if (!weather || !location || !currentTime) {
-    return <div>Loading...</div>;
+    return null;
   }
 
     return (
-        <div className="p-5">
+        <div className="pt-6">
           <div className="flex justify-between items-center">
             <div>
               <h1>Today</h1>
