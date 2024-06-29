@@ -14,12 +14,18 @@ import { cartImage } from "@/public/image/cdn/cdn";
 import Link from "next/link";
 import BodyWrapper from "../layout/BodyWrapper";
 import { CartItem } from "@/typings";
+import { useEffect } from "react";
 
 export default function CartView() {
   const dispatch = useDispatch();
   const { cartItems, cartTotal, cartCount } = useSelector((state: RootState) => state.carts);
   const router = useRouter();
 
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    localStorage.setItem('cartTotal', JSON.stringify(cartTotal));
+    localStorage.setItem('cartCount', JSON.stringify(cartCount));
+  }, [cartItems, cartTotal, cartCount]);
 
   const handleRemoveFromCart = (productId: string) => {
     dispatch(removeFromCartLocal(productId));
@@ -102,7 +108,7 @@ export default function CartView() {
                       style: "decimal",
                       minimumFractionDigits: 2,
                     }).format(cartTotal)})`}
-                    onClick={() => router.push(`https://paystack.com/pay/cart-checkout`)}
+                    onClick={() => router.push(`${process.env.NEXT_PUBLIC_PAYMENT_API_URL}`)}
                   />
                 </div>
               </div>

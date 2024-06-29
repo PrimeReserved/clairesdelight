@@ -1,4 +1,3 @@
-import { TbCurrencyNaira } from "react-icons/tb";
 
 export default function AdminCard({title, content, icon }: any) {
   return (
@@ -9,7 +8,6 @@ export default function AdminCard({title, content, icon }: any) {
           <div className="stat-value">{content}</div>
         </div>
         <div className="stat-actions">
-        {/* <TbCurrencyNaira className="h-20 w-20" /> */}
         {icon}
         </div>
       </div>

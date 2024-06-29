@@ -4,11 +4,13 @@ import bcryptjs from 'bcryptjs';
 import { User } from "@/lib/models/user";
 import { revalidatePath } from "next/cache";
 import { Post } from "@/lib/models/post";
+import { Product } from "@/lib/models/product";
+import  { Order } from "@/lib/models/order"
 import { connectDB } from "./utils";
 
 
 // Post
-export const addPost = async(formData: any) => {
+export const addPost = async(formData: FormData) => {
     const { author, slug, title, content, category, tags, featuredImage } = Object.fromEntries(formData);
 
     try {
@@ -24,7 +26,7 @@ export const addPost = async(formData: any) => {
     }
 };
 
-export const updatePost = async (formData: any) => {
+export const updatePost = async (formData: FormData) => {
     const { id, author, slug, title, content, category, tags, featuredImage } = Object.fromEntries(formData);
   
     if (!id) {
@@ -61,7 +63,7 @@ export const updatePost = async (formData: any) => {
     }
   };
 
-export const deletePost = async(formData: any) => {
+export const deletePost = async(formData: FormData) => {
     const { id } = Object.fromEntries(formData);
     if (!id) {
         return { error: "Post ID is required" };
@@ -127,5 +129,86 @@ export const updatePasswords = async () => {
       console.log("Passwords updated successfully");
   } catch (error) {
       console.error("Error updating passwords:", error);
+  }
+}
+
+
+/** PRODUCT CRUD OPERATION */
+export const addProduct = async (formData: FormData)  => {
+  const { name, slug, description, category, origin, healthBenefit, culinaryUses, price, stock, images } = Object.fromEntries(formData);
+
+  try {
+      await connectDB();
+      // Covert file to base64 
+      const imagesFile = formData.get('images') as File;
+      let imagesBase64 = "";
+      if (imagesFile) {
+        const reader = new FileReader();
+        reader.readAsDataURL(imagesFile);
+        reader.onloadend = () => {
+          imagesBase64 = reader.result as string;
+        };
+        await new Promise((resolve) => {
+          reader.onload = resolve;
+        });
+      }
+      const newProduct = new Product({
+        name,
+        slug,
+        description,
+        category: JSON.parse(category as string),
+        origin,
+        healthBenefit: JSON.parse(healthBenefit as string),
+        culinaryUses: JSON.parse(culinaryUses as string), 
+        price,
+        stock,
+        images: imagesBase64
+      });
+      await newProduct.save();
+      console.log("Created Product:", newProduct);
+      revalidatePath("/product");
+      return { success: true }
+  } catch(error){
+      console.log(`Error add new product: ${error}`);
+      return { error: "An Error occurred adding a new product"}
+  }
+};
+
+export async function addOrder(orderData: any) {
+  try {
+    console.trace();
+    await connectDB();
+
+    // Check for duplicate order using trackingNumber
+    const existingOrder = await Order.findOne({ trackingNumber: orderData.trackingNumber });
+    if (existingOrder) {
+      throw new Error("Duplicate order detected");
+    }
+
+    // Create a new order
+    const newOrder = new Order({
+      items: orderData.items,
+      totalAmount: orderData.totalAmount,
+      shippingAddress: orderData.shippingAddress,
+      paymentMethod: orderData.paymentMethod,
+      paymentStatus: orderData.paymentStatus,
+      orderStatus: orderData.orderStatus,
+      trackingNumber: orderData.trackingNumber
+    });
+
+    // Save the new order to the database
+    const savedOrder = await newOrder.save();
+
+    if(savedOrder.trackingNumber){
+      console.log("Order created:", savedOrder.trackingNumber);
+    }
+
+    // Revalidate the orders page or any other relevant pages
+    revalidatePath('/orders')
+
+    return { success: true, message: "Order created successfully", order: savedOrder };
+  } catch (error: any) {
+    console.error('Error adding order:', error);
+    return { success: false, message: error.message };
   }
 }

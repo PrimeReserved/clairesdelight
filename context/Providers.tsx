@@ -3,6 +3,9 @@
 import { Provider } from 'react-redux';
 import { ReactNode } from 'react';
 import { store } from '@/store';
+import { persistStore } from "redux-persist"
+persistStore(store);
+
 
 interface ProvidersProps {
   children: ReactNode;

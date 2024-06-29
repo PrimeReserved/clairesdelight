@@ -18,7 +18,7 @@ const initialState: RecipesState = {
 
 export const fetchRecipes = createAsyncThunk('recipes/fetchRecipes', async () => {
   const response = await getRecipes();
-  console.log(`Reducer Recipes: ${response}}`)
+  console.log(`Reducer Recipes: ${response ? 'success' : 'failed'}`)
   return response;
 });
 

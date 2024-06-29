@@ -3,33 +3,20 @@ import mongoose from "mongoose";
 
 const orderItemSchema = new mongoose.Schema(
     {
-      productId: {
-        type: String,
-        required: true,
-      },
       name: {
-        type: String,
-        required: true,
-      },
-      slug: {
         type: String,
         required: true,
       },
       quantity: {
         type: Number,
         required: true,
-        min: 1,
+        min: [1, 'Quantity cannot be less than 1'],
       },
       price: {
         type: Number,
         required: true,
         min: 0,
-      },
-      total: {
-        type: Number,
-        required: true,
-        min: 0,
-      },
+      }
     },
     { _id: false } // Disable automatic _id generation for subdocuments
   );
@@ -62,15 +49,6 @@ const orderItemSchema = new mongoose.Schema(
   
   const orderSchema = new mongoose.Schema(
     {
-      _id: {
-        type: String,
-        required: true,
-      },
-      // user: {
-      //   type: mongoose.Schema.Types.ObjectId,
-      //   ref: "User",
-      //   required: true,
-      // },
       items: {
         type: [orderItemSchema],
         required: true,
@@ -81,18 +59,20 @@ const orderItemSchema = new mongoose.Schema(
         min: 0,
       },
       shippingAddress: {
-        type: addressSchema,
-        required: true,
+        type: [{
+          display_name: String,
+          variable_name: String,
+          value: String
+        }],
+        required: true
       },
       paymentMethod: {
         type: String,
         required: true,
-        enum: ["Credit Card", "PayPal", "Bank Transfer", "Other"],
       },
       paymentStatus: {
         type: String,
         required: true,
-        enum: ["Pending", "Completed", "Failed", "Refunded"],
       },
       orderStatus: {
         type: String,

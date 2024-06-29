@@ -2,9 +2,6 @@ import { Product } from "@/typings";
 import { FaPepperHot } from "react-icons/fa";
 
 export default async function AdminProductCard({ products }: Readonly<{ products: Product[]}>) {
-  if (!Array.isArray(products) || products.length === 0) {
-    return <div className={`text-customBlack`}>No products available</div>;
-  }
 
   return (
     <div className={`card mt-10 border-2 border-primaryGrey w-72 h-[10rem] p-5 bg-lighterGreen`}>

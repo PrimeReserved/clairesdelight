@@ -48,7 +48,7 @@ function SpiceCard({ product }: Readonly<{ product: Product }>) {
             }}
           >
             <Image
-              src={product.images}
+              src={`${product.images}`}
               alt="Spice"
               width={380}
               height={380}

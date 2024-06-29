@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AppDispatch, RootState } from "@/store";
+import { RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
 import { SalesCard } from "@/app/tremor/card";
 import { fetchProducts } from "@/features/products/productsSlice";
@@ -22,23 +22,31 @@ import TableData from "@/app/component/admin/card/Table";
 import ProductForm from "@/app/component/admin/product/ProductForm";
 
 export default function Page() {
-  const dispatch = useDispatch<AppDispatch>();
-  const { products } = useSelector((state: RootState) => state.products);
-
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
 
   return (
     <div>
       <div className="md:flex gap-2 p-2">
         <SalesCard title={`Sales`} figure={0} />
-        <SalesCard title={`Products`} figure={products.length} />
+        <SalesCard title={`Products`} figure={0} />
         <SalesCard title={`Out-going`} figure={0} />
         <SalesCard title={`Incoming`} figure={0} />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 py-5 px-2">
-        <TableData title={`Products Inventory`} data={products.slice(0, 10)} />
+        <TableData title="Product Inventory" data={
+            [
+                {
+                name: "Ground Nut",
+                slug: "ground-nut",
+                description: 'the best of it',
+                price: 30000,
+                images: '/images/png',
+                origin:
+                "Lagos, Nigeria",
+                category: ["some categories", "another category"],
+                culinaryUses: ["used for a", 'good with b'],
+                healthBenefit: ["healthy", "health"],
+                stock: 50}
+            ]} />
         <Card decoration="top" decorationColor="indigo">
           <TabGroup>
             <TabList variant="solid" defaultValue="1">

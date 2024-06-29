@@ -5,11 +5,11 @@
  **/
 
 type Base = {
-  _createAt: string;
-  _id: string;
-  _rev: string;
-  _type: string;
-  _updateAt: string
+  _createAt?: string;
+  _id?: string;
+  _rev?: string;
+  _type?: string;
+  _updateAt?: string
 }
 
 // types/Product.ts
@@ -23,7 +23,7 @@ export interface Product extends Base {
   culinaryUses: string[];
   price: number;
   stock: number;
-  images: string;
+  images: string | null;
 }
 
 // types/Recipe.ts
@@ -49,7 +49,7 @@ export interface Address extends Base {
 export interface User extends Base {
   email: string;
   password: string;
-  role: "admin" | "user";
+  role: "admin" | "user" | "customer";
   shippingAddresses: Address[];
   orders: string[]; // Array of order IDs
 }
@@ -67,7 +67,7 @@ export interface Order extends Base {
   totalAmount: number;
   shippingAddress: Address;
   paymentMethod: string;
-  paymentStatus: string;
+  paymentStatus: 'pending' | 'paid' | 'failed';
   orderStatus: string;
   trackingNumber?: string;
   createdAt: Date;

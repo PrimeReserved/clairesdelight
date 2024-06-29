@@ -2,9 +2,6 @@ import { VscLayoutMenubar } from "react-icons/vsc";
 import { Recipe } from "@/typings";
 
 export default function AdminRecipeCard({ recipes }: Readonly<{ recipes: Recipe[] }>) {
-  if (!Array.isArray(recipes) || recipes.length === 0) {
-    return <div className={`text-customBlack`}>No recipes available</div>;
-  }
     
   return (
     <div className={`card mt-10 border-2 border-primaryGrey w-72 h-[10rem] p-5 bg-lighterGreen`}>

@@ -1,3 +1,5 @@
+"use server"
+
 import { CustomerReview } from "./models/customerReview";
 import { Post } from "./models/post";
 import { User } from "./models/user";
@@ -75,6 +77,42 @@ export const getRecipe = async (slug: any) => {
     }
     return res.json();
   };
+
+
+export const paymentFormPost = async (orderData: FormData) => {
+  try {
+    // Convert FormData to plain object
+    const dataObj: any = {};
+    orderData.forEach((value, key) => {
+      dataObj[key] = value;
+    });
+
+    console.log('Data being sent:', dataObj); // Log the data for debugging
+
+    // Send order data to backend
+    const response = await fetch(`${process.env.NEXT_PUBLIC_PAYMENT_ORDER_API_ROUTE}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataObj),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Network response was not ok');
+    }
+
+    const result = await response.json();
+    console.log('Order saved successfully', result);
+    return result;
+  } catch (error) {
+    console.error('Error saving order:', error);
+    throw error;
+  }
+};
+
+
 
 
 export const getCustomerReview = async () => {
@@ -172,7 +210,7 @@ export const logout = async() => {
 
 export const getEvents = async () => {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_PRODUCT_API_ROUTE;
+    const apiUrl = process.env.NEXT_PUBLIC_EVENTS_API_ROUTE;
     if (!apiUrl) {
       throw new Error('API route is not defined in environment variables');
     }

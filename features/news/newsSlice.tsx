@@ -16,7 +16,7 @@ const initialState: NewsState = {
   error: null,
 };
 
-export const fetchBlogs = createAsyncThunk('news/fetchBlogs', async () => {
+export const fetchNews = createAsyncThunk('news/fetchNews', async () => {
   const response = await getPosts();
   console.log(`Reducer news: ${response}}`)
   return response;
@@ -28,15 +28,15 @@ const newsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchBlogs.pending, (state) => {
+      .addCase(fetchNews.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchBlogs.fulfilled, (state, action: PayloadAction<BlogPost[]>) => {
+      .addCase(fetchNews.fulfilled, (state, action: PayloadAction<BlogPost[]>) => {
         state.loading = false;
         state.news = action.payload;
       })
-      .addCase(fetchBlogs.rejected, (state, action) => {
+      .addCase(fetchNews.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message ?? 'Failed to fetch news';
       });

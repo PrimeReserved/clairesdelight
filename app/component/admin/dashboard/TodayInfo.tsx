@@ -1,6 +1,7 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
+import { CardHero } from "../card/CardHero";
 
 export default function TodayInfo() {
   const [weather, setWeather] = useState<any>(null);
@@ -9,13 +10,15 @@ export default function TodayInfo() {
 
   useEffect(() => {
     const fetchWeatherData = async (lat: any, lon: any) => {
-      try{
+      try {
         const apiKey = process.env.NEXT_PUBLIC_WEATHER_APIKEY;
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`);
+        const response = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
+        );
         const data = await response.json();
         setWeather(data);
-      } catch(error){
-        console.error(`Error fetching weather data: ${error}`)
+      } catch (error) {
+        console.error(`Error fetching weather data: ${error}`);
       }
     };
 
@@ -57,26 +60,22 @@ export default function TodayInfo() {
     return null;
   }
 
-    return (
-        <div className="pt-6">
-          <div className="flex justify-between items-center">
-            <div>
-              <h1>Today</h1>
-              {/* <p>Mon 22, 2021 | 10:00 AM</p> */}
-              <p>{currentTime}</p>
-            </div>
-            <div>
-              <h3>Today&apos;s weather</h3>
-              {/* <p>30</p> */}
-              <p>{weather?.main?.temp}°C</p>
-              <div>
-        <h4>Location</h4>
-        <p>
-          {location.city}, {location.country}
-        </p>
-      </div>
-            </div>
+  return (
+    <div className="pt-6">
+      <div className="flex justify-between items-center p-2">
+        <div>
+          <h1>Today</h1>
+          <CardHero title={currentTime} />
+        </div>
+        <div>
+          <h3>Today&apos;s weather</h3>
+          <CardHero title={`${weather?.main?.temp}°C`} />
+          <div>
+            <h4>Location</h4>
+            <CardHero title={`${location.city}, ${location.country}`} />
           </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
