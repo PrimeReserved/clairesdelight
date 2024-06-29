@@ -1,0 +1,36 @@
+import mongoose from "mongoose";
+
+const userSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      min: 4,
+      max: 20,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      max: 50,
+    },
+    password: {
+      type: String,
+    },
+    image: {
+      type: String,
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    forgotPasswordToken: String,
+    forgotPasswordTokenExpiry: Date,
+    verifyToken: String,
+    verifyTokenExpiry: Date,
+  },
+  { timestamps: true }
+);
+
+export const User = mongoose.models?.User || mongoose.model("User", userSchema);
