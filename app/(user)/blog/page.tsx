@@ -2,7 +2,7 @@
 
 import ErrorBoundary from "@/app/component/ErrorBoundary";
 import PostList from "@/app/component/blog/PostList";
-import { RootState } from "@/store";
+import { AppDispatch, RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchTerm } from "@/features/products/productsSlice";
 import SearchProductResults from "@/app/component/Spice/SearchProductResult";
@@ -12,7 +12,7 @@ import FooterMobile from "@/app/component/footer/FooterMobile";
 import FooterTab from "@/app/component/footer/FooterTab";
 
 export default function Page() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { products, searchResults, searchTerm } = useSelector(
     (state: RootState) => state.products
   );

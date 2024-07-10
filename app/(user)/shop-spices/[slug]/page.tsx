@@ -10,7 +10,6 @@ import Footer from "@/app/component/footer/Footer";
 import FooterMobile from "@/app/component/footer/FooterMobile";
 import FooterTab from "@/app/component/footer/FooterTab";
 
-
 export const generateMetadata = async ({
   params,
 }: {
@@ -42,27 +41,66 @@ export default async function Page({
   } catch (error) {
     console.error(error);
     return (
-      <Fragment>
-        <h1>Error Loading Spice</h1>
-        <p>
-          There was an error loading the spice data. Please try again later.
-        </p>
-      </Fragment>
+      <>
+        <Navbar />
+        <BodyWrapper>
+          <div className="text-sm breadcrumbs">
+            <ul>
+              <li>
+                <Link href="/shop-spices">Shop Spices</Link>
+              </li>
+              <li>All Spices</li>
+              <li>{spice.name}</li>
+            </ul>
+          </div>
+          <div className="flex justify-center">
+            <div>
+              <h1>Error Loading Spice</h1>
+              <p>
+                There was an error loading the spice data. Please try again
+                later.
+              </p>
+            </div>
+          </div>
+        </BodyWrapper>
+        <Footer />
+        <FooterMobile />
+        <FooterTab />
+      </>
     );
   }
 
   if (!spice) {
     return (
-      <Fragment>
-        <h1>Spice Not Found</h1>
-        <p>The spice you are looking for does not exist.</p>
-      </Fragment>
+      <>
+        <Navbar />
+        <BodyWrapper>
+          <div className="text-sm breadcrumbs">
+            <ul>
+              <li>
+                <Link href="/shop-spices">Shop Spices</Link>
+              </li>
+              <li>All Spices</li>
+              <li>{spice.name}</li>
+            </ul>
+          </div>
+          <div className="flex justify-center">
+            <div>
+              <h1>Spice Not Found</h1>
+              <p>The spice you are looking for does not exist.</p>
+            </div>
+          </div>
+        </BodyWrapper>
+        <Footer />
+        <FooterMobile />
+        <FooterTab />
+      </>
     );
   }
 
   return (
     <>
-        <Navbar />
+      <Navbar />
       <BodyWrapper>
         <div className="text-sm breadcrumbs">
           <ul>
@@ -70,7 +108,7 @@ export default async function Page({
               <Link href="/shop-spices">Shop Spices</Link>
             </li>
             <li>All Spices</li>
-            <li>{spice.name}</li>
+            <li>{spice?.name}</li>
           </ul>
         </div>
         <div className="flex justify-center">

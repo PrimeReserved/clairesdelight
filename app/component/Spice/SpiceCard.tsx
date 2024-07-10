@@ -60,7 +60,7 @@ function SpiceCard({ product }: Readonly<{ product: Product }>) {
 
       <div className="card-body">
         <Link href={`/shop-spices/${product.slug}`}>
-          <h2 className="card-title text-customBlack font-bold text-[20px] py-3">
+          <h2 className="card-title text-customBlack font-bold text-[20px] py-3 hover:text-orange">
             {product.name}
           </h2>
         </Link>

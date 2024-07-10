@@ -1,5 +1,7 @@
-export default function Page() {
-    return (
-      <div>Page</div>
-    )
-  }
+
+
+export default function page() {
+  return (
+    <h2>Setting</h2>
+  )
+}

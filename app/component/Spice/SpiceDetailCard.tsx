@@ -2,24 +2,37 @@
 
 import Image from "next/image";
 import Loading from "@/app/loading";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { AiOutlineMinus } from "react-icons/ai";
 import { IoIosStar } from "react-icons/io";
 import { MdOutlineAdd } from "react-icons/md";
 import Subtitle from "../typography/Subtitle";
 import { useRouter } from "next/navigation";
 import BodyWrapper from "../layout/BodyWrapper";
-import { Product } from "@/typings";
-import { removeFromCart, updateCartItemQuantityLocal } from "@/features/carts/cartsSlice";
-import { RootState } from "@/store";
+import {
+  removeFromCart,
+  updateCartItemQuantityLocal,
+} from "@/features/carts/cartsSlice";
+import { AppDispatch, RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "@/features/products/productsSlice";
+
 
 export default function SpiceDetailCard({ item }: any) {
-  const dispatch = useDispatch();
-  const { cartItems, cartTotal, cartCount } = useSelector((state: RootState) => state.carts);
+  const dispatch = useDispatch<AppDispatch>();
+  const { products, loading, error } = useSelector(
+    (state: RootState) => state.products
+  );
+  const { cartItems, cartTotal, cartCount } = useSelector(
+    (state: RootState) => state.carts
+  );
   const router = useRouter();
 
-  console.log(`spice detail: ${item}`);
+  const productSlice = products.slice(0, 6);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   const handleQuantityChange = (qty: number) => {
     const quantity = Number(qty);
@@ -34,15 +47,14 @@ export default function SpiceDetailCard({ item }: any) {
 
   return (
     <BodyWrapper>
-      <div className="flex  gap-10 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-10">
         <div className="rounded-xl bg[#FFF8F6]">
-          <Suspense fallback={<Loading />}>
+          <Suspense>
             <div
-              className="p-10 bg-[#FFF8F6]"
+              className="p-10 rounded-3xl bg-[#FFF8F6]"
               style={{
                 width: "100%",
                 maxWidth: "600px",
-                height: "280px",
                 overflow: "hidden",
               }}
             >
@@ -51,7 +63,7 @@ export default function SpiceDetailCard({ item }: any) {
                 alt={item.name}
                 width={600}
                 height={600}
-                className="rounded-xl p-1"
+                className="rounded-2xl p-1"
                 style={{
                   objectFit: "cover",
                   width: "100%",
@@ -64,7 +76,7 @@ export default function SpiceDetailCard({ item }: any) {
         <div className="">
           <Subtitle title={item.name} />
           <div className="flex flex-row justify-between items-center">
-            <div className="flex items-center">
+            <div className="flex items-center py-5">
               <span className="flex justify-between text-orange">
                 <IoIosStar />
                 <IoIosStar />
@@ -82,7 +94,7 @@ export default function SpiceDetailCard({ item }: any) {
           <div className="pt-10">
             <div>
               <small className="text-teritaryGrey">Price</small>
-              <p>
+              <p className="font-bold text-2xl text-balance">
                 {" "}
                 ₦
                 {new Intl.NumberFormat("en-NG", {
@@ -91,7 +103,10 @@ export default function SpiceDetailCard({ item }: any) {
                 }).format(item.price)}
               </p>
             </div>
-            <div className="flex justify-between gap-10 items-center pt-10">
+            <div className="mt-5 mb-2">
+              <small className="text-teritaryGrey pb-2">Quantity</small>
+            </div>
+            <div className="flex justify-between gap-10 items-center">
               <div className="flex flex-row items-center pr-5">
                 <div className="border flex flex-row justify-around items-center w-[10rem] h-[3rem] rounded-md">
                   <button
@@ -133,8 +148,8 @@ export default function SpiceDetailCard({ item }: any) {
           </div>
         </div>
       </div>
-      <div className="flex justify-between p-10 bg-[#FFF8F6]">
-        <div>
+      <div className="grid grid-cols-1 md:grid-cols-2 p-10 bg-[#FFF8F6]">
+        <div className="">
           <h3>Recipe Suggestion</h3>
           <p>{item.origin}</p>
           <ul>

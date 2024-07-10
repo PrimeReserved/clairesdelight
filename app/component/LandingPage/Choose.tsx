@@ -44,7 +44,7 @@ function Choose() {
           Claire&apos;s Delight, you&apos;re not just enhancing your meals;
           you&apos;re choosing a healthier, more vibrant lifestyle.
         </p>
-        <div className="w-[250px] h-[250px] md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px] xl:w-[600px] xl:h-[600px] relative overflow-hidden">
+        <div className="w-[250px] h-[250px] md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px] xl:w-[600px] xl:h-[600px] relative overflow-hidden sm:order-first md:order-last lg:order-last">
           <Image
             src={slides[currentSlide]}
             alt="Slide"

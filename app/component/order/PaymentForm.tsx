@@ -65,7 +65,7 @@ export default function PaymentForm() {
     updatedAt: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<any>) => {
     const { name, value } = e.target;
     setFormData((prev: any) => ({ ...prev, [name]: value }));
   };

@@ -5,7 +5,7 @@ export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
 
   // Define paths that are considered public (accessible without a token)
-  const isPublicPath = path === '/' || path === '/sign-in' || path === '/sign-up' || path === '/verifyemail'
+  const isPublicPath = path === '/' || path === '/admin-panel' || path === '/verifyemail'
 
   // Get the token from the cookies
   const token = request.cookies.get('token')?.value ?? ''
@@ -14,12 +14,12 @@ export function middleware(request: NextRequest) {
   if(isPublicPath && token) {
 
  // If trying to access a public path with a token, redirect to the home page
-    return NextResponse.redirect(new URL('/dashboard', request.nextUrl))
+    return NextResponse.redirect(new URL('/overview', request.nextUrl))
   }
 
 // If trying to access a protected path without a token, redirect to the login page
   if (!isPublicPath && !token) {
-    return NextResponse.redirect(new URL('/sign-in', request.nextUrl))
+    return NextResponse.redirect(new URL('/admin-panel', request.nextUrl))
   }
     
 }

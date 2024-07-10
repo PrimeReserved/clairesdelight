@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/store';
+import { AppDispatch, RootState } from '@/store';
 import { removeFromCartLocal, updateCartItemQuantityLocal } from '@/features/carts/cartsSlice';
 import CartItemView from "./CartItem";
 import { useRouter } from "next/navigation";
@@ -17,7 +17,7 @@ import { CartItem } from "@/typings";
 import { useEffect } from "react";
 
 export default function CartView() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { cartItems, cartTotal, cartCount } = useSelector((state: RootState) => state.carts);
   const router = useRouter();
 
@@ -27,11 +27,11 @@ export default function CartView() {
     localStorage.setItem('cartCount', JSON.stringify(cartCount));
   }, [cartItems, cartTotal, cartCount]);
 
-  const handleRemoveFromCart = (productId: string) => {
+  const handleRemoveFromCart = (productId: any) => {
     dispatch(removeFromCartLocal(productId));
   };
 
-  const handleUpdateCartItemQuantity = (productId: string, quantity: number) => {
+  const handleUpdateCartItemQuantity = (productId: any, quantity: number) => {
     dispatch(updateCartItemQuantityLocal({ productId, quantity }));
   };
 
@@ -58,13 +58,13 @@ export default function CartView() {
           />
         </div>
       ) : (
-        <div className="flex justify-evenly">
-          <div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 place-content-center">
+          <div className="col-span-2">
             <SpiceTitle title={`Spices in cart (${cartCount})`} />
             {cartItems.map((item: CartItem) => (
               <div
                 key={item.product._id}
-                className="flex justify-between flex-col pb-3 items-center"
+                className="pb-3"
               >
                 <CartItemView
                   item={item}

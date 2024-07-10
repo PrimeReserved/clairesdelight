@@ -6,11 +6,15 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import Subtitle from "../typography/Subtitle";
 import ServiceCard from "../LandingPage/our-service/ServiceCard";
 import { useDispatch } from "react-redux";
-import { removeFromCartLocal, updateCartItemQuantityLocal } from "@/features/carts/cartsSlice";
+import {
+  removeFromCartLocal,
+  updateCartItemQuantityLocal,
+} from "@/features/carts/cartsSlice";
 import { IoIosStar } from "react-icons/io";
 import Button from "../button/Button";
 import { Suspense } from "react";
 import Loading from "@/app/loading";
+import { AppDispatch } from "@/store";
 
 interface Props {
   item: CartItem;
@@ -19,12 +23,14 @@ interface Props {
 }
 
 export default function CartItemView({ item }: Readonly<Props>) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleQuantityChange = (qty: number) => {
     const quantity = Number(qty);
     if (quantity >= 1) {
-      dispatch(updateCartItemQuantityLocal({ productId: item.product._id, quantity }));
+      dispatch(
+        updateCartItemQuantityLocal({ productId: item.product._id, quantity })
+      );
     }
   };
 
@@ -33,83 +39,84 @@ export default function CartItemView({ item }: Readonly<Props>) {
   };
 
   return (
-    <ServiceCard className="w-full pb-5">
-        <div className="flex items-center">
-          <div className="rounded-xl bg[#FFF8F6]">
-              <Suspense fallback={<Loading />}>
-                <div
-                >
-                  <Image
-                    src={item.product.images}
-                    alt={item.product.name}
-                    width={100}
-                    height={100}
-                    className="rounded-xl p-1"
-                    style={{
-                      objectFit: "cover",
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                </div>
-              </Suspense>
+    <ServiceCard className="w-full pb-5 h-[13rem]">
+      <div className="grid grid-cols-1 md:grid-cols-4 place-content-center">
+        <Suspense fallback={<Loading />}>
+          <div className="rounded-2xl p-5"
+          style={{
+            width: "100%",
+            height: "100%"
+          }}>
+            <Image
+              src={`${item.product.images}`}
+              alt={item.product.name}
+              width={500}
+              height={100}
+              className="rounded-xl p-1"
+              style={{
+                width: "100%",
+                height: "95%",
+                backgroundColor: "#FFF8F6"
+              }}
+            />
           </div>
-          <div className="">
-            <Subtitle title={item.product.name} />
-            <div className="flex flex-row justify-between items-center">
-              <div className="flex items-center">
-                <span className="flex justify-between text-orange">
-                  <IoIosStar />
-                  <IoIosStar />
-                  <IoIosStar />
-                  <IoIosStar />
-                  <IoIosStar />
-                </span>
-                <p className="ml-2">20 Reviews</p>
-              </div>
-              <div className="flex flex-row items-center pr-5">
-                <div className="border flex flex-row justify-center items-center px-1 rounded-md">
-                  <button
-                    className="bg-white hover:bg-gray-100 border-r p-1"
-                    aria-label="decrease"
-                    onClick={() => {
-                      handleQuantityChange(item.quantity - 1);
-                    }}
-                  >
-                    <AiOutlineMinus />
-                  </button>
-                  <p className="bg-white border-r border-l px-2">
-                    {item.quantity}
-                  </p>
-                  <button
-                    className="bg-white hover:bg-gray-100 border-l p-1"
-                    aria-label="increase"
-                    onClick={() => {
-                      handleQuantityChange(item.quantity + 1);
-                    }}
-                  >
-                    <MdOutlineAdd />
-                  </button>
-                </div>
+        </Suspense>
+        <div className="mt-5 col-span-3 place-items-start">
+          <Subtitle title={item.product.name} />
+          <div className="flex justify-between">
+            <div className="col-span-2 my-3 flex items-center place-self-stretch">
+              <span className="flex text-orange">
+                <IoIosStar />
+                <IoIosStar />
+                <IoIosStar />
+                <IoIosStar />
+                <IoIosStar />
+              </span>
+              <p className="ml-2">20 Reviews</p>
+            </div>
+            <div className="flex flex-row items-center pr-5">
+              <div className="border flex flex-row justify-center items-center px-1 rounded-md">
+                <button
+                  className="bg-white hover:bg-gray-100 border-r p-1"
+                  aria-label="decrease"
+                  onClick={() => {
+                    handleQuantityChange(item.quantity - 1);
+                  }}
+                >
+                  <AiOutlineMinus />
+                </button>
+                <p className="bg-white border-r border-l px-2">
+                  {item.quantity}
+                </p>
+                <button
+                  className="bg-white hover:bg-gray-100 border-l p-1"
+                  aria-label="increase"
+                  onClick={() => {
+                    handleQuantityChange(item.quantity + 1);
+                  }}
+                >
+                  <MdOutlineAdd />
+                </button>
               </div>
             </div>
-            <div >
+          </div>
+          <div>
             <p className="line-clamp-2">{item.product.description}</p>
+          </div>
+          {/* <SpiceTitle title={`${item.product.price}`} /> */}
+          <div className="flex justify-between pt-4 items-center">
+            <div>
+              <p> ${(item.product.price * item.quantity).toFixed(2)}</p>
             </div>
-            {/* <SpiceTitle title={`${item.product.price}`} /> */}
-            <div className="flex justify-between pt-4 items-center">
-              <div>
-                <p> ${(item.product.price * item.quantity).toFixed(2)}</p>
-              </div>
-              <button
-                onClick={handleRemoveClick}
-                className="flex justify-center gap-1 items-center pr-5"
-              >
-                <RiDeleteBinLine /> <span>Remove</span>
-              </button>
-            </div>
+            <button
+              onClick={handleRemoveClick}
+              className="flex justify-center gap-1 items-center pr-5"
+            >
+              <RiDeleteBinLine /> <span>Remove</span>
+            </button>
           </div>
         </div>
-      </ServiceCard>
+      </div>
+    </ServiceCard>
   );
 }

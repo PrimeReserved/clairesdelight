@@ -12,8 +12,8 @@ export default function PostCard({ post }: any) {
       <Suspense fallback={<Loading />}>
         <figure>
           <Image
-            src={post.featuredImage}
-            alt={post.title}
+            src={post?.featuredImage}
+            alt={post?.title}
             width={500}
             height={500}
             loading="lazy"
@@ -22,10 +22,10 @@ export default function PostCard({ post }: any) {
         </figure>
       </Suspense>
       <div className="p-5">
-        <SpiceTitle title={post.title} />
-        <p className="line-clamp-4">{post.content}</p>
+        <SpiceTitle title={post?.title} />
+        <p className="line-clamp-4">{post?.content}</p>
         <p className="text-orange py-2">
-          <Link href={`/blog/${post.slug}`}>Read more</Link>
+          <Link href={`/blog/${post?.slug}`}>Read more</Link>
         </p>
         <div className="flex justify-between items-center">
           <div className="flex flex-row justify-center items-center gap-1 text-teritaryGrey font-bold">

@@ -18,8 +18,8 @@ import ProductFilter from "./ProductFilter";
 const ITEMS_PER_PAGE = 12;
 
 const SpiceList: any = () => {
-    const dispatch = useDispatch<AppDispatch>();
-    const { products, loading, error, filterCategory, sortOption } = useSelector((state: RootState) => state.products);
+  const dispatch = useDispatch<AppDispatch>();
+  const { products, loading, error, filterCategory, sortOption } = useSelector((state: RootState) => state.products);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 

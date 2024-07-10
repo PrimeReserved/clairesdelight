@@ -1,31 +1,48 @@
 import { SiHomeassistantcommunitystore, SiWelcometothejungle } from "react-icons/si";
 import { FaLink } from "react-icons/fa";
-import { TbTruckDelivery } from "react-icons/tb";
+import { TbTransactionDollar, TbTruckDelivery } from "react-icons/tb";
 import { ImBlogger } from "react-icons/im";
 import { VscSettings } from "react-icons/vsc";
 import { BsShopWindow } from "react-icons/bs";
 import Link from 'next/link';
+import { HomeIcon, LineChartIcon, PackageIcon, SettingsIcon, ShoppingCartIcon } from "lucide-react";
+import { AiFillCustomerService } from "react-icons/ai";
    
   const links = [
     {
       title: "Welcome",
-      path: "/",
+      path: "/welcome",
       icon: <SiWelcometothejungle />
     },
     {
       title: "Overview",
-      path: "/dashboard",
-      icon: <SiHomeassistantcommunitystore />
+      path: "/overview",
+      icon:  <HomeIcon className="h-4 w-4" />
     },
     {
       title: "Products",
-      path: "/products",
-      icon: <BsShopWindow />
+      path: "/product",
+      icon: <PackageIcon className="h-4 w-4" />
     },
     {
       title: "Orders",
-      path: "/orders",
-      icon: <TbTruckDelivery />
+      path: "/order",
+      icon: <ShoppingCartIcon className="h-4 w-4" />
+    },
+    {
+      title: "customer",
+      path: "/customer",
+      icon: <AiFillCustomerService className="h-4 w-4" />
+    },
+    {
+      title: "Transactions",
+      path: "/transaction",
+      icon: <TbTransactionDollar className="h-4 w-4" />
+    },
+    {
+      title: "Analytics",
+      path: "/analytics",
+      icon: <LineChartIcon className="h-4 w-4" />
     },
     {
       title: "Blog",
@@ -35,7 +52,7 @@ import Link from 'next/link';
     {
         title: "Settings",
         path: "/settings",
-        icon: <VscSettings />
+        icon: <SettingsIcon className="h-4 w-4" />
       },
   ];
    
@@ -46,13 +63,14 @@ import Link from 'next/link';
           const LinkIcon = link.icon;
           return (
             <Link
-              key={link.title}
-              href={`{${link.path}`}
-              className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3"
-            >
-              <FaLink className="w-6" />
-              <p className="hidden md:block">{link.title}</p>
-            </Link>
+            key={link.title}
+            href={link.path}
+            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+            prefetch={false}
+          >
+            {link.icon}
+            {link.title}
+          </Link>
           );
         })}
       </>

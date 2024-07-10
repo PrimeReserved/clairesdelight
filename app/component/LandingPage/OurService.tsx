@@ -15,7 +15,7 @@ export default function Ourservice() {
           "A spice business can offer a variety of services beyond just selling spices. Here's the gist."
         }
       </Paragraph>
-      <div className="mt-5 flex items-center justify-center">
+      <div className="mt-5 grid grid-cols-1 md:grid-cols-2 place-content-center place-items-center">
         <div className="m-10">
           <p className="p-3">
             <span className="font-bold">Sell spices:</span> This is the core,
@@ -39,10 +39,10 @@ export default function Ourservice() {
         <div>
           <div>
             <h2 className="py-5 font-bold">Available Services</h2>
-            <div className="flex gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 place-items-center">
               {/* card  */}
               {availableServices.map((service) => (
-                <ServiceCard key={service.id} className="w-[18rem] h-[12rem]">
+                <ServiceCard key={service.id} className="w-[21rem] h-[13rem]">
                   <ServiceContent
                     iconImage={service.image}
                     description={service.description}
@@ -54,10 +54,10 @@ export default function Ourservice() {
           </div>
           <div className="">
             <h2 className="py-5 font-bold">Future Services</h2>
-            <div className="flex gap-5 items-center">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-5 place-content-center place-items-center">
               {futureServices.map((service) => (
-                <ServiceCard className="md:w-[10rem] md:h-[8rem] xl:w-[11.5rem] xl:h-[10rem]" key={service.id}>
-                  <FutureService className="flex flex-col items-center justify-center px-5 pt-5"
+                <ServiceCard className="w-[14rem] h-[10rem]" key={service.id}>
+                  <FutureService className="w-[15rem] h-[15rem] flex flex-col"
                     imageIcon={service.image}
                     text={service.text}
                   />
@@ -67,6 +67,19 @@ export default function Ourservice() {
           </div>
         </div>
       </div>
+      <div className="sm:invisible hidden md:visible lg:invisible md:overflow-hidden">
+            <h2 className="pl-10 py-5 font-bold">Future Services</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 place-content-center place-items-center">
+              {futureServices.map((service) => (
+                <ServiceCard className="w-[14rem] h-[10rem]" key={service.id}>
+                  <FutureService className="w-[15rem] h-[15rem] flex flex-col"
+                    imageIcon={service.image}
+                    text={service.text}
+                  />
+                </ServiceCard>
+              ))}
+            </div>
+          </div>
     </BodyWrapper>
   );
 }

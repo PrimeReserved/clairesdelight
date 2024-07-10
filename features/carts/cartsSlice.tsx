@@ -7,7 +7,7 @@ interface CartState {
   cartTotal: number;
   cartCount: number;
   loading: boolean;
-  error: string | null;
+  error: any | null;
 }
 
 const initialState: CartState = {
@@ -29,7 +29,7 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (product: Prod
   return product;
 });
 
-export const removeFromCart = createAsyncThunk('cart/removeFromCart', async (productId: string) => {
+export const removeFromCart = createAsyncThunk('cart/removeFromCart', async (productId: any) => {
   // logic to remove product from cart
   return productId;
 });
@@ -57,14 +57,14 @@ const cartSlice = createSlice({
       updateLocalStorage(state.cartItems);
       updateCartTotals(state);
     },
-    removeFromCartLocal: (state, action: PayloadAction<string>) => {
+    removeFromCartLocal: (state, action: PayloadAction<any>) => {
       const productId = action.payload;
       state.cartItems = state.cartItems.filter((item) => item.product._id !== productId);
 
       updateLocalStorage(state.cartItems);
       updateCartTotals(state);
     },
-    updateCartItemQuantityLocal: (state, action: PayloadAction<{ productId: string, quantity: number }>) => {
+    updateCartItemQuantityLocal: (state, action: PayloadAction<{ productId: any, quantity: number }>) => {
       const { productId, quantity } = action.payload;
       const existingCartItemIndex = state.cartItems.findIndex(
         (item) => item.product._id === productId
@@ -107,7 +107,7 @@ const cartSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(removeFromCart.fulfilled, (state, action: PayloadAction<string>) => {
+      .addCase(removeFromCart.fulfilled, (state, action: PayloadAction<any>) => {
         state.loading = false;
         state.cartItems = state.cartItems.filter((item) => item.product._id !== action.payload);
 

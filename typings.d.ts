@@ -100,7 +100,7 @@ export interface UpcomingEvent extends Base {
   date: string;
   start: string;
   end: string;
-  thumbnail: Image;
+  thumbnail: string;
   livestreamURL: string;
   body: BlockContent;
 }
