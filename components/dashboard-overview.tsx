@@ -11,72 +11,7 @@ import { MountainIcon, CalendarIcon, ClockIcon, PieChartIcon, ImportIcon, Barcod
 
 export function DashboardOverview() {
   return (
-    <div className="flex min-h-screen w-full flex-col bg-muted/40">
-      <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-        <Link href="#" className="flex items-center gap-2" prefetch={false}>
-          <MountainIcon className="h-6 w-6" />
-          <span className="text-lg font-semibold">Acme Dashboard</span>
-        </Link>
-        <div className="ml-auto flex items-center gap-4 sm:gap-6">
-          <div className="flex items-center gap-2 text-sm font-medium">
-            <CalendarIcon className="h-5 w-5" />
-            <span>{new Date().toLocaleString()}</span>
-          </div>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="outline" size="icon" className="overflow-hidden rounded-full">
-                <CalendarIcon className="h-5 w-5" />
-                <span className="sr-only">Calendar</span>
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="p-0 max-w-[276px]">
-              <Calendar />
-            </PopoverContent>
-          </Popover>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="outline" size="icon" className="overflow-hidden rounded-full">
-                <ClockIcon className="h-5 w-5" />
-                <span className="sr-only">Timer</span>
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="p-4 max-w-[276px]">
-              <div className="grid gap-4">
-                <div className="flex items-center justify-between">
-                  <span className="font-medium">Work Timer</span>
-                  <Button size="sm">Start</Button>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <span className="font-medium">Break Timer</span>
-                  <Button size="sm">Start</Button>
-                </div>
-              </div>
-            </PopoverContent>
-          </Popover>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon" className="overflow-hidden rounded-full">
-                <Image
-                  src="/placeholder.svg"
-                  width={36}
-                  height={36}
-                  alt="Avatar"
-                  className="overflow-hidden rounded-full"
-                />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Welcome, John!</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </header>
-      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
-        <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+   <>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <Card className="w-full">
               <CardHeader>
@@ -136,53 +71,6 @@ export function DashboardOverview() {
               </CardContent>
             </Card>
           </div>
-          <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
-            <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Link
-                      href="#"
-                      className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                      prefetch={false}
-                    >
-                      <PieChartIcon className="h-5 w-5" />
-                      <span className="sr-only">Reports</span>
-                    </Link>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">Reports</TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Link
-                      href="#"
-                      className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                      prefetch={false}
-                    >
-                      <ImportIcon className="h-5 w-5" />
-                      <span className="sr-only">Integrations</span>
-                    </Link>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">Integrations</TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Link
-                      href="#"
-                      className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                      prefetch={false}
-                    >
-                      <BarcodeIcon className="h-5 w-5" />
-                      <span className="sr-only">Billing</span>
-                    </Link>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">Billing</TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </nav>
-          </aside>
-        </main>
-      </div>
-    </div>
+      </>
   )
 }

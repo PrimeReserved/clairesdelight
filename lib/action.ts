@@ -1,5 +1,6 @@
 "use server";
 
+import fs from "node:fs/promises";
 import bcryptjs from "bcryptjs";
 import { User } from "@/lib/models/user";
 import { revalidatePath } from "next/cache";
@@ -161,40 +162,39 @@ export const addProduct = async (formData: FormData) => {
 
   try {
     await connectDB();
-    // Covert file to base64
-    const imagesFile = formData.get("images") as File;
-    let imagesBase64 = "";
-    if (imagesFile) {
-      const reader = new FileReader();
-      reader.readAsDataURL(imagesFile);
-      reader.onloadend = () => {
-        imagesBase64 = reader.result as string;
-      };
-      await new Promise((resolve) => {
-        reader.onload = resolve;
-      });
-    }
+
+     // Convert file to buffer
+     const imagesFile = formData.get("images") as File;
+     const arrayBuffer = await imagesFile.arrayBuffer();
+     const imagesBuffer = new Uint8Array(arrayBuffer);
+ 
+     // Write file to server
+     await fs.writeFile(`./public/uploads/products${imagesFile.name}`, imagesBuffer);
+ 
+
     const newProduct = new Product({
       name,
       slug,
       description,
-      category: JSON.parse(category as string),
+      category,
       origin,
-      healthBenefit: JSON.parse(healthBenefit as string),
-      culinaryUses: JSON.parse(culinaryUses as string),
+      healthBenefit,
+      culinaryUses,
       price,
       stock,
-      images: imagesBase64,
+      images: imagesFile.name,
     });
+
     await newProduct.save();
     console.log("Created Product:", newProduct);
     revalidatePath("/product");
-    return { success: true };
+    return JSON.stringify({ success: true });
   } catch (error) {
-    console.log(`Error add new product: ${error}`);
-    return { error: "An Error occurred adding a new product" };
+    console.error(`Error adding new product: ${error}`);
+    return { error: "An error occurred while adding a new product" };
   }
 };
+
 
 export async function addOrder(orderData: any) {
   try {

@@ -19,7 +19,7 @@ import SearchProductResults from "./component/Spice/SearchProductResult";
 
 const PageContent = () => {
   const dispatch = useDispatch();
-  const { products, searchResults, searchTerm } = useSelector((state: RootState) => state.products);
+  const { searchResults, searchTerm } = useSelector((state: RootState) => state.products);
 
   const handleSearch = (query: string) => {
     dispatch(setSearchTerm(query));
