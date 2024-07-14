@@ -1,5 +1,7 @@
+import { Transaction } from "@/components/transaction";
+
 export default function Page(){
     return (
-        <h2>Transaction</h2>
+       <Transaction />
     );
 }

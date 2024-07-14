@@ -1,7 +1,8 @@
+import { SettingsOverview } from "@/components/settings-overview";
 
 
 export default function page() {
   return (
-    <h2>Setting</h2>
+    <SettingsOverview />
   )
 }

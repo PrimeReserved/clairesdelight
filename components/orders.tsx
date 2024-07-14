@@ -1,6 +1,6 @@
+
+
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
-import { CartesianGrid, XAxis, Line, LineChart } from "recharts"
-import { ChartTooltipContent, ChartTooltip, ChartContainer } from "@/components/ui/chart"
 import Image from "next/image"
 
 export function Orders() {
@@ -39,7 +39,7 @@ export function Orders() {
         <Card>
           <CardHeader>
             <div className="flex items-start gap-4">
-              <img src="/placeholder.svg" alt="Blog Image" width={100} height={100} className="rounded-md" />
+              <Image src="/placeholder.svg" alt="Blog Image" width={100} height={100} className="rounded-md" />
               <div className="grid gap-2">
                 <CardTitle>Acme Blog</CardTitle>
                 <CardDescription>The ultimate resource for all things Acme.</CardDescription>
@@ -68,7 +68,7 @@ export function Orders() {
         <Card>
           <CardHeader>
             <div className="flex items-start gap-4">
-              <img src="/placeholder.svg" alt="Customers Image" width={100} height={100} className="rounded-md" />
+              <Image src="/placeholder.svg" alt="Customers Image" width={100} height={100} className="rounded-md" />
               <div className="grid gap-2">
                 <CardTitle>Customers Overview</CardTitle>
                 <CardDescription>A summary of your customer base and their engagement.</CardDescription>
