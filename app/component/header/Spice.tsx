@@ -33,8 +33,8 @@ const Spice = () => {
           "Explore our diverse spice collection sourced from around the globe, each ingredient carefully chosen for its exceptional quality and distinctive taste"
         }
       </Paragraph>
-      <div className="flex justify-center px-10 mt-5 mb-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="px-10 mt-5 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center place-content-center">
           {products.map((product: any) => (
             <Suspense key={product._id}>
               <SpiceCard product={product} />

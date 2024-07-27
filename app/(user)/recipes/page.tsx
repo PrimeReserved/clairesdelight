@@ -25,7 +25,7 @@ export default function Page() {
 
   return (
     <>
-      <Navbar onSearch={handleSearch} spices={products} />
+      <Navbar onSearch={handleSearch} />
       {searchTerm ? (
         <SearchProductResults results={searchResults} />
       ) : (

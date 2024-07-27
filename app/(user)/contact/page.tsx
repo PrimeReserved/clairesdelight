@@ -10,11 +10,27 @@ import Footer from "@/app/component/footer/Footer";
 import FooterMobile from "@/app/component/footer/FooterMobile";
 import FooterTab from "@/app/component/footer/FooterTab";
 import { addContact } from "@/lib/action";
+import { setSearchTerm } from "@/features/products/productsSlice";
+import { RootState } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
+import SearchProductResults from "@/app/component/Spice/SearchProductResult";
 
 export default function Page() {
+  const dispatch = useDispatch();
+  const { products, searchResults, searchTerm } = useSelector(
+    (state: RootState) => state.products
+  );
+
+  const handleSearch = (query: string) => {
+    dispatch(setSearchTerm(query));
+  };
+  
   return (
-    <div>
-      <Navbar />
+    <>
+      <Navbar onSearch={handleSearch} />
+      {searchTerm ? (
+        <SearchProductResults results={searchResults} />
+      ) : (
       <div className="relative">
         <Banner
           image={contactBanner}
@@ -81,11 +97,12 @@ export default function Page() {
           </div>
         </div>
       </div>
+      )}
       <div className="relative top-[40rem]">
       <Footer />
       <FooterMobile />
       <FooterTab />
       </div>
-    </div>
+    </>
   );
 }

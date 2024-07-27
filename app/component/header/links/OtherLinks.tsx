@@ -114,10 +114,10 @@ const OtherLinks: React.FC<OtherLinksProps> = ({
                   cartColor,
                   hover ? "bg-red" : "bg-lightGreen",
                   navbarColor ? "bg-lightGreen" : "bg-#FF0000",
-                  "text-[8px] text-white flex justify-center rounded-full absolute top-0 right-0 h-3 w-3"
+                  "text-[3px] text-white flex justify-center rounded-full absolute top-0 right-0 h-4 w-4"
                 )}
               >
-                <p className="font-bold">{cartCount}</p>
+                <p className="font-bold text-[14px]">{cartCount}</p>
               </div>
             )}
           </div>
@@ -128,7 +128,7 @@ const OtherLinks: React.FC<OtherLinksProps> = ({
                   id="navbar-search-input"
                   type="text"
                   name="search"
-                  className="w-[10rem] h-7 pl-3 pr-10 rounded-2xl grow border border-secondaryGrey focus:outline-none focus:ring-1 focus:ring-secondaryGrey"
+                  className="w-[10rem] h-7 pl-3 pr-10 rounded-2xl grow border border-secondaryGrey focus:outline-none focus:ring-1 focus:ring-secondaryGrey transition"
                   placeholder="Search"
                   value={inputValue}
                   onChange={handleSearchChange}

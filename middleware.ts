@@ -1,37 +1,62 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+const allowedOrigins = ['*'];
+
+const corsOptions = {
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
 
 export function middleware(request: NextRequest) {
-  const path = request.nextUrl.pathname
+  const path = request.nextUrl.pathname;
+  const isPublicPath = path === '/' || path === '/admin-panel' || path === '/verifyemail';
+  const token = request.cookies.get('token')?.value ?? '';
 
-  // Define paths that are considered public (accessible without a token)
-  const isPublicPath = path === '/' || path === '/admin-panel' || path === '/verifyemail'
+  console.log('Path:', path);
+  console.log('Token:', token);
 
-  // Get the token from the cookies
-  const token = request.cookies.get('token')?.value ?? ''
-
-  // Redirect logic based on the path and token presence
-  if(isPublicPath && token) {
-
- // If trying to access a public path with a token, redirect to the home page
-    return NextResponse.redirect(new URL('/overview', request.nextUrl))
+  if (isPublicPath && token) {
+    console.log('Redirecting to /welcome because user is authenticated.');
+    return NextResponse.redirect(new URL('/welcome', request.nextUrl));
   }
 
-// If trying to access a protected path without a token, redirect to the login page
   if (!isPublicPath && !token) {
-    return NextResponse.redirect(new URL('/admin-panel', request.nextUrl))
+    console.log('Redirecting to /admin-panel because user is not authenticated.');
+    return NextResponse.redirect(new URL('/admin-panel', request.nextUrl));
   }
-    
+
+  if (path === '/welcome' && token) {
+    console.log('Allowing access to /welcome');
+    return NextResponse.next();
+  }
+
+  const origin = request.headers.get('origin') ?? '';
+  const isAllowedOrigin = allowedOrigins.includes(origin);
+  const isPreflight = request.method === 'OPTIONS';
+
+  if (isPreflight) {
+    const preflightHeaders = {
+      ...(isAllowedOrigin && { 'Access-Control-Allow-Origin': origin }),
+      ...corsOptions,
+    };
+    console.log('Handling preflight request');
+    return NextResponse.json({}, { headers: preflightHeaders });
+  }
+
+  const response = NextResponse.next();
+
+  if (isAllowedOrigin) {
+    response.headers.set('Access-Control-Allow-Origin', origin);
+  }
+
+  Object.entries(corsOptions).forEach(([key, value]) => {
+    response.headers.set(key, value);
+  });
+
+  return response;
 }
 
-// It specifies the paths for which this middleware should be executed. 
-// In this case, it's applied to '/', '/profile', '/login', and '/signup'.
 export const config = {
-  matcher: [
-    '/',
-    '/profile',
-    '/sign-in',
-    '/sign-up',
-    '/verifyemail'
-  ]
-}
+  matcher: ['/profile', '/sign-in', '/sign-up', '/verifyemail', '/welcome'],
+};

@@ -9,6 +9,7 @@ import {
   slideImageTwo,
   slideImageThree,
 } from "@/public/image/cdn/cdn";
+import backgroundChoseImage from "@/public/image/choose/pngwing.com.png"
 
 const slides = [slideImageOne, slideImageTwo, slideImageThree];
 const slideInterval = 10000;
@@ -25,7 +26,12 @@ function Choose() {
   }, []);
 
   return (
-    <div className="mt-10">
+    <div className="mt-10"
+    style={{
+      backgroundImage: `url('https://res.cloudinary.com/dzd51q99i/image/upload/v1722039604/clairesdelight/why-choose-us/Image_2_iznayf.png')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}>
       <Title>{"Why Choose Us"} </Title>
       <Paragraph>
         {

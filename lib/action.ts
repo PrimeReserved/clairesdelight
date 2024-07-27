@@ -1,5 +1,6 @@
 "use server";
-
+import { v2 as cloudinary } from "cloudinary";
+import { Readable } from 'stream';
 import fs from "node:fs/promises";
 import bcryptjs from "bcryptjs";
 import { User } from "@/lib/models/user";
@@ -9,6 +10,14 @@ import { Product } from "@/lib/models/product";
 import { Order } from "@/lib/models/order";
 import { connectDB } from "./utils";
 import { Contact } from "./models/contact";
+
+// cloudinary configuration
+cloudinary.config({
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+  api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_SECRET
+});
+
 
 // Post
 export const addPost = async (formData: FormData) => {
@@ -157,6 +166,69 @@ export const addProduct = async (formData: FormData) => {
     culinaryUses,
     price,
     stock,
+  } = Object.fromEntries(formData);
+
+  try {
+    await connectDB();
+
+    // Get the image file
+    const imagesFile = formData.get("images") as File;
+    const arrayBuffer = await imagesFile.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    // Upload the image to Cloudinary
+    const uploadResult = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        { resource_type: "image", folder: "upload/products" },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      );
+
+      const readableStream = new Readable();
+      readableStream.push(buffer);
+      readableStream.push(null);
+      readableStream.pipe(uploadStream);
+    });
+
+    // Type assertion for uploadResult
+    const cloudinaryResult = uploadResult as { secure_url: string };
+
+    const newProduct = new Product({
+      name,
+      slug,
+      description,
+      category,
+      origin,
+      healthBenefit,
+      culinaryUses,
+      price,
+      stock,
+      images: cloudinaryResult.secure_url,
+    });
+
+    await newProduct.save();
+    console.log("Created Product:", newProduct);
+    revalidatePath("/product");
+    return JSON.stringify({ success: true });
+  } catch (error) {
+    console.error(`Error adding new product: ${error}`);
+    return { error: "An error occurred while adding a new product" };
+  }
+};
+
+export const addRecipe = async (formData: FormData) => {
+  const {
+    name,
+    slug,
+    description,
+    category,
+    origin,
+    healthBenefit,
+    culinaryUses,
+    price,
+    stock,
     images,
   } = Object.fromEntries(formData);
 
@@ -169,7 +241,7 @@ export const addProduct = async (formData: FormData) => {
      const imagesBuffer = new Uint8Array(arrayBuffer);
  
      // Write file to server
-     await fs.writeFile(`./public/uploads/products${imagesFile.name}`, imagesBuffer);
+     await fs.writeFile(`./public/uploads/recipes${imagesFile.name}`, imagesBuffer);
  
 
     const newProduct = new Product({

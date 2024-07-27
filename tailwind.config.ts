@@ -50,6 +50,7 @@ const config: Config = {
         teritaryGrey: "#737373",
         lighterRed: "#FFF8F6",
         lightRed2: "#EE4924",
+        tomatoRed: "#F95733"
       },
     },
   },

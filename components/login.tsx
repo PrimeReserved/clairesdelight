@@ -13,36 +13,36 @@ export function Login() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({
-      email: "",
-      password: "",
+    email: "",
+    password: "",
   })
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-        setLoading(true);
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_SIGN_IN_API_ROUTE}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(user),
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Login failed");
+      setLoading(true);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SIGN_IN_API_ROUTE}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
         }
-        router.push("/dashboard");
-        
-    } catch (error:any) {
-        console.log("Login failed", error.message);
-        
-    }finally {
-        setLoading(false);
+      );
+      if (!response.ok) {
+        throw new Error("Login failed");
+      }
+      router.push("/overview");
+
+    } catch (error: any) {
+      console.log("Login failed", error);
+
+    } finally {
+      setLoading(false);
     }
-}
+  }
 
   return (
     <div className="flex items-center justify-center bg-repeat px-4  sm:px-6 lg:px-8">
@@ -56,14 +56,14 @@ export function Login() {
             <div>
               <Label htmlFor="username">Email</Label>
               <Input
-                 id="email"
-                 type="email"
-                 name="email"
-                 value={user.email}
-                 onChange={(e) => setUser({...user, email: e.target.value})}
-                 placeholder="Enter your email address"
-                 required
-                 autoComplete="email"
+                id="email"
+                type="email"
+                name="email"
+                value={user.email}
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
+                placeholder="Enter your email address"
+                required
+                autoComplete="email"
                 className="mt-1 block w-full"
               />
             </div>
@@ -74,7 +74,7 @@ export function Login() {
                 type="password"
                 name="password"
                 value={user.password}
-                onChange={(e) => setUser({...user, password: e.target.value})}
+                onChange={(e) => setUser({ ...user, password: e.target.value })}
                 placeholder="Enter password"
                 autoComplete="paswword"
                 required

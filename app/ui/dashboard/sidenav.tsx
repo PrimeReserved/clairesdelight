@@ -1,11 +1,9 @@
 "use client"
 
-import Link from 'next/link';
 import NavLinks from '@/app/ui/dashboard/nav-links';
-import Logo from '@/app/component/header/logo/Logo'
 import { FaPowerOff } from "react-icons/fa";
 import { useRouter } from 'next/navigation';
-
+import { deleteCookie } from 'cookies-next';
 
  
 export default function SideNav() {
@@ -14,11 +12,24 @@ export default function SideNav() {
 
   const logout = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_SIGN_IN_API_ROUT}`);
-        router.push('/sign-in')
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SIGN_OUT_API_ROUTE}`, {
+        method: 'POST', // Ensure correct HTTP method
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Logout failed');
+      }
+
+      // Clear cookies
+      deleteCookie('token'); 
+
+      // Redirect to admin-panel
+      router.push('/admin-panel');
     } catch (error: any) {
-        console.log(error.message)
-        
+      console.log('Logout error:', error.message);
     }
   }
   
