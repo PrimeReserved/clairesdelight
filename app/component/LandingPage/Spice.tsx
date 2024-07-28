@@ -35,7 +35,7 @@ const Spice = () => {
       </Paragraph>
       <div className="flex justify-center px-10 mt-5 mb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {products.map((product: any) => (
+          {products.slice(0,12).map((product: any) => (
             <Suspense key={product._id}>
               <SpiceCard product={product} />
             </Suspense>

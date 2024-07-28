@@ -50,7 +50,7 @@ export default function PostDetail({ post }: Readonly<PostDetailProps>) {
                 <div className="font-bold pb-5">
                     <p>Posted by Admin | {post?.author}</p>
                     <p>On 5th April 2024</p>
-                    <p>{post?._createAt}</p>
+                    <p>{post?._createdAt}</p>
                 </div>
                 <div className="bg-[#F6FFE9] w-96 h-auto p-1">
                     <p className="text-2xl pl-8 pt-2">Introduction</p>

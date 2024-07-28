@@ -71,34 +71,7 @@ const OtherLinks: React.FC<OtherLinksProps> = ({
     const newSearchTerm = event.target.value;
     setInputValue(newSearchTerm);
     debouncedHandleSearchChange(newSearchTerm);
-    // dispatch(setSearchTerm(newSearchTerm));
-    // dispatch(updateSearchTerm(newSearchTerm));
   };
-
-
-  // const handleClickOutside = useCallback(
-  //   (event: MouseEvent) => {
-  //     if (
-  //       searchRef.current &&
-  //       !searchRef.current.contains(event.target as Node)
-  //     ) {
-  //       setShowSearchInput(false);
-  //     }
-  //   },
-  //   [searchRef]
-  // );
-  
-  // useEffect(() => {
-  //   if (showSearchInput) {
-  //     document.addEventListener("mousedown", handleClickOutside);
-  //   } else {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   }
-  
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [showSearchInput, handleClickOutside]);
 
   return (
     <div>

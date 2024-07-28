@@ -16,11 +16,7 @@ const productSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    category: {
-      type: [String],
-      required: true,
-      trim: true,
-    },
+    category: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
     origin: {
       type: String,
       required: true,

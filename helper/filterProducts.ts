@@ -3,7 +3,7 @@ import { Product } from "@/typings";
 
   
   // Initialize filterCategoryMap when products are fetched or updated
-const initializeFilterCategoryMap = (state: any) => {
+export const initializeFilterCategoryMap = (state: any) => {
     const { products } = state;
     const map: Record<string, Product[]> = {};
   

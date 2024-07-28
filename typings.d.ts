@@ -5,11 +5,18 @@
  **/
 
 type Base = {
-  _createAt?: string;
+  _createdAt?: string;
   _id?: string;
   _rev?: string;
   _type?: string;
-  _updateAt?: string
+  _updatedAt?: string
+}
+
+// types/Category.ts
+export interface Category extends Base {
+  title: string;
+  slug: string;
+  stock: number;
 }
 
 // types/Product.ts
@@ -17,13 +24,15 @@ export interface Product extends Base {
   name: string;
   slug: string;
   description: string;
-  category: string[];
+  category: Category[];
   origin: string;
   healthBenefit: string[];
   culinaryUses: string[];
   price: number;
   stock: number;
   images: string | null;
+  createdAt: string;
+  updatedAt: string;
 }
 
 // types/Recipe.ts

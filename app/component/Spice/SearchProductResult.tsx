@@ -1,3 +1,5 @@
+"use client"
+
 import { Product } from "@/typings";
 import Link from "next/link";
 import Footer from "../footer/Footer";
@@ -8,56 +10,57 @@ import BodyWrapper from "../layout/BodyWrapper";
 import SpiceCard from "./SpiceCard";
 import ProductFilter from "./ProductFilter";
 import { setFilterCategory, setSortOption } from "@/features/products/productsSlice";
-import { AppDispatch } from "@/store";
-import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
-const SearchProductResults = ({ results }: {results: Product[] }) => {
+const SearchProductResults = ({ results }: { results: Product[] }) => {
   const dispatch = useDispatch<AppDispatch>();
-  
+  const products = useSelector((state: RootState) => state.products.products);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
+
+
   const handleFilterChange = (category: any) => {
     dispatch(setFilterCategory(category));
-    // Reset current page to 1 when filter changes
-    // setCurrentPage(1);
   };
 
   const handleSortChange = (sortOption: any) => {
     dispatch(setSortOption(sortOption));
-    // Reset current page to 1 when sort option changes
-    // setCurrentPage(1);
   };
 
   return (
     <div>
-          <Navbar />
-        <BodyWrapper>
-          <div className="text-sm breadcrumbs">
-              <ul>
-                <li>
-                  <Link href="/shop-spices">Shop Spices</Link>
-                </li>
-                <li>All Spices</li>
-                {/* <li>{result.name}</li> */}
-              </ul>
-            </div>
+      <Navbar />
+      <BodyWrapper>
+        <div className="text-sm breadcrumbs">
+          <ul>
+            <li>
+              <Link href="/shop-spices">Shop Spices</Link>
+            </li>
+            <li>All Spices</li>
+            
+              {/* <li>{results[0].name}</li> */}
+          </ul>
+        </div>
 
-            <h1 className="text-4xl font-bold py-8">Results for Garlic (1)</h1>
+        <h1 className="text-4xl font-bold py-8">Results for Garlic ({results.length})</h1>
 
-            <h3 className="font-bold py-3">Filter By</h3>
+        <h3 className="font-bold py-3">Filter By</h3>
 
-            <div className="flex justify-center items-center gap-10">
-              <ProductFilter onFilter={handleFilterChange} onSortChange={handleSortChange} />
-              <div>
-              {results.map((result: any, index: number) => (
-              <div key={result._id} className="flex p-5">
-                  <SpiceCard product={result} />
+        <div className="grid grid-cols-1 md:grid-cols-2 place-items-center">
+          <ProductFilter onFilter={setFilteredProducts} />
+          <div className="">
+            {results.map((result: any, index: number) => (
+              <div key={result._id} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 pb-5">
+                <SpiceCard product={result} />
               </div>
             ))}
-              </div>
-            </div>
-        </BodyWrapper>
-        <Footer />
-        <FooterMobile />
-        <FooterTab />
+          </div>
+        </div>
+      </BodyWrapper>
+      <Footer />
+      <FooterMobile />
+      <FooterTab />
     </div>
   );
 };

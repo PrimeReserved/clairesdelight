@@ -314,17 +314,15 @@ export async function addOrder(orderData: any) {
 }
 
 export async function addContact(formData: FormData) {
-  const { firstname, lastname, email, contact } = Object.fromEntries(formData);
+  const { firstname, lastname, email, contact, message } = Object.fromEntries(formData);
 
   try {
     await connectDB();
-    const newContact = new Contact({ firstname, lastname, email, contact });
+    const newContact = new Contact({ firstname, lastname, email, contact, message });
     await newContact.save();
-    console.log("New contact added:", newContact);
     revalidatePath("/contact");
     return { success: true };
   } catch (error: any) {
-    console.error(`Error sending contact information: ${error}`);
     return { success: false, message: error.message };
   }
 }
