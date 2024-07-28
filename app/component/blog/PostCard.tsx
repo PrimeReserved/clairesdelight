@@ -7,6 +7,11 @@ import { BiSolidLike } from "react-icons/bi";
 import SpiceTitle from "../Spice/SpiceTitle";
 
 export default function PostCard({ post }: any) {
+  console.log(post)
+
+  // Format the createdAt date
+  const createdAtDate = new Date(post.createdAt);
+  const formattedDate = `${createdAtDate.getDate()} ${createdAtDate.toLocaleString('default', { month: 'long' }).toUpperCase()} ${createdAtDate.getFullYear()}`;
   return (
     <div className="card w-100 bg-base-100 shadow-xl rounded-b-3xl m-5">
       <Suspense fallback={<Loading />}>
@@ -30,7 +35,7 @@ export default function PostCard({ post }: any) {
         <div className="flex justify-between items-center">
           <div className="flex flex-row justify-center items-center gap-1 text-teritaryGrey font-bold">
             <FaUser />
-            <p>by admin</p>
+            <p>{post.author}</p>
             <button>
               <BiSolidLike />
             </button>
@@ -38,8 +43,8 @@ export default function PostCard({ post }: any) {
           </div>
 
           <div className="flex flex-col justify-center items-center">
-            <span className="font-bolder text-3xl">5</span>
-            <p className="text-teritaryGrey">APRIL 2024</p>
+            <span className="font-bolder text-3xl">{createdAtDate.getDate()}</span>
+            <p className="text-teritaryGrey">{formattedDate}</p>
           </div>
         </div>
       </div>
