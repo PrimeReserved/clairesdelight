@@ -1,0 +1,56 @@
+import mongoose from "mongoose";
+
+const productSchema = new mongoose.Schema(
+  {
+    slug: {
+      type: String,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    description: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    category: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
+    origin: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    healthBenefit: [
+      {
+        type: String,
+        trim: true,
+      },
+    ],
+    culinaryUses: [
+      {
+        type: String,
+        trim: true,
+      },
+    ],
+    price: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    stock: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    images: {
+      type: String,
+      trim: true,
+    },
+  },
+  { timestamps: true }
+);
+
+export const Product =
+  mongoose.models.Product || mongoose.model("Product", productSchema);
